@@ -1,0 +1,57 @@
+{
+  "functions": {
+    "api/chat.js": {
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/docs",
+      "destination": "/docs.html"
+    },
+    {
+      "source": "/conversations",
+      "destination": "/conversations.html"
+    },
+    {
+      "source": "/terminal",
+      "destination": "/index.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/docs.html",
+      "destination": "/docs",
+      "statusCode": 301
+    },
+    {
+      "source": "/conversations.html",
+      "destination": "/conversations",
+      "statusCode": 301
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "statusCode": 301
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "POST, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type"
+        }
+      ]
+    }
+  ]
+}
