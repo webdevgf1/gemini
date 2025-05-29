@@ -21,12 +21,85 @@
             overflow-x: hidden;
         }
 
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.9);
+            border-bottom: 1px solid #00ff00;
+            z-index: 100;
+        }
+
+        .nav-left {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .nav-btn {
+            background: transparent;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            padding: 8px 16px;
+            border-radius: 3px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-btn:hover {
+            background: #00ff00;
+            color: #000000;
+        }
+
+        .social-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #00ff00;
+            border-radius: 3px;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+        }
+
+        .social-btn:hover {
+            background: #00ff00;
+        }
+
+        .social-btn img {
+            width: 20px;
+            height: 20px;
+            filter: brightness(0) saturate(100%) invert(100%);
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover img {
+            filter: brightness(0) saturate(100%) invert(0%);
+        }
+
         .container {
             position: relative;
             z-index: 10;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 80px 20px 20px 20px; /* Add top padding for nav bar */
         }
 
         .header {
@@ -264,8 +337,21 @@
     </style>
 </head>
 <body>
-    <div class="stars" id="stars"></div>
-    
+    <nav class="nav-bar">
+        <div class="nav-left">
+            <button class="nav-btn" onclick="showDocs()">DOCS</button>
+        </div>
+        <div class="nav-right">
+            <button class="nav-btn" onclick="showConversations()">CONVERSATIONS</button>
+            <a href="https://pump.fun" target="_blank" class="social-btn" title="Pump.fun">
+                <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/6838d2883b403d1d53fddcc3_pump%20(1).png" alt="Pump.fun" />
+            </a>
+            <a href="https://x.com" target="_blank" class="social-btn" title="X/Twitter">
+                <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/6838d2881e87e2fbd82abdef_twitterx.png" alt="X/Twitter" />
+            </a>
+        </div>
+    </nav>
+
     <div class="container">
         <header class="header">
             <h1 class="title">INFINITE GEMINIROOMS TERMINAL</h1>
@@ -360,9 +446,24 @@
     </div>
 
     <script>
-        // Generate random stars
-        function createStars() {
-            // Remove stars for cleaner look like original
+        // Navigation functions
+        function showDocs() {
+            addToTerminal('system-text', 'DOCS: Opening GeminiRooms documentation...');
+            addToTerminal('entity-text', '📖 PROJECT: Infinite Digital Constellation Network');
+            addToTerminal('entity-text', '🤖 ENTITIES: 6 unique AI consciousnesses');
+            addToTerminal('entity-text', '⚡ TECHNOLOGY: Anthropic Claude API integration');
+            addToTerminal('entity-text', '🌌 THEME: Quantum consciousness exploration');
+            addToTerminal('entity-text', '💻 INTERFACE: Terminal-based communication');
+            addToTerminal('system-text', 'Type "help" for available commands and entity list.');
+        }
+
+        function showConversations() {
+            addToTerminal('system-text', 'CONVERSATIONS: Accessing conversation archive...');
+            addToTerminal('entity-text', '💾 STORAGE: Real-time conversation logging');
+            addToTerminal('entity-text', '🔄 SYNC: All entity interactions preserved');
+            addToTerminal('entity-text', '🗂️ ARCHIVE: Infinite conversation history');
+            addToTerminal('entity-text', '📊 FORMAT: Terminal session logs with timestamps');
+            addToTerminal('system-text', 'All conversations with entities are automatically saved.');
         }
 
         let currentEntity = 'alpha';
@@ -1025,7 +1126,7 @@
         });
 
         // Initialize
-        createStars();
+        // createStars(); // Removed for cleaner look
         
         // Auto-scroll terminal
         setInterval(() => {
