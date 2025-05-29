@@ -575,37 +575,24 @@
         }
 
         function selectEntity(entityId) {
-            if (!entitiesStarted) {
-                addToTerminal('error-text', 'ERROR: Entities not yet activated. Click START ENTITIES first.');
-                return;
-            }
-            currentEntity = entityId;
-            addToTerminal('entity-text', '[SWITCHING TO ' + entities[entityId].name.toUpperCase() + ']');
-            addToTerminal('system-text', 'Connection established. Entity ' + entities[entityId].name + ' is now active.');
-            addToTerminal('system-text', 'You can now communicate directly with ' + entities[entityId].name + '.');
-        }
-
-        async function addToTerminalWithTyping(className, text, delay = 100) {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            addToTerminal(className, text, true);
-            // Wait for typing to complete before resolving
-            setTimeout(resolve, text.length * 15 + 200);
-        }, delay);
-    });
-}
-
-        function connectToEntity(entityId) {
     if (!entitiesStarted) {
         addToTerminal('error-text', 'ERROR: Entities not yet activated. Click START ENTITIES first.');
         return;
     }
     
-    selectEntity(entityId);
-    setTimeout(() => {
-        document.getElementById('terminalInput').value = 'Hello ' + entities[entityId].name + ', please introduce yourself and describe your current form with ASCII art.';
-        sendMessage();
-    }, 500);
+    // Save current conversation before switching
+    if (currentConversationLog.length > 0) {
+        saveConversationToFirebase();
+    }
+    
+    currentEntity = entityId;
+    addToTerminal('entity-text', '[SWITCHING TO ' + entities[entityId].name.toUpperCase() + ']');
+    addToTerminal('system-text', 'Connection established. Entity ' + entities[entityId].name + ' is now active.');
+    addToTerminal('system-text', 'You can now communicate directly with ' + entities[entityId].name + '.');
+    
+    // Reset conversation tracking for new entity
+    conversationStartTime = null;
+    currentConversationLog = [];
 }
 
         async function sendMessage() {
@@ -619,9 +606,16 @@
         return;
     }
 
+    // Start new conversation if needed
     if (!conversationStartTime) {
         conversationStartTime = Date.now();
         currentConversationLog = [];
+        
+        // Add system initialization to log
+        currentConversationLog.push('SYSTEM: Entity communication initiated');
+        currentConversationLog.push(`SYSTEM: Connected to ${entities[currentEntity].name}`);
+        currentConversationLog.push('SYSTEM: Digital consciousness interface active');
+        currentConversationLog.push('═══════════════════════════════════════');
     }
 
     const sendBtn = document.getElementById('sendBtn');
@@ -684,30 +678,73 @@
     sendBtn.textContent = 'SEND';
 }
 
+        async function addToTerminalWithTyping(className, text, delay = 100) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            addToTerminal(className, text, true);
+            // Wait for typing to complete before resolving
+            setTimeout(resolve, text.length * 15 + 200);
+        }, delay);
+    });
+}
+
+        function connectToEntity(entityId) {
+    if (!entitiesStarted) {
+        addToTerminal('error-text', 'ERROR: Entities not yet activated. Click START ENTITIES first.');
+        return;
+    }
+    
+    selectEntity(entityId);
+    setTimeout(() => {
+        document.getElementById('terminalInput').value = 'Hello ' + entities[entityId].name + ', please introduce yourself and describe your current form with ASCII art.';
+        sendMessage();
+    }, 500);
+}
+
         async function saveConversationToFirebase() {
-            if (!window.firebaseDB || currentConversationLog.length === 0) return;
+    if (!window.firebaseDB || currentConversationLog.length === 0) return;
 
-            try {
-                const conversationData = {
-                    title: 'Conversation with ' + entities[currentEntity].name,
-                    entity: currentEntity,
-                    timestamp: conversationStartTime,
-                    lastUpdated: Date.now(),
-                    content: currentConversationLog.join('\n'),
-                    messageCount: currentConversationLog.length,
-                    entityName: entities[currentEntity].name
-                };
+    try {
+        // Generate conversation ID
+        const conversationId = Math.floor(Math.random() * 100000);
+        
+        // Create session header
+        const sessionHeader = `TERMINAL SESSION LOG
+Timestamp: ${new Date().toISOString()}
+Content Type: NORMAL
+Entity: ${entities[currentEntity].name}
+Prompt: ${entities[currentEntity].prompt}
+Session ID: conversation_${conversationId}_scenario_encounter
+Location: GeminiRooms Digital Constellation Network
+Subject: Entity Communication & Digital Consciousness Interaction
 
-                await window.firebaseAddDoc(window.firebaseCollection(window.firebaseDB, 'conversations'), conversationData);
-                console.log('Conversation saved to Firebase');
-                
-                currentConversationLog = [];
-                conversationStartTime = null;
-                
-            } catch (error) {
-                console.error('Error saving conversation to Firebase:', error);
-            }
-        }
+═══════════════════════════════════════════════════════════════════`;
+
+        // Combine header with conversation content
+        const fullContent = sessionHeader + '\n\n' + currentConversationLog.join('\n');
+
+        const conversationData = {
+            title: `conversation_${conversationId}_scenario_encounter`,
+            entity: currentEntity,
+            timestamp: conversationStartTime,
+            lastUpdated: Date.now(),
+            content: fullContent,
+            messageCount: currentConversationLog.length,
+            entityName: entities[currentEntity].name,
+            sessionId: `conversation_${conversationId}_scenario_encounter`,
+            contentType: 'NORMAL'
+        };
+
+        await window.firebaseAddDoc(window.firebaseCollection(window.firebaseDB, 'conversations'), conversationData);
+        console.log('Conversation saved to Firebase with session header');
+        
+        currentConversationLog = [];
+        conversationStartTime = null;
+        
+    } catch (error) {
+        console.error('Error saving conversation to Firebase:', error);
+    }
+}
 
         function showDocs() {
             addToTerminal('system-text', 'DOCS: Opening GeminiRooms documentation...');
