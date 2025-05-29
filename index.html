@@ -87,15 +87,15 @@
         }
 
         .social-btn img {
-            width: 24px;
-            height: 24px;
-            filter: brightness(0) saturate(100%) invert(100%);
-            transition: all 0.3s ease;
-        }
+    width: 24px;
+    height: 24px;
+    /* filter: brightness(0) saturate(100%) invert(100%); */  /* Comment out this line */
+    transition: all 0.3s ease;
+}
 
-        .social-btn:hover img {
-            filter: brightness(0) saturate(100%) invert(0%);
-        }
+.social-btn:hover img {
+    filter: brightness(0) saturate(100%) invert(0%);  /* Keep this for hover effect */
+}
 
         .container {
             position: relative;
