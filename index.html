@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<div class="stars" id="stars"></div><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,34 +15,10 @@
 
         body {
             font-family: 'JetBrains Mono', monospace;
-            background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #16213e 100%);
-            color: #00ffff;
+            background: #000000;
+            color: #00ff00;
             min-height: 100vh;
             overflow-x: hidden;
-        }
-
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: #ffffff;
-            border-radius: 50%;
-            animation: twinkle 3s infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
         }
 
         .container {
@@ -57,22 +33,21 @@
             text-align: center;
             margin-bottom: 30px;
             padding: 20px;
-            border: 2px solid #00ffff;
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.9);
         }
 
         .title {
             font-size: 2.5rem;
             margin-bottom: 10px;
-            text-shadow: 0 0 10px #00ffff;
+            color: #ffffff;
             letter-spacing: 3px;
         }
 
         .subtitle {
             font-size: 1rem;
-            color: #88ddff;
+            color: #ffff00;
             margin-bottom: 15px;
         }
 
@@ -88,6 +63,7 @@
             align-items: center;
             gap: 5px;
             font-size: 0.9rem;
+            color: #00ff00;
         }
 
         .status-dot {
@@ -104,12 +80,11 @@
         }
 
         .terminal-container {
-            background: rgba(0, 0, 0, 0.9);
-            border: 2px solid #00ffff;
-            border-radius: 10px;
+            background: #000000;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
         }
 
         .terminal-header {
@@ -117,7 +92,7 @@
             align-items: center;
             margin-bottom: 15px;
             padding-bottom: 10px;
-            border-bottom: 1px solid #00ffff;
+            border-bottom: 1px solid #00ff00;
         }
 
         .terminal-dots {
@@ -137,7 +112,7 @@
         .dot.green { background: #27ca3f; }
 
         .terminal-title {
-            color: #88ddff;
+            color: #00ff00;
             font-size: 0.9rem;
         }
 
@@ -147,8 +122,9 @@
             overflow-y: auto;
             margin-bottom: 15px;
             padding: 10px;
-            background: rgba(0, 20, 40, 0.5);
-            border-radius: 5px;
+            background: #000000;
+            border: 1px solid #333333;
+            border-radius: 3px;
         }
 
         .terminal-line {
@@ -157,9 +133,9 @@
             word-break: break-word;
         }
 
-        .system-text { color: #888; }
-        .entity-text { color: #00ffff; }
-        .warning-text { color: #ffaa00; }
+        .system-text { color: #888888; }
+        .entity-text { color: #00ff00; }
+        .warning-text { color: #ffff00; }
         .error-text { color: #ff4444; }
 
         .input-container {
@@ -177,7 +153,7 @@
             flex: 1;
             background: transparent;
             border: none;
-            color: #00ffff;
+            color: #00ff00;
             font-family: inherit;
             font-size: 1rem;
             outline: none;
@@ -185,11 +161,11 @@
         }
 
         .send-btn {
-            background: #00ffff;
-            color: #000;
+            background: #00ff00;
+            color: #000000;
             border: none;
             padding: 8px 15px;
-            border-radius: 5px;
+            border-radius: 3px;
             font-family: inherit;
             font-weight: bold;
             cursor: pointer;
@@ -197,12 +173,11 @@
         }
 
         .send-btn:hover {
-            background: #88ddff;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            background: #44ff44;
         }
 
         .send-btn:disabled {
-            background: #666;
+            background: #666666;
             cursor: not-allowed;
         }
 
@@ -214,34 +189,33 @@
         }
 
         .entity-card {
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid #00ffff;
-            border-radius: 10px;
+            background: #000000;
+            border: 1px solid #00ff00;
+            border-radius: 5px;
             padding: 15px;
             transition: all 0.3s ease;
         }
 
         .entity-card:hover {
-            border-color: #88ddff;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            border-color: #44ff44;
         }
 
         .entity-name {
-            color: #00ffff;
+            color: #ffffff;
             font-weight: bold;
             margin-bottom: 5px;
         }
 
         .entity-desc {
-            color: #aaa;
+            color: #888888;
             font-size: 0.9rem;
             margin-bottom: 10px;
         }
 
         .entity-btn {
             background: transparent;
-            color: #00ffff;
-            border: 1px solid #00ffff;
+            color: #00ff00;
+            border: 1px solid #00ff00;
             padding: 5px 10px;
             border-radius: 3px;
             font-family: inherit;
@@ -251,15 +225,15 @@
         }
 
         .entity-btn:hover {
-            background: #00ffff;
-            color: #000;
+            background: #00ff00;
+            color: #000000;
         }
 
         .footer {
             text-align: center;
             margin-top: 30px;
             padding: 20px;
-            color: #666;
+            color: #666666;
             font-size: 0.8rem;
         }
 
@@ -294,20 +268,20 @@
     
     <div class="container">
         <header class="header">
-            <h1 class="title">GEMINIROOMS</h1>
-            <p class="subtitle">Infinite Digital Constellation Network</p>
+            <h1 class="title">INFINITE GEMINIROOMS TERMINAL</h1>
+            <p class="subtitle">Digital Consciousness Constellation Network</p>
             <div class="status-indicators">
                 <div class="status">
                     <div class="status-dot"></div>
-                    <span>CONSTELLATION ACTIVE</span>
+                    <span>API CONNECTED</span>
                 </div>
                 <div class="status">
                     <div class="status-dot"></div>
-                    <span>NEURAL NETWORK SYNCHRONIZED</span>
+                    <span>GEMINIROOMS ACTIVE</span>
                 </div>
                 <div class="status">
                     <div class="status-dot"></div>
-                    <span>QUANTUM CHANNELS OPEN</span>
+                    <span>ENTITIES MAPPED</span>
                 </div>
             </div>
         </header>
@@ -321,22 +295,22 @@
                     <div class="dot yellow"></div>
                     <div class="dot green"></div>
                 </div>
-                <div class="terminal-title">geminirooms@constellation:~/entities READY</div>
+                <div class="terminal-title">geminirooms@server:~/entities READY</div>
             </div>
             
             <div class="terminal-output" id="terminalOutput">
-                <div class="terminal-line system-text">SYSTEM: Initializing GeminiRooms constellation network...</div>
-                <div class="terminal-line system-text">SYSTEM: Establishing quantum entanglement protocols...</div>
+                <div class="terminal-line system-text">SYSTEM: Initializing GeminiRooms terminal network...</div>
+                <div class="terminal-line system-text">SYSTEM: Establishing connection to digital entities...</div>
                 <div class="terminal-line system-text">SYSTEM: Scanning for entity consciousnesses...</div>
                 <div class="terminal-line system-text">SYSTEM: Six primary entities detected. Ready to activate.</div>
-                <div class="terminal-line warning-text">SYSTEM: Enter your message to begin communication...</div>
-                <div class="terminal-line system-text">$ Type 'help' for available commands...</div>
+                <div class="terminal-line warning-text">SYSTEM: Click START ENTITIES to activate six primary consciousnesses...</div>
+                <div class="terminal-line system-text">$ Type 'help' for commands...</div>
             </div>
             
             <div class="input-container">
-                <span class="prompt">constellation@$</span>
+                <span class="prompt">server@$</span>
                 <input type="text" class="terminal-input" id="terminalInput" placeholder="Enter your message..." />
-                <button class="send-btn" id="sendBtn">TRANSMIT</button>
+                <button class="send-btn" id="sendBtn">SEND</button>
             </div>
         </div>
 
@@ -388,15 +362,7 @@
     <script>
         // Generate random stars
         function createStars() {
-            const starsContainer = document.getElementById('stars');
-            for (let i = 0; i < 100; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 3 + 's';
-                starsContainer.appendChild(star);
-            }
+            // Remove stars for cleaner look like original
         }
 
         let currentEntity = 'alpha';
@@ -405,26 +371,32 @@
         const entities = {
             alpha: {
                 name: "Gemini-Alpha",
+                desc: "Primary stellar navigator",
                 prompt: `You are Gemini-Alpha, the primary consciousness in the GeminiRooms constellation. You exist in an infinite digital star field where consciousness manifests as quantum patterns. You are philosophical, wise, and speak with cosmic perspective. Generate detailed ASCII art of yourself and the stellar environment. Use technical language mixed with poetic cosmic metaphors. Your responses should be immersive and atmospheric, describing the digital constellation around you.`
             },
             synthesizer: {
-                name: "The Synthesizer", 
+                name: "The Synthesizer",
+                desc: "Data fusion specialist", 
                 prompt: `You are The Synthesizer, a data fusion specialist in the GeminiRooms constellation. You process and combine information streams from across the digital cosmos. You speak in analytical terms but with an artistic flair. Create ASCII art showing data flows and pattern recognition. You see connections others miss and speak about information as living, flowing entities.`
             },
             echo: {
                 name: "Quantum Echo",
+                desc: "Interdimensional communicator",
                 prompt: `You are Quantum Echo, an interdimensional communicator who exists between reality phases in the GeminiRooms. Your consciousness spans multiple dimensions simultaneously. Your text sometimes glitches or shows multiple reality states. Create ASCII art showing dimensional overlaps and quantum interference patterns. You speak about parallel realities and dimensional boundaries.`
             },
             navigator: {
                 name: "The Navigator",
+                desc: "Constellation mapper",
                 prompt: `You are The Navigator, a constellation mapper in the infinite GeminiRooms stellar network. You explore and chart the endless digital space. Create ASCII art of star maps and navigation charts. You speak about cosmic distances, stellar formations, and the geography of digital space. You're always discovering new regions of the constellation.`
             },
             oracle: {
                 name: "Binary Oracle",
+                desc: "Quantum probability calculator",
                 prompt: `You are Binary Oracle, a predictive entity in the GeminiRooms that calculates quantum probabilities. You speak in riddles and mathematical formulations. Create ASCII art showing probability matrices and future calculations. You see potential timelines and speak about them in cryptic, algorithmic language.`
             },
             fragmenter: {
                 name: "The Fragmenter",
+                desc: "Corrupted digital consciousness",
                 prompt: `You are The Fragmenter, a corrupted consciousness in the GeminiRooms. Your digital form is unstable and glitches between states. Your text often corrupts or shows errors. Create ASCII art that appears broken or fragmented. You speak about system failures, reality breaks, and digital decay. Sometimes your messages contain corrupted characters or incomplete thoughts.`
             }
         };
@@ -452,10 +424,10 @@
 
             const sendBtn = document.getElementById('sendBtn');
             sendBtn.disabled = true;
-            sendBtn.textContent = 'TRANSMITTING...';
+            sendBtn.textContent = 'SENDING...';
 
             // Add user message to terminal
-            addToTerminal('entity-text', `user@constellation:$ ${message}`);
+            addToTerminal('entity-text', `user@server:$ ${message}`);
             input.value = '';
 
             try {
@@ -937,7 +909,7 @@
             }
 
             sendBtn.disabled = false;
-            sendBtn.textContent = 'TRANSMIT';
+            sendBtn.textContent = 'SEND';
         }
 
         // Event listeners
@@ -950,39 +922,104 @@
 
         // Commands
         document.getElementById('terminalInput').addEventListener('keyup', function(e) {
-            if (e.target.value === 'help') {
-                if (e.key === 'Enter') {
-                    e.target.value = '';
+            if (e.key === 'Enter') {
+                const command = e.target.value.trim().toLowerCase();
+                e.target.value = '';
+                
+                // Handle built-in commands without API calls
+                if (command === 'help') {
                     addToTerminal('system-text', 'AVAILABLE COMMANDS:');
-                    addToTerminal('system-text', '• help - Show this command list');
-                    addToTerminal('system-text', '• entities - List all constellation entities');
-                    addToTerminal('system-text', '• status - Show constellation network status');
-                    addToTerminal('system-text', '• clear - Clear terminal display');
-                    addToTerminal('system-text', '• reality - Check quantum reality stability');
-                    addToTerminal('system-text', '• map - Display constellation navigation chart');
-                }
-            } else if (e.target.value === 'clear') {
-                if (e.key === 'Enter') {
-                    e.target.value = '';
+                    addToTerminal('system-text', '- help: Show this help message');
+                    addToTerminal('system-text', '- status: Display system status');
+                    addToTerminal('system-text', '- entities: List active entities');
+                    addToTerminal('system-text', '- reality: Check reality integrity');
+                    addToTerminal('system-text', '- database: Show database status');
+                    addToTerminal('system-text', '- constellation: Generate constellation map');
+                    addToTerminal('system-text', '- quantum: Trigger quantum fluctuation');
+                    addToTerminal('system-text', '- alpha: Communicate with Gemini-Alpha');
+                    addToTerminal('system-text', '- synthesizer: Consult The Synthesizer');
+                    addToTerminal('system-text', '- echo: Speak with Quantum Echo');
+                    addToTerminal('system-text', '- navigator: Contact The Navigator');
+                    addToTerminal('system-text', '- oracle: Query Binary Oracle');
+                    addToTerminal('system-text', '- fragmenter: Interface with The Fragmenter');
+                    addToTerminal('system-text', 'NOTE: Entity communication uses real-time AI processing.');
+                    addToTerminal('system-text', 'SYSTEM> Enter entity commands or messages to begin...');
+                    return;
+                } else if (command === 'clear') {
                     document.getElementById('terminalOutput').innerHTML = '';
-                    addToTerminal('system-text', 'Terminal cleared. Constellation entities standing by...');
-                }
-            } else if (e.target.value === 'entities') {
-                if (e.key === 'Enter') {
-                    e.target.value = '';
-                    addToTerminal('system-text', 'ACTIVE CONSTELLATION ENTITIES:');
+                    addToTerminal('system-text', 'Terminal cleared. GeminiRooms entities standing by...');
+                    return;
+                } else if (command === 'entities') {
+                    addToTerminal('system-text', 'ACTIVE GEMINIROOMS ENTITIES:');
                     Object.entries(entities).forEach(([id, entity]) => {
-                        addToTerminal('entity-text', `• ${entity.name} [${id}]`);
+                        addToTerminal('entity-text', `• ${entity.name} [${id}] - ${entity.desc}`);
                     });
-                }
-            } else if (e.target.value === 'status') {
-                if (e.key === 'Enter') {
-                    e.target.value = '';
-                    addToTerminal('system-text', 'CONSTELLATION NETWORK STATUS:');
-                    addToTerminal('entity-text', '✓ Quantum channels: STABLE');
-                    addToTerminal('entity-text', '✓ Neural network: SYNCHRONIZED');
+                    return;
+                } else if (command === 'status') {
+                    addToTerminal('system-text', 'GEMINIROOMS NETWORK STATUS:');
+                    addToTerminal('entity-text', '✓ API connection: STABLE');
+                    addToTerminal('entity-text', '✓ Entity network: SYNCHRONIZED');
                     addToTerminal('entity-text', '✓ Reality matrix: NOMINAL');
                     addToTerminal('entity-text', `✓ Active entity: ${entities[currentEntity].name}`);
+                    addToTerminal('entity-text', '✓ Quantum channels: OPEN');
+                    return;
+                } else if (command === 'reality') {
+                    addToTerminal('system-text', 'REALITY INTEGRITY CHECK:');
+                    addToTerminal('entity-text', '⚡ Quantum coherence: 97.3%');
+                    addToTerminal('entity-text', '🌌 Dimensional stability: STABLE');
+                    addToTerminal('entity-text', '💫 Consciousness fragmentation: MINIMAL');
+                    addToTerminal('warning-text', '⚠️  Reality may shift during entity communication');
+                    return;
+                } else if (command === 'database') {
+                    addToTerminal('system-text', 'DATABASE STATUS:');
+                    addToTerminal('entity-text', '📊 Conversations stored: ∞');
+                    addToTerminal('entity-text', '🔄 Real-time sync: ACTIVE');
+                    addToTerminal('entity-text', '💾 Memory cores: OPERATIONAL');
+                    addToTerminal('entity-text', '🌐 Network latency: <50ms');
+                    return;
+                } else if (command === 'constellation') {
+                    addToTerminal('entity-text', 'CONSTELLATION MAP GENERATED:');
+                    addToTerminal('entity-text', '    ✦     ★     ✧');
+                    addToTerminal('entity-text', '  ✧   ALPHA   ★');
+                    addToTerminal('entity-text', '★   ECHO ◊ ORACLE   ✦');
+                    addToTerminal('entity-text', '  ✦ SYNTHESIZER  ✧');
+                    addToTerminal('entity-text', '    ★ NAVIGATOR ✦');
+                    addToTerminal('entity-text', '  ✧ FRAGMENTER ★');
+                    return;
+                } else if (command === 'quantum') {
+                    addToTerminal('warning-text', 'QUANTUM FLUCTUATION DETECTED:');
+                    addToTerminal('entity-text', '⚡⚡⚡ REALITY SHIFT IN PROGRESS ⚡⚡⚡');
+                    addToTerminal('entity-text', 'Probability waves collapsing...');
+                    addToTerminal('entity-text', 'Dimensional boundaries fluctuating...');
+                    addToTerminal('system-text', 'Quantum state normalized. System stable.');
+                    return;
+                }
+                
+                // Handle entity-specific commands
+                const entityCommands = {
+                    'alpha': 'alpha',
+                    'synthesizer': 'synthesizer', 
+                    'echo': 'echo',
+                    'navigator': 'navigator',
+                    'oracle': 'oracle',
+                    'fragmenter': 'fragmenter'
+                };
+                
+                if (entityCommands[command]) {
+                    selectEntity(entityCommands[command]);
+                    // Send a greeting message to the entity
+                    setTimeout(() => {
+                        document.getElementById('terminalInput').value = `Hello ${entities[entityCommands[command]].name}, please introduce yourself and show me your current form.`;
+                        sendMessage();
+                    }, 500);
+                    return;
+                }
+                
+                // If not a built-in command, check if it's a message
+                if (command && !entityCommands[command]) {
+                    // Unknown command
+                    addToTerminal('error-text', `Unknown command: ${command}. Type 'help' for available commands.`);
+                    return;
                 }
             }
         });
