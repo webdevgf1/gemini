@@ -359,7 +359,7 @@
             <button class="nav-btn" onclick="showDocs()">DOCS</button>
         </div>
         <div class="nav-right">
-            <button class="nav-btn" onclick="showConversations()">CONVERSATIONS</button>
+            <a href="conversations.html" class="nav-btn">CONVERSATIONS</a>
             <a href="https://pump.fun" target="_blank" class="social-btn" title="Pump.fun">
                 <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/6838d2883b403d1d53fddcc3_pump%20(1).png" alt="Pump.fun" />
             </a>
@@ -463,10 +463,35 @@
         </footer>
     </div>
 
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCCeMEOBodtuq445Ddv9wpoE_cr4wd1IIs",
+            authDomain: "gemini-fe4c2.firebaseapp.com",
+            projectId: "gemini-fe4c2",
+            storageBucket: "gemini-fe4c2.firebasestorage.app",
+            messagingSenderId: "786624952912",
+            appId: "1:786624952912:web:1ec5dabe600d357373af55",
+            measurementId: "G-3DCBS1DSGM"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.firebaseDB = db;
+        window.firebaseAddDoc = addDoc;
+        window.firebaseCollection = collection;
+    </script>
+
     <script>
         let currentEntity = 'alpha';
         let conversationHistory = [];
         let entitiesStarted = false;
+        let currentConversationLog = [];
+        let conversationStartTime = null;
 
         const entities = {
             alpha: {
@@ -564,11 +589,18 @@
                 return;
             }
 
+            if (!conversationStartTime) {
+                conversationStartTime = Date.now();
+                currentConversationLog = [];
+            }
+
             const sendBtn = document.getElementById('sendBtn');
             sendBtn.disabled = true;
             sendBtn.textContent = 'SENDING...';
 
-            addToTerminal('entity-text', 'user@server:$ ' + message);
+            const userMessage = 'user@server:$ ' + message;
+            addToTerminal('entity-text', userMessage);
+            currentConversationLog.push(userMessage);
             input.value = '';
 
             try {
@@ -593,16 +625,51 @@
                     throw new Error(data.error);
                 }
 
-                addToTerminal('entity-text', entities[currentEntity].name + '@server:$');
-                addToTerminal('entity-text', data.response);
+                const entityHeader = entities[currentEntity].name + '@server:$';
+                const entityResponse = data.response;
+                
+                addToTerminal('entity-text', entityHeader);
+                addToTerminal('entity-text', entityResponse);
+                
+                currentConversationLog.push(entityHeader);
+                currentConversationLog.push(entityResponse);
+
+                await saveConversationToFirebase();
 
             } catch (error) {
-                addToTerminal('error-text', 'TRANSMISSION ERROR: ' + error.message);
+                const errorMsg = 'TRANSMISSION ERROR: ' + error.message;
+                addToTerminal('error-text', errorMsg);
                 addToTerminal('error-text', 'Constellation network disruption detected. Attempting reconnection...');
+                currentConversationLog.push(errorMsg);
             }
 
             sendBtn.disabled = false;
             sendBtn.textContent = 'SEND';
+        }
+
+        async function saveConversationToFirebase() {
+            if (!window.firebaseDB || currentConversationLog.length === 0) return;
+
+            try {
+                const conversationData = {
+                    title: 'Conversation with ' + entities[currentEntity].name,
+                    entity: currentEntity,
+                    timestamp: conversationStartTime,
+                    lastUpdated: Date.now(),
+                    content: currentConversationLog.join('\n'),
+                    messageCount: currentConversationLog.length,
+                    entityName: entities[currentEntity].name
+                };
+
+                await window.firebaseAddDoc(window.firebaseCollection(window.firebaseDB, 'conversations'), conversationData);
+                console.log('Conversation saved to Firebase');
+                
+                currentConversationLog = [];
+                conversationStartTime = null;
+                
+            } catch (error) {
+                console.error('Error saving conversation to Firebase:', error);
+            }
         }
 
         function showDocs() {
