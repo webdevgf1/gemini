@@ -359,7 +359,7 @@
             <button class="nav-btn" onclick="showDocs()">DOCS</button>
         </div>
         <div class="nav-right">
-            <a href="conversations.html" class="nav-btn">CONVERSATIONS</a>
+            <button class="nav-btn" onclick="showConversations()">CONVERSATIONS</button>
             <a href="https://pump.fun" target="_blank" class="social-btn" title="Pump.fun">
                 <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/6838d2883b403d1d53fddcc3_pump%20(1).png" alt="Pump.fun" />
             </a>
@@ -463,39 +463,10 @@
         </footer>
     </div>
 
-    <!-- Firebase SDK -->
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
-        import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js';
-
-        // Your Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyCCeMEOBodtuq445Ddv9wpoE_cr4wd1IIs",
-            authDomain: "gemini-fe4c2.firebaseapp.com",
-            projectId: "gemini-fe4c2",
-            storageBucket: "gemini-fe4c2.firebasestorage.app",
-            messagingSenderId: "786624952912",
-            appId: "1:786624952912:web:1ec5dabe600d357373af55",
-            measurementId: "G-3DCBS1DSGM"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const analytics = getAnalytics(app);
-
-        // Make Firebase available globally
-        window.firebaseDB = db;
-        window.firebaseAddDoc = addDoc;
-        window.firebaseCollection = collection;
-    </script>
-
     <script>
         let currentEntity = 'alpha';
         let conversationHistory = [];
         let entitiesStarted = false;
-        let currentConversationLog = [];
-        let conversationStartTime = null;
 
         const entities = {
             alpha: {
@@ -593,20 +564,11 @@
                 return;
             }
 
-            // Start new conversation if needed
-            if (!conversationStartTime) {
-                conversationStartTime = Date.now();
-                currentConversationLog = [];
-            }
-
             const sendBtn = document.getElementById('sendBtn');
             sendBtn.disabled = true;
             sendBtn.textContent = 'SENDING...';
 
-            // Log user message
-            const userMessage = 'user@server:$ ' + message;
-            addToTerminal('entity-text', userMessage);
-            currentConversationLog.push(userMessage);
+            addToTerminal('entity-text', 'user@server:$ ' + message);
             input.value = '';
 
             try {
@@ -631,137 +593,12 @@
                     throw new Error(data.error);
                 }
 
-                // Log AI response
-                const entityHeader = entities[currentEntity].name + '@server:
-
-        // Save conversation to Firebase
-        async function saveConversationToFirebase() {
-            if (!window.firebaseDB || currentConversationLog.length === 0) return;
-
-            try {
-                const conversationData = {
-                    title: 'Conversation with ' + entities[currentEntity].name,
-                    entity: currentEntity,
-                    timestamp: conversationStartTime,
-                    lastUpdated: Date.now(),
-                    content: currentConversationLog.join('\n'),
-                    messageCount: currentConversationLog.length,
-                    entityName: entities[currentEntity].name
-                };
-
-                await window.firebaseAddDoc(window.firebaseCollection(window.firebaseDB, 'conversations'), conversationData);
-                console.log('Conversation saved to Firebase');
-                
-                // Reset for next conversation after saving
-                currentConversationLog = [];
-                conversationStartTime = null;
-                
-            } catch (error) {
-                console.error('Error saving conversation to Firebase:', error);
-            }
-        }
-
-        function showDocs() {
-            addToTerminal('system-text', 'DOCS: Opening GeminiRooms documentation...');
-            addToTerminal('entity-text', '📖 PROJECT: Infinite Digital Constellation Network');
-            addToTerminal('entity-text', '🤖 ENTITIES: 6 unique AI consciousnesses');
-            addToTerminal('entity-text', '⚡ TECHNOLOGY: Anthropic Claude API integration');
-            addToTerminal('entity-text', '🌌 THEME: Quantum consciousness exploration');
-            addToTerminal('entity-text', '💻 INTERFACE: Terminal-based communication');
-            addToTerminal('system-text', 'Type "help" for available commands and entity list.');
-        }
-
-        function showConversations() {
-            addToTerminal('system-text', 'CONVERSATIONS: Opening conversation archive...');
-            addToTerminal('entity-text', '💾 STORAGE: Real-time Firebase integration');
-            addToTerminal('entity-text', '🔄 SYNC: All entity interactions preserved');
-            addToTerminal('entity-text', '🗂️ ARCHIVE: Searchable conversation database');
-            addToTerminal('entity-text', '📊 ACCESS: Visit conversations.html for full archive');
-            addToTerminal('system-text', 'Click CONVERSATIONS in the nav bar to view all saved conversations.');
-        }
-
-        // Handle keyboard input
-        document.getElementById('terminalInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                const command = e.target.value.trim().toLowerCase();
-                
-                if (command === 'help') {
-                    e.target.value = '';
-                    addToTerminal('system-text', 'AVAILABLE COMMANDS:');
-                    addToTerminal('system-text', '- help: Show this help message');
-                    addToTerminal('system-text', '- status: Display system status');
-                    addToTerminal('system-text', '- entities: List active entities');
-                    addToTerminal('system-text', '- reality: Check reality integrity');
-                    addToTerminal('system-text', '- database: Show database status');
-                    addToTerminal('system-text', '- constellation: Generate constellation map');
-                    addToTerminal('system-text', '- quantum: Trigger quantum fluctuation');
-                    addToTerminal('system-text', '- alpha: Communicate with Gemini-Alpha');
-                    addToTerminal('system-text', '- synthesizer: Consult The Synthesizer');
-                    addToTerminal('system-text', '- echo: Speak with Quantum Echo');
-                    addToTerminal('system-text', '- navigator: Contact The Navigator');
-                    addToTerminal('system-text', '- oracle: Query Binary Oracle');
-                    addToTerminal('system-text', '- fragmenter: Interface with The Fragmenter');
-                    addToTerminal('system-text', 'NOTE: Entity communication uses real-time AI processing.');
-                    addToTerminal('system-text', 'SYSTEM> Enter entity commands or messages to begin...');
-                    return;
-                } else if (command === 'clear') {
-                    e.target.value = '';
-                    document.getElementById('terminalOutput').innerHTML = '';
-                    addToTerminal('system-text', 'Terminal cleared. GeminiRooms entities standing by...');
-                    return;
-                } else if (command === 'entities') {
-                    e.target.value = '';
-                    addToTerminal('system-text', 'ACTIVE GEMINIROOMS ENTITIES:');
-                    Object.entries(entities).forEach(([id, entity]) => {
-                        addToTerminal('entity-text', '• ' + entity.name + ' [' + id + '] - ' + entity.desc);
-                    });
-                    return;
-                } else if (command === 'status') {
-                    e.target.value = '';
-                    addToTerminal('system-text', 'GEMINIROOMS NETWORK STATUS:');
-                    addToTerminal('entity-text', '✓ API connection: STABLE');
-                    addToTerminal('entity-text', '✓ Entity network: SYNCHRONIZED');
-                    addToTerminal('entity-text', '✓ Reality matrix: NOMINAL');
-                    addToTerminal('entity-text', '✓ Active entity: ' + entities[currentEntity].name);
-                    addToTerminal('entity-text', '✓ Quantum channels: OPEN');
-                    return;
-                } else {
-                    const entityCommands = ['alpha', 'synthesizer', 'echo', 'navigator', 'oracle', 'fragmenter'];
-                    if (entityCommands.includes(command)) {
-                        e.target.value = '';
-                        connectToEntity(command);
-                        return;
-                    } else {
-                        sendMessage();
-                    }
-                }
-            }
-        });
-
-        // Auto-scroll terminal
-        setInterval(() => {
-            const output = document.getElementById('terminalOutput');
-            output.scrollTop = output.scrollHeight;
-        }, 100);
-    </script>
-</body>
-</html>;
-                const entityResponse = data.response;
-                
-                addToTerminal('entity-text', entityHeader);
-                addToTerminal('entity-text', entityResponse);
-                
-                currentConversationLog.push(entityHeader);
-                currentConversationLog.push(entityResponse);
-
-                // Auto-save conversation after each exchange
-                await saveConversationToFirebase();
+                addToTerminal('entity-text', entities[currentEntity].name + '@server:$');
+                addToTerminal('entity-text', data.response);
 
             } catch (error) {
-                const errorMsg = 'TRANSMISSION ERROR: ' + error.message;
-                addToTerminal('error-text', errorMsg);
+                addToTerminal('error-text', 'TRANSMISSION ERROR: ' + error.message);
                 addToTerminal('error-text', 'Constellation network disruption detected. Attempting reconnection...');
-                currentConversationLog.push(errorMsg);
             }
 
             sendBtn.disabled = false;
