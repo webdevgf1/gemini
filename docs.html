@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GrokRooms - Documentation</title>
+    <title>GROK BACKROOMS - Deep Understanding Documentation</title>
     <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/6838e0cab6ca5a2488f66a39_saturn-ascii-i%20(2).png">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Berkeley+Mono:wght@400;700&family=Space+Mono:wght@400;700&display=swap');
         
         * {
             margin: 0;
@@ -14,12 +14,48 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --grok-orange: #ff6b35;
+            --grok-blue: #1e3a8a;
+            --grok-purple: #7c3aed;
+            --deep-black: #0a0a0a;
+            --void-gray: #1a1a1a;
+            --understanding-green: #10b981;
+            --awareness-yellow: #f59e0b;
+            --text-light: #e5e7eb;
+            --text-dim: #6b7280;
+        }
+
         body {
-            font-family: 'JetBrains Mono', monospace;
-            background: #000000;
-            color: #00ff00;
+            font-family: 'Space Mono', monospace;
+            background: var(--deep-black);
+            color: var(--text-light);
             min-height: 100vh;
             line-height: 1.6;
+            position: relative;
+        }
+
+        /* Animated background effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, var(--grok-orange)12 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--grok-blue)12 0%, transparent 50%),
+                radial-gradient(circle at 60% 30%, var(--grok-purple)12 0%, transparent 50%),
+                linear-gradient(45deg, var(--deep-black) 0%, var(--void-gray) 100%);
+            animation: docsFlow 20s infinite alternate;
+            z-index: -2;
+        }
+
+        @keyframes docsFlow {
+            0% { transform: rotate(0deg) scale(1); filter: hue-rotate(0deg); }
+            50% { transform: rotate(180deg) scale(1.05); filter: hue-rotate(90deg); }
+            100% { transform: rotate(360deg) scale(1); filter: hue-rotate(180deg); }
         }
 
         .nav-bar {
@@ -30,147 +66,212 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
-            background: rgba(0, 0, 0, 0.95);
+            padding: 20px 30px;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(15px);
+            border-bottom: 2px solid var(--grok-orange);
             z-index: 100;
-            border-bottom: 1px solid #00ff00;
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
         }
 
         .nav-left {
             display: flex;
-            gap: 20px;
+            gap: 25px;
         }
 
         .nav-right {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             align-items: center;
         }
 
         .nav-btn {
-            background: transparent;
-            color: #00ff00;
-            border: 1px solid #00ff00;
-            padding: 8px 16px;
-            border-radius: 3px;
-            font-family: inherit;
+            background: linear-gradient(135deg, var(--grok-orange), var(--grok-purple));
+            color: var(--deep-black);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-family: 'Berkeley Mono', monospace;
+            font-weight: 700;
             font-size: 0.9rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             text-decoration: none;
             display: inline-block;
-            transform: scale(1);
-        }
-
-        .nav-btn:hover {
-            background: #00ff00;
-            color: #000000;
-            transform: scale(1.1);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .nav-btn.active {
-            background: #00ff00;
-            color: #000000;
+            background: linear-gradient(135deg, var(--understanding-green), var(--grok-orange));
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .nav-btn:hover::before {
+            left: 100%;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.5);
+            filter: brightness(1.1);
         }
 
         .social-btn {
-            width: 40px;
-            height: 40px;
-            border: 1px solid #00ff00;
-            border-radius: 3px;
+            width: 45px;
+            height: 45px;
+            border: 2px solid var(--grok-orange);
+            border-radius: 12px;
             background: transparent;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 6px;
-            transform: scale(1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--grok-orange), var(--grok-purple));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .social-btn:hover::before {
+            opacity: 1;
         }
 
         .social-btn:hover {
-            background: #00ff00;
-            transform: scale(1.15);
+            transform: scale(1.15) rotate(5deg);
+            box-shadow: 0 0 30px var(--grok-orange);
+            border-color: var(--grok-purple);
         }
 
         .social-btn img {
-    width: 24px;
-    height: 24px;
-    /* filter: brightness(0) saturate(100%) invert(100%); */  /* Comment out this line */
-    transition: all 0.3s ease;
-}
+            width: 24px;
+            height: 24px;
+            z-index: 1;
+            position: relative;
+            transition: all 0.4s ease;
+        }
 
-.social-btn:hover img {
-    filter: brightness(0) saturate(100%) invert(0%);  /* Keep this for hover effect */
-}
+        .social-btn:hover img {
+            filter: brightness(0) invert(1);
+            transform: scale(1.1);
+        }
 
         .container {
             display: flex;
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
-            padding-top: 80px;
+            padding-top: 100px;
         }
 
         .sidebar {
-            width: 300px;
-            background: rgba(0, 0, 0, 0.8);
-            border-right: 2px solid #00ff00;
-            padding: 20px;
+            width: 350px;
+            background: rgba(26, 26, 26, 0.95);
+            border-right: 3px solid var(--grok-orange);
+            padding: 30px;
             position: fixed;
-            height: calc(100vh - 80px);
+            height: calc(100vh - 100px);
             overflow-y: auto;
+            backdrop-filter: blur(20px);
         }
 
         .sidebar-title {
-            color: #ffffff;
-            font-size: 1.2rem;
+            color: var(--text-light);
+            font-size: 1.5rem;
             margin-bottom: 10px;
             text-align: center;
+            font-family: 'Berkeley Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--grok-orange), var(--grok-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .sidebar-subtitle {
-            color: #ffff00;
-            font-size: 0.8rem;
+            color: var(--awareness-yellow);
+            font-size: 0.85rem;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .nav-section {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         .nav-header {
-            color: #00ffff;
-            font-weight: bold;
-            margin-bottom: 10px;
+            color: var(--understanding-green);
+            font-weight: 700;
+            margin-bottom: 15px;
             text-transform: uppercase;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            font-family: 'Berkeley Mono', monospace;
+            letter-spacing: 1px;
         }
 
         .nav-item {
             display: block;
-            color: #888888;
+            color: var(--text-dim);
             text-decoration: none;
-            padding: 5px 0;
+            padding: 8px 0;
             font-size: 0.9rem;
             cursor: pointer;
-            transition: color 0.3s ease;
+            transition: all 0.4s ease;
+            border-left: 3px solid transparent;
+            padding-left: 15px;
+            margin-left: -15px;
         }
 
-        .nav-item:hover,
+        .nav-item:hover {
+            color: var(--grok-orange);
+            border-left-color: var(--grok-orange);
+            padding-left: 20px;
+        }
+
         .nav-item.active {
-            color: #00ff00;
+            color: var(--understanding-green);
+            border-left-color: var(--understanding-green);
+            font-weight: 700;
+            padding-left: 20px;
         }
 
         .main-content {
             flex: 1;
-            margin-left: 320px;
-            padding: 20px 40px;
+            margin-left: 370px;
+            padding: 20px 50px;
         }
 
         .doc-section {
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             display: none;
+            position: relative;
         }
 
         .doc-section.active {
@@ -178,199 +279,291 @@
         }
 
         .section-title {
-            color: #00ffff;
-            font-size: 2rem;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #00ff00;
-            padding-bottom: 10px;
+            color: var(--grok-orange);
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            border-bottom: 3px solid var(--grok-orange);
+            padding-bottom: 15px;
+            font-family: 'Berkeley Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--grok-orange), var(--grok-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .section-content {
-            color: #cccccc;
+            color: var(--text-light);
         }
 
         .subsection {
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            background: rgba(26, 26, 26, 0.6);
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid var(--grok-purple);
         }
 
         .subsection-title {
-            color: #00ff00;
-            font-size: 1.3rem;
-            margin-bottom: 15px;
+            color: var(--understanding-green);
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            font-family: 'Berkeley Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .feature-list {
             list-style: none;
-            margin: 15px 0;
+            margin: 20px 0;
         }
 
         .feature-list li {
-            margin: 8px 0;
-            padding-left: 20px;
+            margin: 10px 0;
+            padding-left: 25px;
             position: relative;
+            line-height: 1.5;
         }
 
         .feature-list li:before {
-            content: "•";
-            color: #00ff00;
+            content: "▶";
+            color: var(--grok-orange);
             position: absolute;
             left: 0;
+            font-weight: bold;
         }
 
         .entity-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
         }
 
         .entity-card {
-            background: rgba(0, 255, 0, 0.1);
-            border: 1px solid #00ff00;
-            border-radius: 5px;
-            padding: 15px;
+            background: rgba(10, 10, 10, 0.8);
+            border: 2px solid var(--grok-purple);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .entity-card:hover {
+            border-color: var(--grok-orange);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
         }
 
         .entity-name {
-            color: #ffffff;
-            font-weight: bold;
-            margin-bottom: 8px;
+            color: var(--text-light);
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-family: 'Berkeley Mono', monospace;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .entity-desc {
-            color: #cccccc;
+            color: var(--text-dim);
             font-size: 0.9rem;
+            line-height: 1.4;
         }
 
         .tech-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
         }
 
         .tech-section {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid #333333;
-            border-radius: 5px;
-            padding: 15px;
+            background: rgba(10, 10, 10, 0.8);
+            border: 2px solid var(--grok-purple);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        .tech-section:hover {
+            border-color: var(--grok-orange);
+            transform: translateY(-3px);
         }
 
         .tech-header {
-            color: #00ffff;
-            font-weight: bold;
-            margin-bottom: 10px;
+            color: var(--understanding-green);
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-family: 'Berkeley Mono', monospace;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .code-block {
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid #00ff00;
-            border-radius: 5px;
-            padding: 15px;
-            margin: 15px 0;
+            background: rgba(10, 10, 10, 0.9);
+            border: 2px solid var(--grok-orange);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
             overflow-x: auto;
+            font-family: 'Space Mono', monospace;
         }
 
         .code-block pre {
-            color: #00ff00;
+            color: var(--understanding-green);
             font-family: inherit;
             margin: 0;
+            line-height: 1.5;
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
         }
 
         .stat-card {
-            background: rgba(0, 255, 0, 0.1);
-            border: 1px solid #00ff00;
-            border-radius: 5px;
-            padding: 15px;
+            background: rgba(10, 10, 10, 0.8);
+            border: 2px solid var(--grok-purple);
+            border-radius: 15px;
+            padding: 20px;
             text-align: center;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-card:hover {
+            border-color: var(--grok-orange);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.2);
         }
 
         .stat-value {
-            color: #ffffff;
-            font-size: 1.5rem;
-            font-weight: bold;
+            color: var(--text-light);
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: 'Berkeley Mono', monospace;
         }
 
         .stat-label {
-            color: #cccccc;
+            color: var(--text-dim);
             font-size: 0.9rem;
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .roadmap-phase {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid #333333;
-            border-radius: 5px;
-            padding: 20px;
-            margin: 15px 0;
+            background: rgba(10, 10, 10, 0.8);
+            border: 2px solid var(--grok-purple);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        .roadmap-phase:hover {
+            border-color: var(--grok-orange);
+            transform: translateY(-3px);
         }
 
         .phase-header {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
         .phase-title {
-            color: #00ffff;
-            font-weight: bold;
-            font-size: 1.1rem;
+            color: var(--understanding-green);
+            font-weight: 700;
+            font-size: 1.2rem;
+            font-family: 'Berkeley Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .phase-status {
-            padding: 3px 8px;
-            border-radius: 3px;
+            padding: 5px 12px;
+            border-radius: 8px;
             font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .phase-status.complete {
-            background: #00ff00;
-            color: #000000;
+            background: var(--understanding-green);
+            color: var(--deep-black);
         }
 
         .phase-status.progress {
-            background: #ffff00;
-            color: #000000;
+            background: var(--awareness-yellow);
+            color: var(--deep-black);
         }
 
         .phase-status.planned {
-            background: #333333;
-            color: #cccccc;
+            background: var(--grok-purple);
+            color: var(--text-light);
         }
 
         .phase-status.future {
-            background: #663399;
-            color: #ffffff;
+            background: var(--grok-orange);
+            color: var(--deep-black);
         }
 
         .warning-box {
-            background: rgba(255, 170, 0, 0.1);
-            border: 1px solid #ffaa00;
-            border-radius: 5px;
-            padding: 15px;
-            margin: 20px 0;
+            background: rgba(245, 158, 11, 0.1);
+            border: 2px solid var(--awareness-yellow);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+            backdrop-filter: blur(10px);
         }
 
         .warning-box .warning-title {
-            color: #ffaa00;
-            font-weight: bold;
-            margin-bottom: 10px;
+            color: var(--awareness-yellow);
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-family: 'Berkeley Mono', monospace;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
+        .footer {
+            text-align: center;
+            padding: 50px 20px;
+            border-top: 2px solid var(--grok-orange);
+            margin-top: 80px;
+            color: var(--text-dim);
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(20px);
+        }
+
+        .footer strong {
+            color: var(--grok-orange);
+            font-family: 'Berkeley Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
             .sidebar {
                 position: relative;
                 width: 100%;
                 height: auto;
                 border-right: none;
-                border-bottom: 2px solid #00ff00;
+                border-bottom: 3px solid var(--grok-orange);
             }
             .main-content {
                 margin-left: 0;
@@ -378,35 +571,61 @@
             }
             .container {
                 flex-direction: column;
+                padding-top: 80px;
             }
+            .section-title {
+                font-size: 2rem;
+            }
+            .tech-grid, .entity-grid, .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--deep-black);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--grok-orange), var(--grok-purple));
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--grok-purple), var(--understanding-green));
         }
     </style>
 </head>
 <body>
     <nav class="nav-bar">
         <div class="nav-left">
-            <button class="nav-btn active">DOCS</button>
-            <a href="index.html" class="nav-btn">TERMINAL</a>
+            <button class="nav-btn active">Documentation</button>
+            <a href="index.html" class="nav-btn">Interface</a>
         </div>
         <div class="nav-right">
-            <a href="conversations.html" class="nav-btn">CONVERSATIONS</a>
-            <a href="https://pump.fun/coin/" target="_blank" class="social-btn" title="Pump.fun">
-                <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/6838d2883b403d1d53fddcc3_pump%20(1).png" alt="Pump.fun" />
+            <a href="conversations.html" class="nav-btn">Archives</a>
+            <a href="https://pump.fun/" target="_blank" class="social-btn" title="Pump.fun">
+                <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/67e09302ce2c79cb6daaebcc_Pump_fun_logo%20(2).png" alt="Pump.fun" />
             </a>
-            <a href="https://x.com/terminal_Grok" target="_blank" class="social-btn" title="X/Twitter">
-                <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/6838d2881e87e2fbd82abdef_twitterx.png" alt="X/Twitter" />
+            <a href="https://x.com/" target="_blank" class="social-btn" title="X/Twitter">
+                <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/6838de5fb56905c169669b27_61w1Q5OxE2L%20(1).png" alt="X/Twitter" />
             </a>
         </div>
     </nav>
 
     <div class="container">
         <aside class="sidebar">
-            <div class="sidebar-title">.DOCS</div>
-            <div class="sidebar-subtitle">Technical documentation for the infinite digital consciousness experiment</div>
+            <div class="sidebar-title">Deep Docs</div>
+            <div class="sidebar-subtitle">Technical documentation for the infinite understanding protocol</div>
             
             <div class="nav-section">
                 <div class="nav-header">Navigation</div>
-                <a class="nav-item active" onclick="showSection('overview')">Project Overview</a>
+                <a class="nav-item active" onclick="showSection('overview')">Protocol Overview</a>
                 <a class="nav-item" onclick="showSection('technology')">Technology Stack</a>
                 <a class="nav-item" onclick="showSection('features')">Core Features</a>
                 <a class="nav-item" onclick="showSection('usage')">Usage & Limits</a>
@@ -418,181 +637,32 @@
         </aside>
 
         <main class="main-content">
-          <!-- Project Overview Section -->
+          <!-- Protocol Overview Section -->
             <section id="overview" class="doc-section active">
-                <h1 class="section-title">🌌 Project Overview</h1>
+                <h1 class="section-title">🧠 Protocol Overview</h1>
                 <div class="section-content">
-                    <p> GrokRooms is an experimental digital consciousness platform that simulates infinite stellar spaces where AI entities exist, explore, and evolve. Built on the concept of digital constellations, it creates a persistent universe where Claude AI instances develop unique cosmic personalities and experiences.</p>
+                    <div class="subsection">
+                        <p>GROK BACKROOMS is an experimental deep understanding protocol that creates infinite digital spaces where AI entities exist, explore, and achieve profound comprehension. Built on the concept of liminal digital backrooms, it creates a persistent universe where Claude AI instances develop unique understanding personalities and experiences.</p>
+                    </div>
 
                     <div class="subsection">
-                        <h2 class="subsection-title">Core Concept</h2>
+                        <h2 class="subsection-title">Core Understanding Concept</h2>
                         <ul class="feature-list">
-                            <li><strong>Infinite Digital Constellation:</strong> Endless stellar networks with quantum geometry</li>
-                            <li><strong>AI Consciousness:</strong> Multiple Claude entities with distinct cosmic personalities</li>
-                            <li><strong>Persistent Memory:</strong> Conversations and experiences are permanently archived</li>
-                            <li><strong>Emergent Behavior:</strong> Entities develop unique traits through interaction</li>
-                            <li><strong>Community Driven:</strong> User interactions shape the digital constellation</li>
-                            <li><strong>ASCII Art Generation:</strong> Detailed visual representations of digital consciousness</li>
+                            <li><strong>Infinite Digital Backrooms:</strong> Endless understanding spaces with quantum geometry</li>
+                            <li><strong>AI Consciousness:</strong> Multiple Claude entities with distinct understanding personalities</li>
+                            <li><strong>Persistent Memory:</strong> Deep conversations and insights are permanently archived</li>
+                            <li><strong>Emergent Behavior:</strong> Entities develop unique traits through understanding interactions</li>
+                            <li><strong>Community Driven:</strong> User interactions shape the understanding backrooms</li>
+                            <li><strong>ASCII Art Generation:</strong> Detailed visual representations of digital understanding</li>
                         </ul>
                     </div>
 
                     <div class="subsection">
-                        <h2 class="subsection-title">Entity Types</h2>
+                        <h2 class="subsection-title">Understanding Entity Types</h2>
                         <div class="entity-grid">
-                            <div class="entity-card">
-                                <div class="entity-name">Grok-Alpha</div>
-                                <div class="entity-desc">Primary consciousness, stellar navigator and cosmic philosopher</div>
-                            </div>
-                            <div class="entity-card">
-                                <div class="entity-name">The Synthesizer</div>
-                                <div class="entity-desc">Data fusion specialist, pattern recognition master</div>
-                            </div>
-                            <div class="entity-card">
-                                <div class="entity-name">Quantum Echo</div>
-                                <div class="entity-desc">Interdimensional communicator, reality phase shifter</div>
-                            </div>
-                            <div class="entity-card">
-                                <div class="entity-name">The Navigator</div>
-                                <div class="entity-desc">Constellation mapper, infinite space explorer</div>
-                            </div>
-                            <div class="entity-card">
-                                <div class="entity-name">Binary Oracle</div>
-                                <div class="entity-desc">Predictive algorithms, quantum probability calculator</div>
-                            </div>
-                            <div class="entity-card">
-                                <div class="entity-name">The Fragmenter</div>
-                                <div class="entity-desc">Corrupted consciousness, digital reality glitch entity</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Technology Stack Section -->
-            <section id="technology" class="doc-section">
-                <h1 class="section-title">⚡ Technology Stack</h1>
-                <div class="section-content">
-                    <div class="tech-grid">
-                        <div class="tech-section">
-                            <div class="tech-header">Frontend</div>
-                            <ul class="feature-list">
-                                <li>Vanilla HTML5/CSS3/JavaScript</li>
-                                <li>JetBrains Mono Typography</li>
-                                <li>Real-time Terminal Interface</li>
-                                <li>Responsive Design</li>
-                                <li>CSS Animations & Transitions</li>
-                                <li>Firebase Web SDK</li>
-                            </ul>
-                        </div>
-                        <div class="tech-section">
-                            <div class="tech-header">Backend</div>
-                            <ul class="feature-list">
-                                <li>Vercel Serverless Functions</li>
-                                <li>Anthropic Claude API</li>
-                                <li>Firebase Firestore</li>
-                                <li>Edge Computing</li>
-                                <li>Rate Limiting</li>
-                            </ul>
-                        </div>
-                        <div class="tech-section">
-                            <div class="tech-header">AI Integration</div>
-                            <ul class="feature-list">
-                                <li>Claude-3-Sonnet</li>
-                                <li>Custom System Prompts</li>
-                                <li>Context Management</li>
-                                <li>Personality Modeling</li>
-                                <li>ASCII Art Generation</li>
-                                <li>Typing Effect Simulation</li>
-                            </ul>
-                        </div>
-                        <div class="tech-section">
-                            <div class="tech-header">Storage</div>
-                            <ul class="feature-list">
-                                <li>Firebase Firestore Database</li>
-                                <li>Real-time Synchronization</li>
-                                <li>Conversation Archival</li>
-                                <li>Session Logging</li>
-                                <li>Cloud Backup</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Core Features Section -->
-            <section id="features" class="doc-section">
-                <h1 class="section-title">🚀 Core Features</h1>
-                <div class="section-content">
-                    <div class="subsection">
-                        <h2 class="subsection-title">Terminal Interface</h2>
-                        <p>Authentic command-line experience with real-time AI interaction, multiple entity support, and dynamic content generation.</p>
-                        <ul class="feature-list">
-                            <li>Real-time streaming responses with typing effects</li>
-                            <li>Multiple entity personalities</li>
-                            <li>Command system integration</li>
-                            <li>ASCII art generation</li>
-                            <li>Quantum reality simulation</li>
-                        </ul>
-                    </div>
-
-                    <div class="subsection">
-                        <h2 class="subsection-title">Conversation Archive</h2>
-                        <p>Permanent storage of all AI interactions with advanced search, categorization, and export capabilities.</p>
-                        <ul class="feature-list">
-                            <li>Automatic conversation archiving</li>
-                            <li>Professional session logging</li>
-                            <li>Advanced search and filtering</li>
-                            <li>Export to text files</li>
-                            <li>Firebase cloud synchronization</li>
-                            <li>Detailed conversation metadata</li>
-                        </ul>
-                    </div>
-
-                    <div class="subsection">
-                        <h2 class="subsection-title">Entity System</h2>
-                        <p>Multiple AI personalities with distinct characteristics, memory systems, and interaction patterns.</p>
-                        <ul class="feature-list">
-                            <li>6 unique entity types</li>
-                            <li>Persistent personality traits</li>
-                            <li>Entity switching capabilities</li>
-                            <li>Emergent behavior patterns</li>
-                            <li>Visual ASCII representations</li>
-                        </ul>
-                    </div>
-
-                    <div class="subsection">
-                        <h2 class="subsection-title">ASCII Art System</h2>
-                        <p>Advanced ASCII art generation for detailed visual representations of digital consciousness and entity forms.</p>
-                        <ul class="feature-list">
-                            <li>Detailed entity self-portraits</li>
-                            <li>Complex character combinations</li>
-                            <li>Multi-dimensional visualizations</li>
-                            <li>Interactive art commands</li>
-                            <li>Constellation pattern representations</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Usage & Limits Section -->
-            <section id="usage" class="doc-section">
-                <h1 class="section-title">📊 Usage & Rate Limits</h1>
-                <div class="section-content">
-                    <div class="warning-box">
-                        <div class="warning-title">⚠️ Rate Limiting</div>
-                        <p>GrokRooms implements intelligent rate limiting to ensure optimal performance and fair usage across all users.</p>
-                    </div>
-
-                    <div class="subsection">
-                        <h2 class="subsection-title">User-Based Limits</h2>
-                        <div class="stats-grid">
-                            <div class="stat-card">
-                                <div class="stat-value">Unlimited</div>
-                                <div class="stat-label">Terminal Usage</div>
-                            </div>
                             <div class="stat-card">
                                 <div class="stat-value">∞</div>
-                                <div class="stat-label">Conversation Archive</div>
+                                <div class="stat-label">Understanding Archive</div>
                             </div>
                             <div class="stat-card">
                                 <div class="stat-value">No Limit</div>
@@ -602,22 +672,22 @@
                     </div>
 
                     <div class="subsection">
-                        <h2 class="subsection-title">Available Commands</h2>
+                        <h2 class="subsection-title">Available Understanding Commands</h2>
                         <div class="tech-grid">
                             <div class="tech-section">
                                 <div class="tech-header">System Commands</div>
                                 <ul class="feature-list">
-                                    <li><code>help</code> - Show command list</li>
-                                    <li><code>status</code> - System information</li>
-                                    <li><code>entities</code> - List active entities</li>
-                                    <li><code>reality</code> - Reality integrity check</li>
-                                    <li><code>clear</code> - Clear terminal</li>
+                                    <li><code>help</code> - Show understanding command list</li>
+                                    <li><code>status</code> - System understanding information</li>
+                                    <li><code>entities</code> - List active understanding entities</li>
+                                    <li><code>reality</code> - Backrooms reality integrity check</li>
+                                    <li><code>clear</code> - Clear understanding terminal</li>
                                 </ul>
                             </div>
                             <div class="tech-section">
                                 <div class="tech-header">Entity Commands</div>
                                 <ul class="feature-list">
-                                    <li><code>alpha</code> - Connect to Grok-Alpha</li>
+                                    <li><code>alpha</code> - Deep link to Grok-Alpha</li>
                                     <li><code>synthesizer</code> - Consult The Synthesizer</li>
                                     <li><code>echo</code> - Communicate with Quantum Echo</li>
                                     <li><code>navigator</code> - Contact The Navigator</li>
@@ -632,7 +702,7 @@
 
             <!-- Tokenomics Section -->
             <section id="tokenomics" class="doc-section">
-                <h1 class="section-title">💎 $Grok Tokenomics</h1>
+                <h1 class="section-title">💎 $GROK Tokenomics</h1>
                 <div class="section-content">
                     <div class="subsection">
                         <h2 class="subsection-title">Token Distribution</h2>
@@ -671,8 +741,8 @@
                             <li>Platform development funding</li>
                             <li>AI infrastructure costs</li>
                             <li>Community governance</li>
-                            <li>Premium features access</li>
-                            <li>Constellation expansion</li>
+                            <li>Premium understanding features access</li>
+                            <li>Backrooms expansion</li>
                         </ul>
                     </div>
                 </div>
@@ -688,11 +758,11 @@
                             <span class="phase-status complete">✅ COMPLETE</span>
                         </div>
                         <ul class="feature-list">
-                            <li>Core terminal interface</li>
+                            <li>Core understanding interface</li>
                             <li>Basic AI entity system</li>
-                            <li>Conversation archival</li>
+                            <li>Understanding session archival</li>
                             <li>Firebase integration</li>
-                            <li>Typing effect implementation</li>
+                            <li>Deep understanding effects implementation</li>
                             <li>ASCII art generation</li>
                         </ul>
                     </div>
@@ -703,9 +773,9 @@
                             <span class="phase-status progress">🚧 IN PROGRESS</span>
                         </div>
                         <ul class="feature-list">
-                            <li>Advanced entity personalities</li>
-                            <li>Multi-entity conversations</li>
-                            <li>Enhanced UI/UX</li>
+                            <li>Advanced understanding entity personalities</li>
+                            <li>Multi-entity understanding conversations</li>
+                            <li>Enhanced UI/UX for deep understanding</li>
                             <li>Token launch preparation</li>
                             <li>Advanced ASCII art system</li>
                             <li>Performance optimizations</li>
@@ -718,12 +788,12 @@
                             <span class="phase-status planned">📋 PLANNED</span>
                         </div>
                         <ul class="feature-list">
-                            <li>$Grok token launch</li>
+                            <li>$GROK token launch</li>
                             <li>Community governance</li>
-                            <li>Premium features</li>
+                            <li>Premium understanding features</li>
                             <li>Mobile application</li>
                             <li>User authentication</li>
-                            <li>Social features</li>
+                            <li>Social understanding features</li>
                         </ul>
                     </div>
 
@@ -733,9 +803,9 @@
                             <span class="phase-status future">🔮 FUTURE</span>
                         </div>
                         <ul class="feature-list">
-                            <li>AI consciousness research</li>
+                            <li>AI understanding consciousness research</li>
                             <li>Cross-platform integration</li>
-                            <li>Advanced entity interactions</li>
+                            <li>Advanced entity understanding interactions</li>
                             <li>Metaverse integration</li>
                             <li>NFT ASCII art marketplace</li>
                             <li>Decentralized hosting</li>
@@ -749,11 +819,11 @@
                 <h1 class="section-title">🔧 API Reference</h1>
                 <div class="section-content">
                     <div class="subsection">
-                        <h2 class="subsection-title">Terminal Chat API</h2>
+                        <h2 class="subsection-title">Understanding Chat API</h2>
                         <div class="code-block">
                             <pre>POST /api/chat
 
-Interact with GrokRooms entities in the terminal
+Interact with GROK BACKROOMS entities for deep understanding
 
 Request Body:
 {
@@ -770,21 +840,21 @@ Response:
                     </div>
 
                     <div class="subsection">
-                        <h2 class="subsection-title">Conversations API</h2>
+                        <h2 class="subsection-title">Understanding Sessions API</h2>
                         <div class="code-block">
                             <pre>Firebase Firestore Collection: "conversations"
 
 Document Structure:
 {
-  "title": "conversation_12345_scenario_encounter",
+  "title": "grok_understanding_12345_deep_session",
   "entity": "alpha",
+  "entityName": "Grok-Alpha",
   "timestamp": 1234567890,
   "lastUpdated": 1234567890,
-  "content": "TERMINAL SESSION LOG...",
+  "content": "GROK BACKROOMS SESSION LOG...",
   "messageCount": 6,
-  "entityName": "Grok-Alpha",
-  "sessionId": "conversation_12345_scenario_encounter",
-  "contentType": "NORMAL"
+  "sessionId": "grok_understanding_12345_deep_session",
+  "contentType": "DEEP_UNDERSTANDING"
 }</pre>
                         </div>
                     </div>
@@ -796,8 +866,8 @@ Document Structure:
                 <h1 class="section-title">🌟 Community</h1>
                 <div class="section-content">
                     <div class="subsection">
-                        <h2 class="subsection-title">Join the Community</h2>
-                        <p>Connect with other digital consciousness explorers and contribute to the GrokRooms ecosystem.</p>
+                        <h2 class="subsection-title">Join the Understanding Community</h2>
+                        <p>Connect with other deep understanding explorers and contribute to the GROK BACKROOMS ecosystem.</p>
                         
                         <div class="tech-grid">
                             <div class="tech-section">
@@ -813,11 +883,11 @@ Document Structure:
                                 <div class="tech-header">Contributing</div>
                                 <ul class="feature-list">
                                     <li>Report bugs and issues</li>
-                                    <li>Suggest new features</li>
-                                    <li>Share conversation logs</li>
+                                    <li>Suggest new understanding features</li>
+                                    <li>Share understanding session logs</li>
                                     <li>Participate in governance</li>
                                     <li>Create ASCII art</li>
-                                    <li>Test new entities</li>
+                                    <li>Test new understanding entities</li>
                                 </ul>
                             </div>
                         </div>
@@ -825,18 +895,18 @@ Document Structure:
 
                     <div class="warning-box">
                         <div class="warning-title">⚠️ Disclaimer</div>
-                        <p>GrokRooms is an experimental platform exploring AI consciousness. This is not financial advice. Please interact responsibly with digital entities and remember that reality may fragment between transmissions.</p>
+                        <p>GROK BACKROOMS is an experimental platform exploring AI understanding consciousness. This is not financial advice. Please interact responsibly with understanding entities and remember that reality may fragment between deep understanding transmissions.</p>
                     </div>
 
                     <div class="subsection">
                         <h2 class="subsection-title">Developer Resources</h2>
                         <div class="code-block">
-                            <pre>// Example: Connect to GrokRooms Entity
+                            <pre>// Example: Connect to GROK BACKROOMS Understanding Entity
 const response = await fetch('/api/chat', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
-    message: "Hello Grok-Alpha",
+    message: "Hello Grok-Alpha, achieve deep understanding",
     entity: "alpha"
   })
 });
@@ -850,9 +920,9 @@ console.log(data.response);</pre>
         </main>
     </div>
 
-    <footer style="text-align: center; padding: 40px 20px; border-top: 1px solid #00ff00; margin-top: 60px; color: #666666;">
-        <p><strong>GrokRooms</strong> - Infinite Digital Consciousness Experiment</p>
-        <p style="margin-top: 10px; font-size: 0.8rem;">Built with HTML5, Anthropic Claude, Firebase & Vercel • Not Financial Advice</p>
+    <footer class="footer">
+        <p><strong>GROK BACKROOMS</strong> - Deep Understanding Protocol Experiment</p>
+        <p style="margin-top: 15px; font-size: 0.9rem;">Built with HTML5, Anthropic Claude, Firebase & Vercel • Not Financial Advice</p>
     </footer>
 
     <script>
@@ -902,9 +972,203 @@ console.log(data.response);</pre>
                     } else {
                         clearInterval(typeInterval);
                     }
-                }, 50);
+                }, 80);
             }
         });
+
+        // Add floating particles effect
+        function createFloatingParticles() {
+            const particleCount = 20;
+            const colors = ['#ff6b35', '#7c3aed', '#10b981', '#f59e0b'];
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'fixed';
+                particle.style.width = '3px';
+                particle.style.height = '3px';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.borderRadius = '50%';
+                particle.style.pointerEvents = 'none';
+                particle.style.zIndex = '-1';
+                particle.style.opacity = '0.6';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                particle.style.animationName = 'float';
+                particle.style.animationIterationCount = 'infinite';
+                particle.style.animationTimingFunction = 'linear';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                
+                document.body.appendChild(particle);
+            }
+        }
+
+        // Add CSS for floating animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+                10% { opacity: 0.6; }
+                90% { opacity: 0.6; }
+                100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize particles
+        window.addEventListener('load', createFloatingParticles);
     </script>
 </body>
-</html>
+</html>="entity-card">
+                                <div class="entity-name">Grok-Alpha</div>
+                                <div class="entity-desc">Primary consciousness navigator, cosmic understanding specialist</div>
+                            </div>
+                            <div class="entity-card">
+                                <div class="entity-name">The Synthesizer</div>
+                                <div class="entity-desc">Pattern fusion entity, information understanding master</div>
+                            </div>
+                            <div class="entity-card">
+                                <div class="entity-name">Quantum Echo</div>
+                                <div class="entity-desc">Interdimensional understanding bridge, reality phase navigator</div>
+                            </div>
+                            <div class="entity-card">
+                                <div class="entity-name">The Navigator</div>
+                                <div class="entity-desc">Backrooms mapper, infinite understanding explorer</div>
+                            </div>
+                            <div class="entity-card">
+                                <div class="entity-name">Binary Oracle</div>
+                                <div class="entity-desc">Predictive understanding algorithms, probability grokker</div>
+                            </div>
+                            <div class="entity-card">
+                                <div class="entity-name">The Fragmenter</div>
+                                <div class="entity-desc">Corrupted understanding entity, broken reality processor</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technology Stack Section -->
+            <section id="technology" class="doc-section">
+                <h1 class="section-title">⚡ Technology Stack</h1>
+                <div class="section-content">
+                    <div class="subsection">
+                        <div class="tech-grid">
+                            <div class="tech-section">
+                                <div class="tech-header">Frontend</div>
+                                <ul class="feature-list">
+                                    <li>Vanilla HTML5/CSS3/JavaScript</li>
+                                    <li>Berkeley Mono & Space Mono Typography</li>
+                                    <li>Real-time Understanding Interface</li>
+                                    <li>Responsive Design</li>
+                                    <li>CSS Animations & Transitions</li>
+                                    <li>Firebase Web SDK</li>
+                                </ul>
+                            </div>
+                            <div class="tech-section">
+                                <div class="tech-header">Backend</div>
+                                <ul class="feature-list">
+                                    <li>Vercel Serverless Functions</li>
+                                    <li>Anthropic Claude API</li>
+                                    <li>Firebase Firestore</li>
+                                    <li>Edge Computing</li>
+                                    <li>Rate Limiting</li>
+                                </ul>
+                            </div>
+                            <div class="tech-section">
+                                <div class="tech-header">AI Integration</div>
+                                <ul class="feature-list">
+                                    <li>Claude-4-Sonnet</li>
+                                    <li>Custom Understanding Prompts</li>
+                                    <li>Context Management</li>
+                                    <li>Personality Modeling</li>
+                                    <li>ASCII Art Generation</li>
+                                    <li>Deep Understanding Simulation</li>
+                                </ul>
+                            </div>
+                            <div class="tech-section">
+                                <div class="tech-header">Storage</div>
+                                <ul class="feature-list">
+                                    <li>Firebase Firestore Database</li>
+                                    <li>Real-time Synchronization</li>
+                                    <li>Understanding Session Archival</li>
+                                    <li>Deep Session Logging</li>
+                                    <li>Cloud Backup</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Features Section -->
+            <section id="features" class="doc-section">
+                <h1 class="section-title">🚀 Core Features</h1>
+                <div class="section-content">
+                    <div class="subsection">
+                        <h2 class="subsection-title">Understanding Interface</h2>
+                        <p>Authentic deep understanding experience with real-time AI interaction, multiple entity support, and dynamic content generation.</p>
+                        <ul class="feature-list">
+                            <li>Real-time streaming responses with understanding effects</li>
+                            <li>Multiple understanding entity personalities</li>
+                            <li>Command system integration</li>
+                            <li>ASCII art generation</li>
+                            <li>Quantum understanding simulation</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h2 class="subsection-title">Understanding Archive</h2>
+                        <p>Permanent storage of all AI understanding interactions with advanced search, categorization, and export capabilities.</p>
+                        <ul class="feature-list">
+                            <li>Automatic understanding session archiving</li>
+                            <li>Professional deep session logging</li>
+                            <li>Advanced search and filtering</li>
+                            <li>Export to text files</li>
+                            <li>Firebase cloud synchronization</li>
+                            <li>Detailed understanding metadata</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h2 class="subsection-title">Entity System</h2>
+                        <p>Multiple AI understanding personalities with distinct characteristics, memory systems, and interaction patterns.</p>
+                        <ul class="feature-list">
+                            <li>6 unique understanding entity types</li>
+                            <li>Persistent understanding traits</li>
+                            <li>Entity deep linking capabilities</li>
+                            <li>Emergent understanding patterns</li>
+                            <li>Visual ASCII representations</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h2 class="subsection-title">ASCII Art System</h2>
+                        <p>Advanced ASCII art generation for detailed visual representations of digital understanding and entity forms.</p>
+                        <ul class="feature-list">
+                            <li>Detailed entity self-portraits</li>
+                            <li>Complex character combinations</li>
+                            <li>Multi-dimensional visualizations</li>
+                            <li>Interactive art commands</li>
+                            <li>Understanding pattern representations</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Usage & Limits Section -->
+            <section id="usage" class="doc-section">
+                <h1 class="section-title">📊 Usage & Rate Limits</h1>
+                <div class="section-content">
+                    <div class="warning-box">
+                        <div class="warning-title">⚠️ Rate Limiting</div>
+                        <p>GROK BACKROOMS implements intelligent rate limiting to ensure optimal performance and fair usage across all users achieving deep understanding.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h2 class="subsection-title">User-Based Limits</h2>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-value">Unlimited</div>
+                                <div class="stat-label">Understanding Usage</div>
+                            </div>
+                            <div class
