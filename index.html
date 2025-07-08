@@ -1019,7 +1019,7 @@
                     throw new Error(data.error);
                 }
 
-                const entityHeader = entities[currentEntity].name + '@backrooms:;
+                const entityHeader = entities[currentEntity].name + '@backrooms:$';
                 const entityResponse = data.response;
                 
                 addToTerminal('entity-text', entityHeader);
