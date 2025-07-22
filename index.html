@@ -1290,11 +1290,10 @@ Y88b  d88P 888  T88b  Y88b. .d88P 888   Y88b  888  T88b  Y88b. .d88P Y88b. .d88P
                     }
                 }
                 
-                // Add separator between rounds
+                // Just add a small pause between rounds without visual separator
                 if (round < 2) {
-                    addRoundSeparator(round + 1);
                     currentConversationLog.push('--- Next round of Grok discussion ---');
-                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    await new Promise(resolve => setTimeout(resolve, 1000));
                 }
             }
             
