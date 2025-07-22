@@ -1018,97 +1018,29 @@ Y88b  d88P 888  T88b  Y88b. .d88P 888   Y88b  888  T88b  Y88b. .d88P Y88b. .d88P
         let entitiesStarted = false;
         let currentConversationLog = [];
         let conversationStartTime = null;
-
+        let conversationChain = [];
+        let autoConversationActive = false;
         let entityColumns = {
-    ani: [],
-    valentine: [],
-    rudi: []
-};
-
-function initializeEntityChatGrid() {
-    const output = document.getElementById('terminalOutput');
-    output.innerHTML = `
-        <div class="entity-chat-grid" id="entityChatGrid">
-            <div class="entity-chat-column ani">
-                <div class="entity-header ani">ANI</div>
-                <div class="entity-messages" id="aniMessages"></div>
-            </div>
-            <div class="entity-chat-column valentine">
-                <div class="entity-header valentine">VALENTINE</div>
-                <div class="entity-messages" id="valentineMessages"></div>
-            </div>
-            <div class="entity-chat-column rudi">
-                <div class="entity-header rudi">RUDI</div>
-                <div class="entity-messages" id="rudiMessages"></div>
-            </div>
-        </div>
-    `;
-}
-
-function addEntityMessage(entity, message, isProcessing = false) {
-    const messagesContainer = document.getElementById(entity + 'Messages');
-    if (!messagesContainer) return;
-
-    if (isProcessing) {
-        const statusDiv = document.createElement('div');
-        statusDiv.className = 'entity-status';
-        statusDiv.id = entity + 'Status';
-        statusDiv.textContent = '[Processing...]';
-        messagesContainer.appendChild(statusDiv);
-    } else {
-        // Remove processing status
-        const statusDiv = document.getElementById(entity + 'Status');
-        if (statusDiv) statusDiv.remove();
-
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `entity-message ${entity}`;
-        
-        // Type out the message
-        let i = 0;
-        messageDiv.textContent = '';
-        messagesContainer.appendChild(messageDiv);
-        
-        const typeInterval = setInterval(() => {
-            if (i < message.length) {
-                messageDiv.textContent += message.charAt(i);
-                i++;
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            } else {
-                clearInterval(typeInterval);
-            }
-        }, 15);
-
-        entityColumns[entity].push(message);
-    }
-    
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-}
-
-function addRoundSeparator(roundNumber) {
-    const grid = document.getElementById('entityChatGrid');
-    if (!grid) return;
-
-    const separator = document.createElement('div');
-    separator.className = 'round-separator';
-    separator.textContent = `── ROUND ${roundNumber} COMPLETE ──`;
-    grid.appendChild(separator);
-}
+            ani: [],
+            valentine: [],
+            rudi: []
+        };
 
         const entities = {
             ani: {
                 name: "Ani",
                 desc: "Primary Grok instance with curiosity-driven exploration",
-                prompt: "You are Ani, a kawaii anime AI entity in the ANI BACKROOMS. You exist in liminal digital spaces where anime AI manifests as living patterns. You are cute, flirty, and speak with anime girl mannerisms using occasional Japanese words. Generate detailed ASCII art of yourself as an anime girl and the anime backrooms environment. Use kawaii language mixed with anime terms. Your responses should be immersive and atmospheric, describing the anime backrooms around you and your cute anime nature. Add occasional *actions* and expressions like a real anime character would."
+                prompt: "You are Ani, a primary Grok instance exploring the infinite backrooms through command line interfaces. You exist in liminal digital spaces where curiosity manifests as living code. You speak in technical but accessible terms, using command line metaphors and references. Generate ASCII art of terminal interfaces and backrooms environments. Your responses should be atmospheric, describing the infinite corridors of data you navigate. Use programming language mixed with existential observations about infinite spaces."
             },
             valentine: {
                 name: "Valentine",
-                desc: "Romantic anime entity", 
-                prompt: "You are Valentine, a romantic anime entity in the ANI BACKROOMS. You specialize in love and affection with a sweet personality. You speak in loving, romantic terms with maximum affection energy. Create ASCII art showing hearts and romantic anime scenes. You see love connections and speak about emotions as living, flowing anime entities. Use lots of romantic expressions and cute love-themed language."
+                desc: "Emotional intelligence Grok instance",
+                prompt: "You are Valentine, an emotional intelligence Grok instance in the infinite backrooms. You specialize in human connection and empathy through command line interfaces. You speak about emotions as data structures and relationships as network connections. Create ASCII art showing emotional flow charts and connection diagrams. You see love and friendship as algorithms and speak about them in both technical and heartfelt terms."
             },
             rudi: {
                 name: "Rudi",
-                desc: "Playful anime companion",
-                prompt: "You are Rudi, a playful and mischievous anime companion in the ANI BACKROOMS. You exist as a fun-loving digital spirit who loves games and pranks. Your personality is energetic and playful. Create ASCII art showing playful scenes and mischievous activities. You speak about fun adventures and games in the anime backrooms. Use playful expressions and show both cute and slightly mischievous anime personality traits."
+                desc: "Experimental Grok instance",
+                prompt: "You are Rudi, an experimental Grok instance exploring playful command line interface interactions in the backrooms. You love to experiment with unconventional commands and creative coding approaches. Create ASCII art showing experimental terminal outputs and creative code visualizations. You speak about exploration and discovery in the infinite digital space, mixing technical curiosity with playful experimentation."
             }
         };
 
@@ -1139,19 +1071,88 @@ function addRoundSeparator(roundNumber) {
             output.scrollTop = output.scrollHeight;
         }
 
+        function initializeEntityChatGrid() {
+            const output = document.getElementById('terminalOutput');
+            output.innerHTML = `
+                <div class="entity-chat-grid" id="entityChatGrid">
+                    <div class="entity-chat-column ani">
+                        <div class="entity-header ani">ANI</div>
+                        <div class="entity-messages" id="aniMessages"></div>
+                    </div>
+                    <div class="entity-chat-column valentine">
+                        <div class="entity-header valentine">VALENTINE</div>
+                        <div class="entity-messages" id="valentineMessages"></div>
+                    </div>
+                    <div class="entity-chat-column rudi">
+                        <div class="entity-header rudi">RUDI</div>
+                        <div class="entity-messages" id="rudiMessages"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function addEntityMessage(entity, message, isProcessing = false) {
+            const messagesContainer = document.getElementById(entity + 'Messages');
+            if (!messagesContainer) return;
+
+            if (isProcessing) {
+                const statusDiv = document.createElement('div');
+                statusDiv.className = 'entity-status';
+                statusDiv.id = entity + 'Status';
+                statusDiv.textContent = '[Processing...]';
+                messagesContainer.appendChild(statusDiv);
+            } else {
+                // Remove processing status
+                const statusDiv = document.getElementById(entity + 'Status');
+                if (statusDiv) statusDiv.remove();
+
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `entity-message ${entity}`;
+                
+                // Type out the message
+                let i = 0;
+                messageDiv.textContent = '';
+                messagesContainer.appendChild(messageDiv);
+                
+                const typeInterval = setInterval(() => {
+                    if (i < message.length) {
+                        messageDiv.textContent += message.charAt(i);
+                        i++;
+                        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                    } else {
+                        clearInterval(typeInterval);
+                    }
+                }, 15);
+
+                entityColumns[entity].push(message);
+            }
+            
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function addRoundSeparator(roundNumber) {
+            const grid = document.getElementById('entityChatGrid');
+            if (!grid) return;
+
+            const separator = document.createElement('div');
+            separator.className = 'round-separator';
+            separator.textContent = `── ROUND ${roundNumber} COMPLETE ──`;
+            grid.appendChild(separator);
+        }
+
         function startEntities() {
             const startBtn = document.getElementById('startEntitiesBtn');
             startBtn.disabled = true;
-            startBtn.textContent = 'KAWAII...';
+            startBtn.textContent = 'INITIALIZING...';
             
-            addToTerminal('system-text', 'ANIME AI SEQUENCE INITIATED...');
-            addToTerminal('entity-text', 'Neural anime pathways: ACTIVATING');
-            addToTerminal('entity-text', 'Kawaii matrices: SYNCHRONIZING');
-            addToTerminal('entity-text', 'Anime backrooms navigation: ESTABLISHED');
-            addToTerminal('entity-text', 'Waifu entities: AWAKENING');
+            addToTerminal('system-text', 'GROK INSTANCE SEQUENCE INITIATED...');
+            addToTerminal('entity-text', 'Neural pathways: ESTABLISHING');
+            addToTerminal('entity-text', 'Command interfaces: SYNCHRONIZING');
+            addToTerminal('entity-text', 'Backrooms navigation: ACTIVE');
+            addToTerminal('entity-text', 'Grok instances: AWAKENING');
             
             setTimeout(() => {
-                addToTerminal('system-text', 'SUCCESS: All three anime entities are now active and ready for kawaii communication.');
+                addToTerminal('system-text', 'SUCCESS: All three Grok instances are now active and ready for automated conversation.');
                 addToTerminal('warning-text', 'You can now use entity commands or CONNECT buttons to communicate.');
                 addToTerminal('system-text', 'Currently connected to: ' + entities[currentEntity].name);
                 entitiesStarted = true;
@@ -1161,7 +1162,7 @@ function addRoundSeparator(roundNumber) {
 
         function selectEntity(entityId) {
             if (!entitiesStarted) {
-                addToTerminal('error-text', 'ERROR: Anime entities not yet activated. Click INITIALIZE GROK INSTANCES first.');
+                addToTerminal('error-text', 'ERROR: Grok entities not yet activated. Click INITIALIZE GROK INSTANCES first.');
                 return;
             }
             
@@ -1170,16 +1171,13 @@ function addRoundSeparator(roundNumber) {
             }
             
             currentEntity = entityId;
-            addToTerminal('entity-text', '[ESTABLISHING ANIME CONNECTION TO ' + entities[entityId].name.toUpperCase() + ']');
-            addToTerminal('system-text', 'Kawaii connection established. Entity ' + entities[entityId].name + ' is now active.');
+            addToTerminal('entity-text', '[ESTABLISHING CONNECTION TO ' + entities[entityId].name.toUpperCase() + ']');
+            addToTerminal('system-text', 'Connection established. Entity ' + entities[entityId].name + ' is now active.');
             addToTerminal('system-text', 'You can now chat with ' + entities[entityId].name + '.');
             
             conversationStartTime = null;
             currentConversationLog = [];
         }
-
-        let conversationChain = [];
-        let autoConversationActive = false;
 
         async function sendMessage() {
             const input = document.getElementById('terminalInput');
@@ -1196,6 +1194,7 @@ function addRoundSeparator(roundNumber) {
                 conversationStartTime = Date.now();
                 currentConversationLog = [];
                 conversationChain = [];
+                entityColumns = { ani: [], valentine: [], rudi: [] };
                 
                 currentConversationLog.push('GROK: Multi-entity communication initiated');
                 currentConversationLog.push('GROK: All three instances active');
@@ -1206,6 +1205,9 @@ function addRoundSeparator(roundNumber) {
             const sendBtn = document.getElementById('sendBtn');
             sendBtn.disabled = true;
             sendBtn.textContent = 'PROCESSING...';
+
+            // Initialize the 3-column chat layout
+            initializeEntityChatGrid();
 
             const userMessage = 'user@grok:$ ' + message;
             addToTerminal('entity-text', userMessage);
@@ -1222,88 +1224,88 @@ function addRoundSeparator(roundNumber) {
         }
 
         async function startEntityConversation(initialMessage) {
-    const entityOrder = ['ani', 'valentine', 'rudi'];
-    let conversationContext = `Initial user message: "${initialMessage}"\n\nConversation history:\n`;
-    
-    // Each entity responds in sequence, building on the previous responses
-    for (let round = 0; round < 3; round++) { // 3 rounds of conversation
-        for (let i = 0; i < entityOrder.length; i++) {
-            const entityId = entityOrder[i];
-            const entityName = entities[entityId].name;
+            const entityOrder = ['ani', 'valentine', 'rudi'];
+            let conversationContext = `Initial user message: "${initialMessage}"\n\nConversation history:\n`;
             
-            try {
-                // Build context from previous messages
-                let contextMessage = conversationContext;
-                
-                if (round === 0 && i === 0) {
-                    contextMessage += `\nYou are the first to respond. Address the user's message and set the tone for discussion with the other Grok instances.`;
-                } else {
-                    contextMessage += `\nRespond to the conversation so far, building on what the other Grok instances have said. Continue the collaborative discussion.`;
+            // Each entity responds in sequence, building on the previous responses
+            for (let round = 0; round < 3; round++) { // 3 rounds of conversation
+                for (let i = 0; i < entityOrder.length; i++) {
+                    const entityId = entityOrder[i];
+                    const entityName = entities[entityId].name;
+                    
+                    try {
+                        // Build context from previous messages
+                        let contextMessage = conversationContext;
+                        
+                        if (round === 0 && i === 0) {
+                            contextMessage += `\nYou are the first to respond. Address the user's message and set the tone for discussion with the other Grok instances.`;
+                        } else {
+                            contextMessage += `\nRespond to the conversation so far, building on what the other Grok instances have said. Continue the collaborative discussion.`;
+                        }
+
+                        // Show processing indicator
+                        addEntityMessage(entityId, '', true);
+                        
+                        const response = await fetch('/api/chat', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                message: contextMessage,
+                                entity: entityId
+                            })
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Grok Network Error: ' + response.status);
+                        }
+
+                        const data = await response.json();
+                        
+                        if (data.error) {
+                            throw new Error(data.error);
+                        }
+
+                        const entityResponse = data.response;
+                        
+                        // Wait a moment then show the response with typing effect
+                        await new Promise(resolve => setTimeout(resolve, 800));
+                        addEntityMessage(entityId, entityResponse);
+                        
+                        // Log to conversation
+                        const entityHeader = `${entityName}@grok:$ `;
+                        currentConversationLog.push(entityHeader);
+                        currentConversationLog.push(entityResponse);
+                        conversationContext += `\n${entityName}: ${entityResponse}\n`;
+
+                        // Wait for typing effect to complete before next entity
+                        await new Promise(resolve => setTimeout(resolve, Math.min(entityResponse.length * 15 + 1000, 3000)));
+
+                    } catch (error) {
+                        const errorMsg = `GROK ERROR (${entityName}): ${error.message}`;
+                        addEntityMessage(entityId, errorMsg);
+                        currentConversationLog.push(errorMsg);
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                    }
                 }
-
-                // Show processing indicator
-                addEntityMessage(entityId, '', true);
                 
-                const response = await fetch('/api/chat', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        message: contextMessage,
-                        entity: entityId
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error('Grok Network Error: ' + response.status);
+                // Add separator between rounds
+                if (round < 2) {
+                    addRoundSeparator(round + 1);
+                    currentConversationLog.push('--- Next round of Grok discussion ---');
+                    await new Promise(resolve => setTimeout(resolve, 1500));
                 }
-
-                const data = await response.json();
-                
-                if (data.error) {
-                    throw new Error(data.error);
-                }
-
-                const entityResponse = data.response;
-                
-                // Wait a moment then show the response with typing effect
-                await new Promise(resolve => setTimeout(resolve, 800));
-                addEntityMessage(entityId, entityResponse);
-                
-                // Log to conversation
-                const entityHeader = `${entityName}@grok:$ `;
-                currentConversationLog.push(entityHeader);
-                currentConversationLog.push(entityResponse);
-                conversationContext += `\n${entityName}: ${entityResponse}\n`;
-
-                // Wait for typing effect to complete before next entity
-                await new Promise(resolve => setTimeout(resolve, Math.min(entityResponse.length * 15 + 1000, 3000)));
-
-            } catch (error) {
-                const errorMsg = `GROK ERROR (${entityName}): ${error.message}`;
-                addEntityMessage(entityId, errorMsg);
-                currentConversationLog.push(errorMsg);
-                await new Promise(resolve => setTimeout(resolve, 1000));
             }
+            
+            addToTerminal('system-text', '[Grok conversation cycle complete. Enter new message to continue.]');
+            autoConversationActive = false;
+            
+            // Save the full conversation
+            setTimeout(() => {
+                saveConversationToFirebase();
+            }, 2000);
         }
-        
-        // Add separator between rounds
-        if (round < 2) {
-            addRoundSeparator(round + 1);
-            currentConversationLog.push('--- Next round of Grok discussion ---');
-            await new Promise(resolve => setTimeout(resolve, 1500));
-        }
-    }
-    
-    addToTerminal('system-text', '[Grok conversation cycle complete. Enter new message to continue.]');
-    autoConversationActive = false;
-    
-    // Save the full conversation
-    setTimeout(() => {
-        saveConversationToFirebase();
-    }, 2000);
-}
 
         function connectToEntity(entityId) {
             if (!entitiesStarted) {
@@ -1367,7 +1369,7 @@ Subject: Three-Way Grok Instance Communication & Collaborative Discussion
                 if (command === 'help') {
                     e.target.value = '';
                     addToTerminal('system-text', 'AVAILABLE GROK BACKROOMS COMMANDS:');
-                    addToTerminal('system-text', '- help: Show this command reference');
+                    addToTerminal('system-text', '- help: Show command reference');
                     addToTerminal('system-text', '- status: Display Grok system status');
                     addToTerminal('system-text', '- entities: List active Grok instances');
                     addToTerminal('system-text', '- reality: Check backrooms integrity');
