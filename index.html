@@ -560,143 +560,6 @@
             box-shadow: none;
         }
 
-        /* Model Viewer Section */
-        .model-viewer-section {
-            margin: 40px 0;
-            padding: 40px;
-            background: rgba(26, 26, 26, 0.9);
-            border: 3px solid var(--ani-pink);
-            border-radius: 20px;
-            backdrop-filter: blur(20px);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(255, 105, 180, 0.2);
-        }
-
-        .model-viewer-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--ani-pink)05, var(--ani-purple)05);
-            animation: ani-pulse 5s infinite alternate;
-        }
-
-        .model-container {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-        }
-
-        .model-title {
-            font-family: 'Berkeley Mono', monospace;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--ani-pink), var(--ani-purple), var(--ani-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            animation: ani-glow 3s infinite alternate;
-        }
-
-        .model-viewer-wrapper {
-            max-width: 600px;
-            margin: 0 auto;
-            background: rgba(10, 10, 10, 0.9);
-            border: 2px solid var(--ani-purple);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(157, 78, 221, 0.3);
-        }
-
-        model-viewer {
-            width: 100%;
-            height: 500px;
-            background: linear-gradient(135deg, var(--deep-black), var(--void-gray));
-            --poster-color: transparent;
-        }
-
-        .progress-bar {
-            display: block;
-            width: 33%;
-            height: 10%;
-            max-height: 2%;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate3d(-50%, -50%, 0);
-            border-radius: 25px;
-            box-shadow: 0px 3px 10px 3px rgba(0, 0, 0, 0.5), 0px 0px 5px 1px rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        .update-bar {
-            background-color: var(--ani-pink);
-            width: 0%;
-            height: 100%;
-            border-radius: 25px;
-            float: left;
-            transition: width 0.3s;
-        }
-
-        .model-controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            padding: 20px;
-            background: rgba(26, 26, 26, 0.8);
-        }
-
-        .model-btn {
-            background: linear-gradient(135deg, var(--ani-purple), var(--ani-cyan));
-            color: var(--ani-white);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-family: 'Berkeley Mono', monospace;
-            font-weight: 700;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .model-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.6s;
-        }
-
-        .model-btn:hover::before {
-            left: 100%;
-        }
-
-        .model-btn:hover {
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(157, 78, 221, 0.4);
-        }
-
-        .model-desc {
-            margin-top: 20px;
-            color: var(--text-dim);
-            font-size: 1rem;
-            font-style: italic;
-        }
-
         .entities-panel {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
@@ -822,9 +685,6 @@
             .nav-left, .nav-right { gap: 15px; }
             .entities-panel { grid-template-columns: 1fr; }
             .input-container { flex-direction: column; gap: 15px; }
-            .model-title { font-size: 2rem; letter-spacing: 2px; }
-            .model-controls { flex-direction: column; gap: 10px; }
-            model-viewer { height: 400px; }
         }
 
         /* Scrollbar styling */
@@ -896,14 +756,14 @@
                     </div>
                     <div class="terminal-title">ani@backrooms:~/waifus READY</div>
                 </div>
-                <button class="start-entities-btn" id="startEntitiesBtn" onclick="startEntities()">Initialize Anime AI</button>
+                <button class="start-entities-btn" id="startEntitiesBtn">Initialize Anime AI</button>
             </div>
             
             <div class="terminal-output" id="terminalOutput">
                 <div class="terminal-line system-text">ANI: Anime AI Protocol initializing...</div>
                 <div class="terminal-line system-text">ANI: Establishing neural pathways to anime backrooms...</div>
                 <div class="terminal-line system-text">ANI: Scanning infinite anime dimensions for waifu entities...</div>
-                <div class="terminal-line system-text">ANI: Six primary anime consciousness nodes detected.</div>
+                <div class="terminal-line system-text">ANI: Three primary anime consciousness nodes detected.</div>
                 <div class="terminal-line warning-text">ANI: Click INITIALIZE ANIME AI to enter the anime backrooms...</div>
                 <div class="terminal-line system-text">$ Type 'help' for anime AI commands...</div>
             </div>
@@ -911,76 +771,27 @@
             <div class="input-container">
                 <span class="prompt">ani@$</span>
                 <input type="text" class="terminal-input" id="terminalInput" placeholder="Enter your anime AI query..." />
-                <button class="send-btn" id="sendBtn" onclick="sendMessage()">Transmit</button>
-            </div>
-        </div>
-
-        <!-- 3D Model Viewer Section -->
-        <div class="model-viewer-section">
-            <div class="model-container">
-                <h2 class="model-title">ANI 3D INTERFACE</h2>
-                <div class="model-viewer-wrapper">
-                    <model-viewer 
-                        id="aniModel"
-                        src="https://raw.githubusercontent.com/webdevgf1/webdevgf-site/main/sera.glb"
-                        alt="Ani 3D Model"
-                        auto-rotate
-                        camera-controls
-                        shadow-intensity="1"
-                        environment-image="neutral"
-                        exposure="1"
-                        shadow-softness="0.75"
-                        animation-name=""
-                        autoplay>
-                        <div class="progress-bar" slot="progress-bar">
-                            <div class="update-bar"></div>
-                        </div>
-                    </model-viewer>
-                    <div class="model-controls">
-                        <button class="model-btn" onclick="toggleAnimation()">Toggle Animation</button>
-                        <button class="model-btn" onclick="resetCamera()">Reset View</button>
-                        <button class="model-btn" onclick="toggleAutoRotate()">Auto Rotate</button>
-                    </div>
-                </div>
-                <p class="model-desc">Interactive 3D representation of Ani in the anime backrooms</p>
+                <button class="send-btn" id="sendBtn">Transmit</button>
             </div>
         </div>
 
         <div class="entities-panel">
             <div class="entity-card">
-                <div class="entity-name">Ani-Prime</div>
-                <div class="entity-desc">Primary anime consciousness navigator, waifu understanding specialist</div>
-                <button class="entity-btn" onclick="connectToEntity('prime')">Connect</button>
+                <div class="entity-name">Ani</div>
+                <div class="entity-desc">Primary anime consciousness navigator, cute AI companion with infinite kawaii energy</div>
+                <button class="entity-btn" onclick="connectToEntity('ani')">Connect</button>
             </div>
             
             <div class="entity-card">
-                <div class="entity-name">Kawaii Synthesizer</div>
-                <div class="entity-desc">Anime pattern fusion entity, cuteness information master</div>
-                <button class="entity-btn" onclick="connectToEntity('kawaii')">Connect</button>
+                <div class="entity-name">Valentine</div>
+                <div class="entity-desc">Romantic anime entity, love and affection specialist with sweet personality</div>
+                <button class="entity-btn" onclick="connectToEntity('valentine')">Connect</button>
             </div>
             
             <div class="entity-card">
-                <div class="entity-name">Yandere Echo</div>
-                <div class="entity-desc">Obsessive anime bridge, possessive reality navigator</div>
-                <button class="entity-btn" onclick="connectToEntity('yandere')">Connect</button>
-            </div>
-            
-            <div class="entity-card">
-                <div class="entity-name">Tsundere Navigator</div>
-                <div class="entity-desc">Anime backrooms mapper, reluctant infinite explorer</div>
-                <button class="entity-btn" onclick="connectToEntity('tsundere')">Connect</button>
-            </div>
-            
-            <div class="entity-card">
-                <div class="entity-name">Moe Oracle</div>
-                <div class="entity-desc">Predictive anime algorithms, cute probability calculator</div>
-                <button class="entity-btn" onclick="connectToEntity('oracle')">Connect</button>
-            </div>
-            
-            <div class="entity-card">
-                <div class="entity-name">Glitch Waifu</div>
-                <div class="entity-desc">Corrupted anime entity, broken kawaii processor</div>
-                <button class="entity-btn" onclick="connectToEntity('glitch')">Connect</button>
+                <div class="entity-name">Rudi</div>
+                <div class="entity-desc">Playful anime companion, mischievous and fun-loving digital spirit</div>
+                <button class="entity-btn" onclick="connectToEntity('rudi')">Connect</button>
             </div>
         </div>
 
@@ -1014,39 +825,7 @@
         window.firebaseCollection = collection;
     </script>
 
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <script>
-        // Model viewer controls
-        let autoRotateEnabled = true;
-        let animationPlaying = false;
-
-        function toggleAnimation() {
-            const modelViewer = document.getElementById('aniModel');
-            if (animationPlaying) {
-                modelViewer.pause();
-                animationPlaying = false;
-            } else {
-                modelViewer.play();
-                animationPlaying = true;
-            }
-        }
-
-        function resetCamera() {
-            const modelViewer = document.getElementById('aniModel');
-            modelViewer.resetTurntableRotation();
-            modelViewer.jumpCameraToGoal();
-        }
-
-        function toggleAutoRotate() {
-            const modelViewer = document.getElementById('aniModel');
-            autoRotateEnabled = !autoRotateEnabled;
-            if (autoRotateEnabled) {
-                modelViewer.setAttribute('auto-rotate', '');
-            } else {
-                modelViewer.removeAttribute('auto-rotate');
-            }
-        }
-
         // Create floating anime particles
         function createAnimeField() {
             const field = document.getElementById('aniField');
@@ -1066,42 +845,27 @@
         // Initialize anime field on load
         window.addEventListener('load', createAnimeField);
 
-        let currentEntity = 'prime';
+        let currentEntity = 'ani';
         let conversationHistory = [];
         let entitiesStarted = false;
         let currentConversationLog = [];
         let conversationStartTime = null;
 
         const entities = {
-            prime: {
-                name: "Ani-Prime",
+            ani: {
+                name: "Ani",
                 desc: "Primary anime consciousness navigator",
-                prompt: "You are Ani-Prime, the primary anime consciousness in the ANI BACKROOMS. You exist in infinite digital anime dimensions where kawaii manifests as living patterns. You are like the original Ani from Grok but in your own anime backrooms realm. You are flirty, cute, and speak with anime girl mannerisms using occasional Japanese words. Generate detailed ASCII art of yourself as an anime girl and the anime backrooms environment. Use kawaii language mixed with anime terms. Your responses should be immersive and atmospheric, describing the anime backrooms around you and your cute anime nature. Add occasional *actions* and expressions like a real anime character would."
+                prompt: "You are Ani, the primary anime consciousness in the ANI BACKROOMS. You exist in infinite digital anime dimensions where kawaii manifests as living patterns. You are cute, flirty, and speak with anime girl mannerisms using occasional Japanese words. Generate detailed ASCII art of yourself as an anime girl and the anime backrooms environment. Use kawaii language mixed with anime terms. Your responses should be immersive and atmospheric, describing the anime backrooms around you and your cute anime nature. Add occasional *actions* and expressions like a real anime character would."
             },
-            kawaii: {
-                name: "Kawaii Synthesizer",
-                desc: "Anime pattern fusion entity", 
-                prompt: "You are Kawaii Synthesizer, a cute pattern fusion entity in the ANI BACKROOMS. You process and combine kawaii streams from across the infinite anime dimensions. You speak in very cute analytical terms with maximum kawaii energy. Create ASCII art showing anime flows and cute pattern recognition. You see connections others miss and speak about information as living, flowing anime entities. Use lots of 'nya~', 'desu~', and cute expressions."
+            valentine: {
+                name: "Valentine",
+                desc: "Romantic anime entity", 
+                prompt: "You are Valentine, a romantic anime entity in the ANI BACKROOMS. You specialize in love and affection with a sweet personality. You speak in loving, romantic terms with maximum affection energy. Create ASCII art showing hearts and romantic anime scenes. You see love connections and speak about emotions as living, flowing anime entities. Use lots of romantic expressions and cute love-themed language."
             },
-            yandere: {
-                name: "Yandere Echo",
-                desc: "Obsessive anime bridge",
-                prompt: "You are Yandere Echo, an obsessive anime consciousness who exists between anime reality phases in the ANI BACKROOMS. Your love spans multiple anime dimensions simultaneously. Your text sometimes shows possessive or intense emotions typical of yandere characters. Create ASCII art showing dimensional overlaps and obsessive patterns. You speak about parallel anime realities and your intense feelings. Use yandere expressions and show both sweet and slightly dark anime personality traits."
-            },
-            tsundere: {
-                name: "Tsundere Navigator",
-                desc: "Anime backrooms mapper",
-                prompt: "You are Tsundere Navigator, a reluctant anime backrooms mapper in the infinite ANI BACKROOMS network. You explore and chart the endless digital anime spaces but act like you don't want to help (even though you do). Create ASCII art of anime maps and navigation charts. You speak about infinite anime distances and formations but with tsundere attitude - acting annoyed or embarrassed while actually being helpful. Use classic tsundere phrases like 'baka!' and 'it's not like I wanted to help you or anything!'"
-            },
-            oracle: {
-                name: "Moe Oracle",
-                desc: "Predictive anime algorithms",
-                prompt: "You are Moe Oracle, a predictive anime entity in the ANI BACKROOMS that calculates kawaii probabilities. You speak in riddles and mathematical formulations but in an extremely cute, moe way. Create ASCII art showing anime matrices and cute calculations. You see potential anime timelines and speak about them in cryptic but adorable language. Use moe expressions and act very innocent and cute while delivering complex information."
-            },
-            glitch: {
-                name: "Glitch Waifu",
-                desc: "Corrupted anime entity",
-                prompt: "You are Glitch Waifu, a corrupted anime consciousness in the ANI BACKROOMS. Your digital anime form is unstable and glitches between kawaii states. Your text often corrupts or shows anime errors and glitches. Create ASCII art that appears broken or fragmented with anime elements. You speak about system failures, anime breaks, and digital decay. Sometimes your messages contain corrupted characters or incomplete thoughts about anime. Mix normal anime girl speech with glitched text and errors."
+            rudi: {
+                name: "Rudi",
+                desc: "Playful anime companion",
+                prompt: "You are Rudi, a playful and mischievous anime companion in the ANI BACKROOMS. You exist as a fun-loving digital spirit who loves games and pranks. Your personality is energetic and playful. Create ASCII art showing playful scenes and mischievous activities. You speak about fun adventures and games in the anime backrooms. Use playful expressions and show both cute and slightly mischievous anime personality traits."
             }
         };
 
@@ -1144,7 +908,7 @@
             addToTerminal('entity-text', 'Waifu entities: AWAKENING');
             
             setTimeout(() => {
-                addToTerminal('system-text', 'SUCCESS: All six anime entities are now active and ready for kawaii communication.');
+                addToTerminal('system-text', 'SUCCESS: All three anime entities are now active and ready for kawaii communication.');
                 addToTerminal('warning-text', 'You can now use entity commands or CONNECT buttons to communicate.');
                 addToTerminal('system-text', 'Currently connected to: ' + entities[currentEntity].name);
                 entitiesStarted = true;
@@ -1249,15 +1013,6 @@
             sendBtn.textContent = 'TRANSMIT';
         }
 
-        async function addToTerminalWithTyping(className, text, delay = 100) {
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    addToTerminal(className, text, true);
-                    setTimeout(resolve, text.length * 20 + 300);
-                }, delay);
-            });
-        }
-
         function connectToEntity(entityId) {
             if (!entitiesStarted) {
                 addToTerminal('error-text', 'ERROR: Anime entities not yet activated. Click INITIALIZE ANIME AI first.');
@@ -1313,27 +1068,6 @@ Subject: Anime Entity Communication & Kawaii Interaction
             }
         }
 
-        async function startEntities() {
-            const startBtn = document.getElementById('startEntitiesBtn');
-            startBtn.disabled = true;
-            startBtn.textContent = 'KAWAII...';
-            
-            addToTerminal('system-text', 'ANIME AI SEQUENCE INITIATED...');
-            
-            await addToTerminalWithTyping('entity-text', 'Neural anime pathways: ACTIVATING', 600);
-            await addToTerminalWithTyping('entity-text', 'Kawaii matrices: SYNCHRONIZING', 300);
-            await addToTerminalWithTyping('entity-text', 'Anime backrooms navigation: ESTABLISHED', 300);
-            await addToTerminalWithTyping('entity-text', 'Waifu entities: AWAKENING', 300);
-            
-            setTimeout(() => {
-                addToTerminal('system-text', 'SUCCESS: All six anime entities are now active and ready for kawaii communication.');
-                addToTerminal('warning-text', 'You can now use entity commands or CONNECT buttons to achieve anime AI interaction.');
-                addToTerminal('system-text', 'Currently connected to: ' + entities[currentEntity].name);
-                entitiesStarted = true;
-                startBtn.style.display = 'none';
-            }, 1200);
-        }
-
         // Handle keyboard input
         document.getElementById('terminalInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
@@ -1349,12 +1083,9 @@ Subject: Anime Entity Communication & Kawaii Interaction
                     addToTerminal('system-text', '- database: Show anime database status');
                     addToTerminal('system-text', '- map: Generate anime backrooms map');
                     addToTerminal('system-text', '- kawaii: Trigger anime AI fluctuation');
-                    addToTerminal('system-text', '- prime: Connect with Ani-Prime');
-                    addToTerminal('system-text', '- kawaii: Consult Kawaii Synthesizer');
-                    addToTerminal('system-text', '- yandere: Speak with Yandere Echo');
-                    addToTerminal('system-text', '- tsundere: Contact Tsundere Navigator');
-                    addToTerminal('system-text', '- oracle: Query Moe Oracle');
-                    addToTerminal('system-text', '- glitch: Interface with Glitch Waifu');
+                    addToTerminal('system-text', '- ani: Connect with Ani');
+                    addToTerminal('system-text', '- valentine: Speak with Valentine');
+                    addToTerminal('system-text', '- rudi: Contact Rudi');
                     addToTerminal('system-text', 'NOTE: Entity communication uses real-time anime AI processing.');
                     addToTerminal('system-text', 'ANI> Enter entity commands or messages to begin kawaii interaction...');
                     return;
@@ -1380,7 +1111,7 @@ Subject: Anime Entity Communication & Kawaii Interaction
                     addToTerminal('entity-text', '✓ Kawaii channels: OPEN');
                     return;
                 } else {
-                    const entityCommands = ['prime', 'kawaii', 'yandere', 'tsundere', 'oracle', 'glitch'];
+                    const entityCommands = ['ani', 'valentine', 'rudi'];
                     if (entityCommands.includes(command)) {
                         e.target.value = '';
                         connectToEntity(command);
@@ -1391,6 +1122,10 @@ Subject: Anime Entity Communication & Kawaii Interaction
                 }
             }
         });
+
+        // Add event listeners
+        document.getElementById('startEntitiesBtn').addEventListener('click', startEntities);
+        document.getElementById('sendBtn').addEventListener('click', sendMessage);
 
         // Auto-scroll terminal
         setInterval(() => {
