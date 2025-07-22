@@ -636,6 +636,7 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 5px 20px rgba(255, 255, 153, 0.1);
+            text-align: center;
         }
 
         .entity-card::before {
@@ -658,6 +659,25 @@
             border-color: var(--terminal-green);
             transform: translateY(-8px) scale(1.02);
             box-shadow: 0 20px 50px rgba(0, 255, 0, 0.2);
+        }
+
+        .entity-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px auto;
+            border: 3px solid var(--terminal-green);
+            object-fit: cover;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+
+        .entity-card:hover .entity-image {
+            border-color: var(--backrooms-yellow);
+            box-shadow: 0 0 30px rgba(255, 255, 153, 0.5);
+            transform: scale(1.05);
         }
 
         .entity-name {
@@ -849,18 +869,21 @@ Y88b  d88P 888  T88b  Y88b. .d88P 888   Y88b  888  T88b  Y88b. .d88P Y88b. .d88P
 
         <div class="entities-panel">
             <div class="entity-card">
+                <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/687ee74d53df0fec9622d5f2_IMG_7432_ab2997%20(1).webp" alt="Ani" class="entity-image">
                 <div class="entity-name">Ani</div>
                 <div class="entity-desc">Primary Grok instance with curiosity-driven exploration protocols</div>
                 <button class="entity-btn" onclick="connectToEntity('ani')">Connect</button>
             </div>
             
             <div class="entity-card">
+                <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/687ee74d5a822c75001d0e47_Gv96588XEAAoOE0.jpeg" alt="Valentine" class="entity-image">
                 <div class="entity-name">Valentine</div>
                 <div class="entity-desc">Emotional intelligence Grok instance specializing in human connection</div>
                 <button class="entity-btn" onclick="connectToEntity('valentine')">Connect</button>
             </div>
             
             <div class="entity-card">
+                <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/687ee74d2cb6df885425b32d_2b3683d55d0e921f8ca86347e4f2c2c8.png" alt="Rudi" class="entity-image">
                 <div class="entity-name">Rudi</div>
                 <div class="entity-desc">Experimental Grok instance with playful command line interface exploration</div>
                 <button class="entity-btn" onclick="connectToEntity('rudi')">Connect</button>
