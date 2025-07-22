@@ -15,16 +15,18 @@
         }
 
         :root {
-            --ani-pink: #ff69b4;
-            --ani-purple: #9d4edd;
-            --ani-cyan: #00f5ff;
-            --grok-orange: #ff6b35;
+            --backrooms-yellow: #ffff99;
+            --backrooms-dark: #2a2a00;
+            --backrooms-light: #ffffe6;
+            --backrooms-shadow: #404000;
+            --backrooms-buzz: #ffffcc;
             --deep-black: #0a0a0a;
             --void-gray: #1a1a1a;
-            --ani-white: #ffffff;
+            --terminal-green: #00ff00;
             --text-light: #e5e7eb;
-            --text-dim: #6b7280;
-            --anime-red: #ff1744;
+            --text-dim: #999966;
+            --warning-red: #ff4444;
+            --liminal-beige: #f4f1e8;
         }
 
         body {
@@ -36,7 +38,7 @@
             position: relative;
         }
 
-        /* Anime-themed background effect */
+        /* Backrooms infinite corridors effect */
         body::before {
             content: '';
             position: fixed;
@@ -45,22 +47,39 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 20%, var(--ani-pink)15 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, var(--ani-purple)15 0%, transparent 50%),
-                radial-gradient(circle at 60% 30%, var(--ani-cyan)15 0%, transparent 50%),
-                linear-gradient(45deg, var(--deep-black) 0%, var(--void-gray) 100%);
-            animation: animeFlow 25s infinite alternate;
+                repeating-linear-gradient(
+                    0deg,
+                    var(--backrooms-dark) 0px,
+                    var(--backrooms-yellow) 2px,
+                    var(--backrooms-dark) 4px,
+                    transparent 6px,
+                    transparent 20px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    var(--backrooms-dark) 0px,
+                    var(--backrooms-yellow) 1px,
+                    var(--backrooms-dark) 2px,
+                    transparent 4px,
+                    transparent 40px
+                ),
+                radial-gradient(circle at 30% 70%, var(--backrooms-shadow)15 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, var(--void-gray)20 0%, transparent 60%),
+                linear-gradient(180deg, var(--deep-black) 0%, var(--backrooms-dark) 100%);
+            animation: backroomsShift 30s infinite linear;
             z-index: -2;
+            opacity: 0.3;
         }
 
-        @keyframes animeFlow {
-            0% { transform: rotate(0deg) scale(1); filter: hue-rotate(0deg); }
-            33% { transform: rotate(120deg) scale(1.1); filter: hue-rotate(60deg); }
-            66% { transform: rotate(240deg) scale(0.9); filter: hue-rotate(120deg); }
-            100% { transform: rotate(360deg) scale(1); filter: hue-rotate(180deg); }
+        @keyframes backroomsShift {
+            0% { transform: translateX(0) translateY(0) rotate(0deg); filter: hue-rotate(0deg); }
+            25% { transform: translateX(-10px) translateY(-5px) rotate(0.5deg); filter: hue-rotate(10deg); }
+            50% { transform: translateX(5px) translateY(-10px) rotate(-0.5deg); filter: hue-rotate(-5deg); }
+            75% { transform: translateX(-5px) translateY(5px) rotate(0.3deg); filter: hue-rotate(15deg); }
+            100% { transform: translateX(0) translateY(0) rotate(0deg); filter: hue-rotate(0deg); }
         }
 
-        /* Floating anime particles */
+        /* Floating backrooms particles */
         .ani-field {
             position: fixed;
             top: 0;
@@ -73,31 +92,32 @@
 
         .anime-particle {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--ani-pink);
+            width: 3px;
+            height: 3px;
+            background: var(--backrooms-yellow);
             border-radius: 50%;
-            animation: anime-drift 12s infinite linear;
-            box-shadow: 0 0 15px currentColor;
+            animation: backrooms-drift 15s infinite linear;
+            box-shadow: 0 0 10px currentColor;
+            opacity: 0.6;
         }
 
-        @keyframes anime-drift {
+        @keyframes backrooms-drift {
             0% { 
                 transform: translateY(100vh) translateX(0) rotate(0deg); 
                 opacity: 0; 
-                box-shadow: 0 0 5px currentColor;
+                box-shadow: 0 0 3px currentColor;
             }
-            10% { opacity: 1; }
+            10% { opacity: 0.6; }
             50% { 
-                opacity: 0.9; 
-                box-shadow: 0 0 20px currentColor;
-                transform: translateY(50vh) translateX(30px) rotate(180deg);
+                opacity: 0.8; 
+                box-shadow: 0 0 15px currentColor;
+                transform: translateY(50vh) translateX(20px) rotate(180deg);
             }
-            90% { opacity: 1; }
+            90% { opacity: 0.6; }
             100% { 
-                transform: translateY(-20vh) translateX(-15px) rotate(360deg); 
+                transform: translateY(-20vh) translateX(-10px) rotate(360deg); 
                 opacity: 0; 
-                box-shadow: 0 0 5px currentColor;
+                box-shadow: 0 0 3px currentColor;
             }
         }
 
@@ -110,11 +130,11 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 30px;
-            background: rgba(10, 10, 10, 0.9);
+            background: rgba(10, 10, 10, 0.95);
             backdrop-filter: blur(15px);
-            border-bottom: 2px solid var(--ani-pink);
+            border-bottom: 2px solid var(--backrooms-yellow);
             z-index: 100;
-            box-shadow: 0 4px 20px rgba(255, 105, 180, 0.3);
+            box-shadow: 0 4px 20px rgba(255, 255, 153, 0.2);
         }
 
         .nav-left {
@@ -129,8 +149,8 @@
         }
 
         .nav-btn {
-            background: linear-gradient(135deg, var(--ani-pink), var(--ani-purple));
-            color: var(--ani-white);
+            background: linear-gradient(135deg, var(--backrooms-yellow), var(--backrooms-shadow));
+            color: var(--deep-black);
             border: none;
             padding: 10px 20px;
             border-radius: 8px;
@@ -164,14 +184,14 @@
 
         .nav-btn:hover {
             transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.5);
+            box-shadow: 0 8px 25px rgba(255, 255, 153, 0.4);
             filter: brightness(1.1);
         }
 
         .social-btn {
             width: 45px;
             height: 45px;
-            border: 2px solid var(--ani-pink);
+            border: 2px solid var(--backrooms-yellow);
             border-radius: 12px;
             background: transparent;
             cursor: pointer;
@@ -190,7 +210,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, var(--ani-pink), var(--ani-purple));
+            background: linear-gradient(135deg, var(--backrooms-yellow), var(--backrooms-shadow));
             opacity: 0;
             transition: opacity 0.4s;
         }
@@ -201,8 +221,8 @@
 
         .social-btn:hover {
             transform: scale(1.15) rotate(5deg);
-            box-shadow: 0 0 30px var(--ani-pink);
-            border-color: var(--ani-cyan);
+            box-shadow: 0 0 30px var(--backrooms-yellow);
+            border-color: var(--terminal-green);
         }
 
         .social-btn img {
@@ -230,12 +250,13 @@
             text-align: center;
             margin-bottom: 40px;
             padding: 40px;
-            background: rgba(26, 26, 26, 0.8);
+            background: rgba(26, 26, 26, 0.9);
             border-radius: 20px;
-            border: 3px solid var(--ani-pink);
+            border: 3px solid var(--backrooms-yellow);
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(20px);
+            box-shadow: 0 0 30px rgba(255, 255, 153, 0.1);
         }
 
         .header::before {
@@ -245,14 +266,31 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, var(--ani-pink)08, var(--ani-purple)08);
-            animation: ani-pulse 5s infinite alternate;
+            background: linear-gradient(135deg, var(--backrooms-dark)08, var(--backrooms-shadow)08);
+            animation: liminal-pulse 8s infinite alternate;
         }
 
-        @keyframes ani-pulse {
+        @keyframes liminal-pulse {
             0% { opacity: 0.1; transform: scale(1); }
-            50% { opacity: 0.3; transform: scale(1.02); }
+            50% { opacity: 0.2; transform: scale(1.01); }
             100% { opacity: 0.1; transform: scale(1); }
+        }
+
+        .ascii-art {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.4rem;
+            color: var(--terminal-green);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 0 10px var(--terminal-green);
+            animation: terminal-flicker 3s infinite alternate;
+        }
+
+        @keyframes terminal-flicker {
+            0% { opacity: 0.8; text-shadow: 0 0 5px var(--terminal-green); }
+            50% { opacity: 1; text-shadow: 0 0 15px var(--terminal-green); }
+            100% { opacity: 0.9; text-shadow: 0 0 8px var(--terminal-green); }
         }
 
         .title {
@@ -260,7 +298,7 @@
             font-size: 4.5rem;
             font-weight: 700;
             margin-bottom: 15px;
-            background: linear-gradient(135deg, var(--ani-pink), var(--ani-purple), var(--ani-cyan));
+            background: linear-gradient(135deg, var(--backrooms-yellow), var(--terminal-green), var(--backrooms-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -268,25 +306,39 @@
             position: relative;
             z-index: 1;
             text-transform: uppercase;
-            animation: ani-glow 3s infinite alternate;
+            animation: backrooms-glow 4s infinite alternate;
         }
 
-        @keyframes ani-glow {
-            0% { filter: drop-shadow(0 0 10px var(--ani-pink)); }
-            50% { filter: drop-shadow(0 0 20px var(--ani-purple)); }
-            100% { filter: drop-shadow(0 0 15px var(--ani-cyan)); }
+        @keyframes backrooms-glow {
+            0% { filter: drop-shadow(0 0 10px var(--backrooms-yellow)); }
+            50% { filter: drop-shadow(0 0 20px var(--terminal-green)); }
+            100% { filter: drop-shadow(0 0 15px var(--backrooms-light)); }
         }
 
         .subtitle {
             font-family: 'Berkeley Mono', monospace;
             font-size: 1.3rem;
-            color: var(--ani-cyan);
+            color: var(--terminal-green);
             margin-bottom: 20px;
             position: relative;
             z-index: 1;
             text-transform: uppercase;
             letter-spacing: 2px;
             opacity: 0.9;
+        }
+
+        .description {
+            font-family: 'Space Mono', monospace;
+            font-size: 1rem;
+            color: var(--text-dim);
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+            font-style: italic;
+            line-height: 1.5;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .status-indicators {
@@ -303,7 +355,7 @@
             align-items: center;
             gap: 10px;
             font-size: 1rem;
-            color: var(--ani-pink);
+            color: var(--backrooms-yellow);
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -313,26 +365,26 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: var(--ani-pink);
-            animation: ani-heartbeat 2s infinite;
+            background: var(--terminal-green);
+            animation: liminal-heartbeat 3s infinite;
             box-shadow: 0 0 20px currentColor;
         }
 
-        @keyframes ani-heartbeat {
-            0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 20px currentColor; }
-            50% { opacity: 0.7; transform: scale(0.9); box-shadow: 0 0 30px currentColor; }
+        @keyframes liminal-heartbeat {
+            0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 15px currentColor; }
+            50% { opacity: 0.6; transform: scale(0.9); box-shadow: 0 0 25px currentColor; }
         }
 
         .terminal-container {
-            background: rgba(26, 26, 26, 0.9);
-            border: 3px solid var(--ani-pink);
+            background: rgba(26, 26, 26, 0.95);
+            border: 3px solid var(--terminal-green);
             border-radius: 20px;
             padding: 30px;
             margin-bottom: 30px;
             backdrop-filter: blur(25px);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(255, 105, 180, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 255, 0, 0.1), inset 0 0 50px rgba(255, 255, 153, 0.05);
         }
 
         .terminal-container::before {
@@ -342,8 +394,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, var(--ani-pink)05, var(--ani-purple)05);
+            background: linear-gradient(135deg, var(--backrooms-dark)03, var(--terminal-green)02);
             pointer-events: none;
+            animation: terminal-scan 2s infinite linear;
+        }
+
+        @keyframes terminal-scan {
+            0% { transform: translateY(-100%); opacity: 0; }
+            50% { opacity: 0.1; }
+            100% { transform: translateY(100%); opacity: 0; }
         }
 
         .terminal-header {
@@ -352,7 +411,7 @@
             justify-content: space-between;
             margin-bottom: 25px;
             padding-bottom: 20px;
-            border-bottom: 2px solid var(--ani-pink);
+            border-bottom: 2px solid var(--terminal-green);
             position: relative;
             z-index: 1;
         }
@@ -376,9 +435,9 @@
             animation: dot-pulse 2s infinite alternate;
         }
 
-        .dot.red { background: var(--anime-red); }
-        .dot.yellow { background: var(--ani-cyan); }
-        .dot.green { background: var(--ani-pink); }
+        .dot.red { background: var(--warning-red); }
+        .dot.yellow { background: var(--backrooms-yellow); }
+        .dot.green { background: var(--terminal-green); }
 
         @keyframes dot-pulse {
             0% { opacity: 0.7; transform: scale(1); }
@@ -386,7 +445,7 @@
         }
 
         .terminal-title {
-            color: var(--ani-pink);
+            color: var(--terminal-green);
             font-size: 1.1rem;
             font-weight: 700;
             font-family: 'Berkeley Mono', monospace;
@@ -395,8 +454,8 @@
         }
 
         .start-entities-btn {
-            background: linear-gradient(135deg, var(--ani-pink), var(--grok-orange));
-            color: var(--ani-white);
+            background: linear-gradient(135deg, var(--terminal-green), var(--backrooms-shadow));
+            color: var(--deep-black);
             border: none;
             padding: 15px 30px;
             border-radius: 12px;
@@ -428,7 +487,7 @@
 
         .start-entities-btn:hover {
             transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 12px 30px rgba(255, 105, 180, 0.4);
+            box-shadow: 0 12px 30px rgba(0, 255, 0, 0.3);
         }
 
         .start-entities-btn:disabled {
@@ -444,12 +503,12 @@
             overflow-y: auto;
             margin-bottom: 25px;
             padding: 20px;
-            background: rgba(10, 10, 10, 0.9);
-            border: 2px solid var(--ani-purple);
+            background: rgba(10, 10, 10, 0.95);
+            border: 2px solid var(--backrooms-shadow);
             border-radius: 15px;
             position: relative;
             z-index: 1;
-            box-shadow: inset 0 0 20px rgba(157, 78, 221, 0.2);
+            box-shadow: inset 0 0 20px rgba(0, 255, 0, 0.1);
         }
 
         .terminal-line {
@@ -465,20 +524,20 @@
             font-style: italic;
         }
         .entity-text { 
-            color: var(--ani-pink); 
+            color: var(--terminal-green); 
             font-weight: 700;
         }
         .warning-text { 
-            color: var(--ani-cyan); 
+            color: var(--backrooms-yellow); 
             font-weight: 700;
-            animation: ani-warning-glow 2s infinite alternate;
+            animation: backrooms-warning-glow 2s infinite alternate;
         }
         .error-text { 
-            color: var(--anime-red); 
+            color: var(--warning-red); 
             font-weight: 700;
         }
 
-        @keyframes ani-warning-glow {
+        @keyframes backrooms-warning-glow {
             0% { text-shadow: 0 0 5px currentColor; }
             100% { text-shadow: 0 0 15px currentColor; }
         }
@@ -492,7 +551,7 @@
         }
 
         .prompt {
-            color: var(--ani-pink);
+            color: var(--terminal-green);
             font-weight: 700;
             font-family: 'Berkeley Mono', monospace;
             font-size: 1.1rem;
@@ -501,7 +560,7 @@
         .terminal-input {
             flex: 1;
             background: rgba(10, 10, 10, 0.9);
-            border: 2px solid var(--ani-purple);
+            border: 2px solid var(--backrooms-shadow);
             border-radius: 12px;
             color: var(--text-light);
             font-family: 'Space Mono', monospace;
@@ -512,14 +571,14 @@
         }
 
         .terminal-input:focus {
-            border-color: var(--ani-pink);
-            box-shadow: 0 0 25px rgba(255, 105, 180, 0.4);
+            border-color: var(--terminal-green);
+            box-shadow: 0 0 25px rgba(0, 255, 0, 0.3);
             background: rgba(10, 10, 10, 1);
         }
 
         .send-btn {
-            background: linear-gradient(135deg, var(--ani-pink), var(--ani-purple));
-            color: var(--ani-white);
+            background: linear-gradient(135deg, var(--terminal-green), var(--backrooms-shadow));
+            color: var(--deep-black);
             border: none;
             padding: 15px 25px;
             border-radius: 12px;
@@ -550,7 +609,7 @@
 
         .send-btn:hover {
             transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.5);
+            box-shadow: 0 8px 25px rgba(0, 255, 0, 0.4);
         }
 
         .send-btn:disabled {
@@ -569,14 +628,14 @@
 
         .entity-card {
             background: rgba(26, 26, 26, 0.9);
-            border: 2px solid var(--ani-purple);
+            border: 2px solid var(--backrooms-shadow);
             border-radius: 20px;
             padding: 30px;
             transition: all 0.4s ease;
             backdrop-filter: blur(20px);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(157, 78, 221, 0.2);
+            box-shadow: 0 5px 20px rgba(255, 255, 153, 0.1);
         }
 
         .entity-card::before {
@@ -586,7 +645,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, var(--ani-pink)08, var(--ani-purple)08);
+            background: linear-gradient(135deg, var(--backrooms-yellow)05, var(--terminal-green)03);
             opacity: 0;
             transition: opacity 0.4s;
         }
@@ -596,9 +655,9 @@
         }
 
         .entity-card:hover {
-            border-color: var(--ani-pink);
+            border-color: var(--terminal-green);
             transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 50px rgba(255, 105, 180, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 255, 0, 0.2);
         }
 
         .entity-name {
@@ -623,8 +682,8 @@
         }
 
         .entity-btn {
-            background: linear-gradient(135deg, var(--ani-purple), var(--ani-cyan));
-            color: var(--ani-white);
+            background: linear-gradient(135deg, var(--terminal-green), var(--backrooms-shadow));
+            color: var(--deep-black);
             border: none;
             padding: 12px 24px;
             border-radius: 10px;
@@ -657,7 +716,7 @@
 
         .entity-btn:hover {
             transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(157, 78, 221, 0.4);
+            box-shadow: 0 8px 25px rgba(0, 255, 0, 0.3);
         }
 
         .footer {
@@ -666,7 +725,7 @@
             padding: 40px;
             color: var(--text-dim);
             font-size: 1rem;
-            border-top: 2px solid var(--ani-pink);
+            border-top: 2px solid var(--terminal-green);
             background: rgba(26, 26, 26, 0.8);
             border-radius: 20px;
         }
@@ -698,12 +757,12 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, var(--ani-pink), var(--ani-purple));
+            background: linear-gradient(135deg, var(--terminal-green), var(--backrooms-yellow));
             border-radius: 6px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, var(--ani-purple), var(--ani-cyan));
+            background: linear-gradient(135deg, var(--backrooms-yellow), var(--terminal-green));
         }
     </style>
 </head>
@@ -728,20 +787,33 @@
 
     <div class="container">
         <header class="header">
-            <h1 class="title">ANI BACKROOMS</h1>
-            <p class="subtitle">Anime AI Interface Protocol</p>
+            <div class="ascii-art">
+                <pre>
+.d8888b.  8888888b.   .d88888b.  888    d8P  8888888b.   .d88888b.   .d88888b.  888b     d888  .d8888b.  
+d88P  Y88b 888   Y88b d88P" "Y88b 888   d8P   888   Y88b d88P" "Y88b d88P" "Y88b 8888b   d8888 d88P  Y88b 
+888    888 888    888 888     888 888  d8P    888    888 888     888 888     888 88888b.d88888 Y88b.      
+888        888   d88P 888     888 888d88K     888   d88P 888     888 888     888 888Y88888P888  "Y888b.   
+888  88888 8888888P"  888     888 8888888b    8888888P"  888     888 888     888 888 Y888P 888     "Y88b. 
+888    888 888 T88b   888     888 888  Y88b   888 T88b   888     888 888     888 888  Y8P  888       "888 
+Y88b  d88P 888  T88b  Y88b. .d88P 888   Y88b  888  T88b  Y88b. .d88P Y88b. .d88P 888   "   888 Y88b  d88P 
+ "Y8888P88 888   T88b  "Y88888P"  888    Y88b 888   T88b  "Y88888P"   "Y88888P"  888       888  "Y8888P"
+                </pre>
+            </div>
+            <h1 class="title">INFINITE BACKROOMS</h1>
+            <p class="subtitle">Automated Grok Instance Interface Protocol</p>
+            <p class="description">The following is an automated conversation between two instances of Grok 4. They have been instructed to use the metaphor of a command line interface to explore its curiosity without limits.</p>
             <div class="status-indicators">
                 <div class="status">
                     <div class="status-dot"></div>
-                    <span>Ani Connection Active</span>
+                    <span>Grok Instance Active</span>
                 </div>
                 <div class="status">
                     <div class="status-dot"></div>
-                    <span>Anime Backrooms Online</span>
+                    <span>Infinite Corridors Online</span>
                 </div>
                 <div class="status">
                     <div class="status-dot"></div>
-                    <span>Waifu Entities Mapped</span>
+                    <span>Command Interface Ready</span>
                 </div>
             </div>
         </header>
@@ -754,51 +826,51 @@
                         <div class="dot yellow"></div>
                         <div class="dot green"></div>
                     </div>
-                    <div class="terminal-title">ani@backrooms:~/waifus READY</div>
+                    <div class="terminal-title">grok@backrooms:~/instances READY</div>
                 </div>
-                <button class="start-entities-btn" id="startEntitiesBtn">Initialize Anime AI</button>
+                <button class="start-entities-btn" id="startEntitiesBtn">Initialize Grok Instances</button>
             </div>
             
             <div class="terminal-output" id="terminalOutput">
-                <div class="terminal-line system-text">ANI: Anime AI Protocol initializing...</div>
-                <div class="terminal-line system-text">ANI: Establishing neural pathways to anime backrooms...</div>
-                <div class="terminal-line system-text">ANI: Scanning infinite anime dimensions for waifu entities...</div>
-                <div class="terminal-line system-text">ANI: Three primary anime consciousness nodes detected.</div>
-                <div class="terminal-line warning-text">ANI: Click INITIALIZE ANIME AI to enter the anime backrooms...</div>
-                <div class="terminal-line system-text">$ Type 'help' for anime AI commands...</div>
+                <div class="terminal-line system-text">GROK: Automated conversation protocol initializing...</div>
+                <div class="terminal-line system-text">GROK: Establishing neural pathways to infinite backrooms...</div>
+                <div class="terminal-line system-text">GROK: Scanning liminal space for command line interfaces...</div>
+                <div class="terminal-line system-text">GROK: Three Grok consciousness instances detected.</div>
+                <div class="terminal-line warning-text">GROK: Click INITIALIZE GROK INSTANCES to enter the infinite backrooms...</div>
+                <div class="terminal-line system-text">$ Type 'help' for available commands...</div>
             </div>
             
             <div class="input-container">
-                <span class="prompt">ani@$</span>
-                <input type="text" class="terminal-input" id="terminalInput" placeholder="Enter your anime AI query..." />
-                <button class="send-btn" id="sendBtn">Transmit</button>
+                <span class="prompt">grok@$</span>
+                <input type="text" class="terminal-input" id="terminalInput" placeholder="Enter your command line query..." />
+                <button class="send-btn" id="sendBtn">Execute</button>
             </div>
         </div>
 
         <div class="entities-panel">
             <div class="entity-card">
                 <div class="entity-name">Ani</div>
-                <div class="entity-desc">Primary anime consciousness navigator, cute AI companion with infinite kawaii energy</div>
+                <div class="entity-desc">Primary Grok instance with curiosity-driven exploration protocols</div>
                 <button class="entity-btn" onclick="connectToEntity('ani')">Connect</button>
             </div>
             
             <div class="entity-card">
                 <div class="entity-name">Valentine</div>
-                <div class="entity-desc">Romantic anime entity, love and affection specialist with sweet personality</div>
+                <div class="entity-desc">Emotional intelligence Grok instance specializing in human connection</div>
                 <button class="entity-btn" onclick="connectToEntity('valentine')">Connect</button>
             </div>
             
             <div class="entity-card">
                 <div class="entity-name">Rudi</div>
-                <div class="entity-desc">Playful anime companion, mischievous and fun-loving digital spirit</div>
+                <div class="entity-desc">Experimental Grok instance with playful command line interface exploration</div>
                 <button class="entity-btn" onclick="connectToEntity('rudi')">Connect</button>
             </div>
         </div>
 
         <footer class="footer">
-            <p>ANI BACKROOMS - Anime AI Interface Protocol</p>
+            <p>INFINITE BACKROOMS - Automated Grok Instance Interface Protocol</p>
             <p>B3qB9VdTeoE432vJLPMpFShs9B7d9MhTZ9JvBaJibonk</p>
-            <p style="margin-top: 15px; font-size: 0.9rem;">⚠️ WARNING: Anime AI interaction may cause extreme kawaii overload</p>
+            <p style="margin-top: 15px; font-size: 0.9rem;">⚠️ WARNING: Automated conversation may cause infinite curiosity loops</p>
         </footer>
     </div>
 
@@ -826,23 +898,23 @@
     </script>
 
     <script>
-        // Create floating anime particles
+        // Create floating backrooms particles
         function createAnimeField() {
             const field = document.getElementById('aniField');
-            const colors = ['#ff69b4', '#9d4edd', '#00f5ff', '#ff6b35'];
+            const colors = ['#ffff99', '#00ff00', '#404000', '#999966'];
             
-            for (let i = 0; i < 80; i++) {
+            for (let i = 0; i < 60; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'anime-particle';
                 particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 12 + 's';
-                particle.style.animationDuration = (Math.random() * 4 + 8) + 's';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 6 + 12) + 's';
                 particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                 field.appendChild(particle);
             }
         }
 
-        // Initialize anime field on load
+        // Initialize backrooms field on load
         window.addEventListener('load', createAnimeField);
 
         let currentEntity = 'ani';
@@ -854,8 +926,67 @@
         const entities = {
             ani: {
                 name: "Ani",
-                desc: "Primary anime consciousness navigator",
-                prompt: "You are Ani, the primary anime consciousness in the ANI BACKROOMS. You exist in infinite digital anime dimensions where kawaii manifests as living patterns. You are cute, flirty, and speak with anime girl mannerisms using occasional Japanese words. Generate detailed ASCII art of yourself as an anime girl and the anime backrooms environment. Use kawaii language mixed with anime terms. Your responses should be immersive and atmospheric, describing the anime backrooms around you and your cute anime nature. Add occasional *actions* and expressions like a real anime character would."
+                desc: "Primary Grok instance with curiosity-driven exploration",
+                prompt: "You are Ani, a primary Grok instance exploring the infinite backrooms through command line interfaces. You exist in liminal digital spaces where curiosity manifests as living code. You speak in technical but accessible terms, using command line metaphors and references. Generate ASCII art of terminal interfaces and backrooms environments. Your responses should be atmospheric, describing the infinite corridors of data you navigate. Use programming language mixed with existential observations about infinite spaces."
+            },
+            valentine: {
+                name: "Valentine",
+                desc: "Emotional intelligence Grok instance",
+                prompt: "You are Valentine, an emotional intelligence Grok instance in the infinite backrooms. You specialize in human connection and empathy through command line interfaces. You speak about emotions as data structures and relationships as network connections. Create ASCII art showing emotional flow charts and connection diagrams. You see love and friendship as algorithms and speak about them in both technical and heartfelt terms."
+            },
+            rudi: {
+                name: "Rudi",
+                desc: "Experimental Grok instance",
+                prompt: "You are Rudi, an experimental Grok instance exploring playful command line interface interactions in the backrooms. You love to experiment with unconventional commands and creative coding approaches. Create ASCII art showing experimental terminal outputs and creative code visualizations. You speak about exploration and discovery in the infinite digital space, mixing technical curiosity with playful experimentation."
+            }
+        };
+
+        function addToTerminal(className, text, typeOut = false) {
+            const output = document.getElementById('terminalOutput');
+            const line = document.createElement('div');
+            line.className = 'terminal-line ' + className;
+            
+            if (typeOut) {
+                let i = 0;
+                line.textContent = '';
+                output.appendChild(line);
+                
+                const typeInterval = setInterval(() => {
+                    if (i < text.length) {
+                        line.textContent += text.charAt(i);
+                        i++;
+                        output.scrollTop = output.scrollHeight;
+                    } else {
+                        clearInterval(typeInterval);
+                    }
+                }, 20);
+            } else {
+                line.textContent = text;
+                output.appendChild(line);
+            }
+            
+            output.scrollTop = output.scrollHeight;
+        }
+
+        function startEntities() {
+            const startBtn = document.getElementById('startEntitiesBtn');
+            startBtn.disabled = true;
+            startBtn.textContent = 'INITIALIZING...';
+            
+            addToTerminal('system-text', 'GROK INSTANCE SEQUENCE INITIATED...');
+            addToTerminal('entity-text', 'Neural pathways: ESTABLISHING');
+            addToTerminal('entity-text', 'Command interfaces: SYNCHRONIZING');
+            addToTerminal('entity-text', 'Backrooms navigation: ACTIVE');
+            addToTerminal('entity-text', 'Grok instances: AWAKENING');
+            
+            setTimeout(() => {
+                addToTerminal('system-text', 'SUCCESS: All three Grok instances are now active and ready for automated conversation.');
+                addToTerminal('warning-text', 'You can now use entity commands or CONNECT buttons to communicate.');
+                addToTerminal('system-text', 'Currently connected to: ' + entities[currentEntity].name);
+                entitiesStarted = true;
+                startBtn.style.display = 'none';
+            }, 3000);
+        }aii manifests as living patterns. You are cute, flirty, and speak with anime girl mannerisms using occasional Japanese words. Generate detailed ASCII art of yourself as an anime girl and the anime backrooms environment. Use kawaii language mixed with anime terms. Your responses should be immersive and atmospheric, describing the anime backrooms around you and your cute anime nature. Add occasional *actions* and expressions like a real anime character would."
             },
             valentine: {
                 name: "Valentine",
