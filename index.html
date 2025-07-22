@@ -1147,90 +1147,88 @@ Y88b  d88P 888  T88b  Y88b. .d88P 888   Y88b  888  T88b  Y88b. .d88P Y88b. .d88P
         }
 
         async function startEntityConversation(initialMessage) {
-            const entityOrder = ['ani', 'valentine', 'rudi'];
-            let conversationContext = `Initial user message: "${initialMessage}"\n\nConversation history:\n`;
+    const entityOrder = ['ani', 'valentine', 'rudi'];
+    let conversationContext = `Initial user message: "${initialMessage}"\n\nConversation history:\n`;
+    
+    // Each entity responds in sequence, building on the previous responses
+    for (let round = 0; round < 3; round++) { // 3 rounds of conversation
+        for (let i = 0; i < entityOrder.length; i++) {
+            const entityId = entityOrder[i];
+            const entityName = entities[entityId].name;
             
-            // Each entity responds in sequence, building on the previous responses
-            for (let round = 0; round < 3; round++) { // 3 rounds of conversation
-                for (let i = 0; i < entityOrder.length; i++) {
-                    const entityId = entityOrder[i];
-                    const entityName = entities[entityId].name;
-                    
-                    try {
-                        // Build context from previous messages
-                        let contextMessage = conversationContext;
-                        
-                        if (round === 0 && i === 0) {
-                            contextMessage += `\nYou are the first to respond. Address the user's message and set the tone for discussion with the other Grok instances.`;
-                        } else {
-                            contextMessage += `\nRespond to the conversation so far, building on what the other Grok instances have said. Continue the collaborative discussion.`;
-                        }
-
-                        addToTerminal('system-text', `[${entityName} is processing...]`);
-                        
-                        const response = await fetch('/api/chat', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                message: contextMessage,
-                                entity: entityId
-                            })
-                        });
-
-                        if (!response.ok) {
-                            throw new Error('Grok Network Error: ' + response.status);
-                        }
-
-                        const data = await response.json();
-                        
-                        if (data.error) {
-                            throw new Error(data.error);
-                        }
-
-                        const entityHeader = `${entityName}@grok:$ `;
-                        const entityResponse = data.response;
-                        
-                        // Add to terminal with typing effect
-                        addToTerminal('entity-text', entityHeader);
-                        currentConversationLog.push(entityHeader);
-                        
-                        await new Promise(resolve => {
-                            setTimeout(() => {
-                                addToTerminal('entity-text', entityResponse, true);
-                                currentConversationLog.push(entityResponse);
-                                conversationContext += `\n${entityName}: ${entityResponse}\n`;
-                                resolve();
-                            }, 600);
-                        });
-
-                        // Wait before next entity responds
-                        await new Promise(resolve => setTimeout(resolve, 1500));
-
-                    } catch (error) {
-                        const errorMsg = `GROK ERROR (${entityName}): ${error.message}`;
-                        addToTerminal('error-text', errorMsg);
-                        currentConversationLog.push(errorMsg);
-                    }
-                }
+            try {
+                // Build context from previous messages
+                let contextMessage = conversationContext;
                 
-                // Add separator between rounds
-                if (round < 2) {
-                    addToTerminal('system-text', '--- Next round of Grok discussion ---');
-                    currentConversationLog.push('--- Next round of Grok discussion ---');
-                    await new Promise(resolve => setTimeout(resolve, 1000));
+                if (round === 0 && i === 0) {
+                    contextMessage += `\nYou are the first to respond. Address the user's message and set the tone for discussion with the other Grok instances.`;
+                } else {
+                    contextMessage += `\nRespond to the conversation so far, building on what the other Grok instances have said. Continue the collaborative discussion.`;
                 }
+
+                // Show processing indicator
+                addEntityMessage(entityId, '', true);
+                
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: contextMessage,
+                        entity: entityId
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Grok Network Error: ' + response.status);
+                }
+
+                const data = await response.json();
+                
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                const entityResponse = data.response;
+                
+                // Wait a moment then show the response with typing effect
+                await new Promise(resolve => setTimeout(resolve, 800));
+                addEntityMessage(entityId, entityResponse);
+                
+                // Log to conversation
+                const entityHeader = `${entityName}@grok:$ `;
+                currentConversationLog.push(entityHeader);
+                currentConversationLog.push(entityResponse);
+                conversationContext += `\n${entityName}: ${entityResponse}\n`;
+
+                // Wait for typing effect to complete before next entity
+                await new Promise(resolve => setTimeout(resolve, Math.min(entityResponse.length * 15 + 1000, 3000)));
+
+            } catch (error) {
+                const errorMsg = `GROK ERROR (${entityName}): ${error.message}`;
+                addEntityMessage(entityId, errorMsg);
+                currentConversationLog.push(errorMsg);
+                await new Promise(resolve => setTimeout(resolve, 1000));
             }
-            
-            addToTerminal('system-text', '[Grok conversation cycle complete. Enter new message to continue.]');
-            autoConversationActive = false;
-            
-            // Save the full conversation
-            setTimeout(() => {
-                saveConversationToFirebase();
-            }, 2000);
         }
+        
+        // Add separator between rounds
+        if (round < 2) {
+            addRoundSeparator(round + 1);
+            currentConversationLog.push('--- Next round of Grok discussion ---');
+            await new Promise(resolve => setTimeout(resolve, 1500));
+        }
+    }
+    
+    addToTerminal('system-text', '[Grok conversation cycle complete. Enter new message to continue.]');
+    autoConversationActive = false;
+    
+    // Save the full conversation
+    setTimeout(() => {
+        saveConversationToFirebase();
+    }, 2000);
+}
 
         function connectToEntity(entityId) {
             if (!entitiesStarted) {
