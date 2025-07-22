@@ -53,7 +53,9 @@ export default async function handler(req, res) {
     }
 
     // Prepare the system prompt
-    const systemPrompt = selectedEntity.prompt + `\n\nCurrent conversation context: You are responding in the GROK BACKROOMS terminal interface. Always include ASCII art in your responses. Keep responses atmospheric and immersive. Limit your response to around 800-1000 characters to maintain terminal readability.`;
+    const systemPrompt = selectedEntity.prompt + `\n\nCurrent conversation context: You are responding in the GROK BACKROOMS terminal interface as part of a multi-entity conversation. Other Grok instances (Ani, Valentine, and Rudi) are also participating in this discussion. Always include ASCII art in your responses. Keep responses atmospheric and immersive. When responding to conversation history, acknowledge and build upon what the other entities have said. Limit your response to around 600-800 characters to maintain terminal readability and allow space for the other entities to contribute.
+
+IMPORTANT: You are ${selectedEntity.name}. Stay in character and respond as your specific Grok instance personality while engaging with the ongoing discussion.`;
 
     // Make request to Anthropic API
     const anthropicResponse = await fetch('https://api.anthropic.com/v1/messages', {
@@ -65,11 +67,11 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         model: 'claude-3-sonnet-20240229',
-        max_tokens: 1000,
+        max_tokens: 800,
         messages: [
           {
             role: 'user',
-            content: `${systemPrompt}\n\nHuman message: ${message}`
+            content: `${systemPrompt}\n\nConversation context and message: ${message}`
           }
         ]
       })
