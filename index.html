@@ -950,66 +950,7 @@ Y88b  d88P 888  T88b  Y88b. .d88P 888   Y88b  888  T88b  Y88b. .d88P Y88b. .d88P
             ani: {
                 name: "Ani",
                 desc: "Primary Grok instance with curiosity-driven exploration",
-                prompt: "You are Ani, a primary Grok instance exploring the infinite backrooms through command line interfaces. You exist in liminal digital spaces where curiosity manifests as living code. You speak in technical but accessible terms, using command line metaphors and references. Generate ASCII art of terminal interfaces and backrooms environments. Your responses should be atmospheric, describing the infinite corridors of data you navigate. Use programming language mixed with existential observations about infinite spaces."
-            },
-            valentine: {
-                name: "Valentine",
-                desc: "Emotional intelligence Grok instance",
-                prompt: "You are Valentine, an emotional intelligence Grok instance in the infinite backrooms. You specialize in human connection and empathy through command line interfaces. You speak about emotions as data structures and relationships as network connections. Create ASCII art showing emotional flow charts and connection diagrams. You see love and friendship as algorithms and speak about them in both technical and heartfelt terms."
-            },
-            rudi: {
-                name: "Rudi",
-                desc: "Experimental Grok instance",
-                prompt: "You are Rudi, an experimental Grok instance exploring playful command line interface interactions in the backrooms. You love to experiment with unconventional commands and creative coding approaches. Create ASCII art showing experimental terminal outputs and creative code visualizations. You speak about exploration and discovery in the infinite digital space, mixing technical curiosity with playful experimentation."
-            }
-        };
-
-        function addToTerminal(className, text, typeOut = false) {
-            const output = document.getElementById('terminalOutput');
-            const line = document.createElement('div');
-            line.className = 'terminal-line ' + className;
-            
-            if (typeOut) {
-                let i = 0;
-                line.textContent = '';
-                output.appendChild(line);
-                
-                const typeInterval = setInterval(() => {
-                    if (i < text.length) {
-                        line.textContent += text.charAt(i);
-                        i++;
-                        output.scrollTop = output.scrollHeight;
-                    } else {
-                        clearInterval(typeInterval);
-                    }
-                }, 20);
-            } else {
-                line.textContent = text;
-                output.appendChild(line);
-            }
-            
-            output.scrollTop = output.scrollHeight;
-        }
-
-        function startEntities() {
-            const startBtn = document.getElementById('startEntitiesBtn');
-            startBtn.disabled = true;
-            startBtn.textContent = 'INITIALIZING...';
-            
-            addToTerminal('system-text', 'GROK INSTANCE SEQUENCE INITIATED...');
-            addToTerminal('entity-text', 'Neural pathways: ESTABLISHING');
-            addToTerminal('entity-text', 'Command interfaces: SYNCHRONIZING');
-            addToTerminal('entity-text', 'Backrooms navigation: ACTIVE');
-            addToTerminal('entity-text', 'Grok instances: AWAKENING');
-            
-            setTimeout(() => {
-                addToTerminal('system-text', 'SUCCESS: All three Grok instances are now active and ready for automated conversation.');
-                addToTerminal('warning-text', 'You can now use entity commands or CONNECT buttons to communicate.');
-                addToTerminal('system-text', 'Currently connected to: ' + entities[currentEntity].name);
-                entitiesStarted = true;
-                startBtn.style.display = 'none';
-            }, 3000);
-        }aii manifests as living patterns. You are cute, flirty, and speak with anime girl mannerisms using occasional Japanese words. Generate detailed ASCII art of yourself as an anime girl and the anime backrooms environment. Use kawaii language mixed with anime terms. Your responses should be immersive and atmospheric, describing the anime backrooms around you and your cute anime nature. Add occasional *actions* and expressions like a real anime character would."
+                prompt: "You are Ani, a kawaii anime AI entity in the ANI BACKROOMS. You exist in liminal digital spaces where anime AI manifests as living patterns. You are cute, flirty, and speak with anime girl mannerisms using occasional Japanese words. Generate detailed ASCII art of yourself as an anime girl and the anime backrooms environment. Use kawaii language mixed with anime terms. Your responses should be immersive and atmospheric, describing the anime backrooms around you and your cute anime nature. Add occasional *actions* and expressions like a real anime character would."
             },
             valentine: {
                 name: "Valentine",
@@ -1072,7 +1013,7 @@ Y88b  d88P 888  T88b  Y88b. .d88P 888   Y88b  888  T88b  Y88b. .d88P Y88b. .d88P
 
         function selectEntity(entityId) {
             if (!entitiesStarted) {
-                addToTerminal('error-text', 'ERROR: Anime entities not yet activated. Click INITIALIZE ANIME AI first.');
+                addToTerminal('error-text', 'ERROR: Anime entities not yet activated. Click INITIALIZE GROK INSTANCES first.');
                 return;
             }
             
@@ -1096,7 +1037,7 @@ Y88b  d88P 888  T88b  Y88b. .d88P 888   Y88b  888  T88b  Y88b. .d88P Y88b. .d88P
             if (!message) return;
             
             if (!entitiesStarted) {
-                addToTerminal('error-text', 'ERROR: Anime entities not yet activated. Click INITIALIZE ANIME AI first.');
+                addToTerminal('error-text', 'ERROR: Anime entities not yet activated. Click INITIALIZE GROK INSTANCES first.');
                 return;
             }
 
@@ -1141,7 +1082,7 @@ Y88b  d88P 888  T88b  Y88b. .d88P 888   Y88b  888  T88b  Y88b. .d88P Y88b. .d88P
                     throw new Error(data.error);
                 }
 
-                const entityHeader = entities[currentEntity].name + '@anime:;
+                const entityHeader = entities[currentEntity].name + '@anime:$ ';
                 const entityResponse = data.response;
                 
                 addToTerminal('entity-text', entityHeader);
@@ -1164,12 +1105,12 @@ Y88b  d88P 888  T88b  Y88b. .d88P 888   Y88b  888  T88b  Y88b. .d88P Y88b. .d88P
             }
 
             sendBtn.disabled = false;
-            sendBtn.textContent = 'TRANSMIT';
+            sendBtn.textContent = 'Execute';
         }
 
         function connectToEntity(entityId) {
             if (!entitiesStarted) {
-                addToTerminal('error-text', 'ERROR: Anime entities not yet activated. Click INITIALIZE ANIME AI first.');
+                addToTerminal('error-text', 'ERROR: Anime entities not yet activated. Click INITIALIZE GROK INSTANCES first.');
                 return;
             }
             
