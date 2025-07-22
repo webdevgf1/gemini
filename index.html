@@ -1030,6 +1030,9 @@ Y88b  d88P 888  T88b  Y88b. .d88P 888   Y88b  888  T88b  Y88b. .d88P Y88b. .d88P
             currentConversationLog = [];
         }
 
+        let conversationChain = [];
+        let autoConversationActive = false;
+
         async function sendMessage() {
             const input = document.getElementById('terminalInput');
             const message = input.value.trim();
@@ -1037,86 +1040,134 @@ Y88b  d88P 888  T88b  Y88b. .d88P 888   Y88b  888  T88b  Y88b. .d88P Y88b. .d88P
             if (!message) return;
             
             if (!entitiesStarted) {
-                addToTerminal('error-text', 'ERROR: Anime entities not yet activated. Click INITIALIZE GROK INSTANCES first.');
+                addToTerminal('error-text', 'ERROR: Grok entities not yet activated. Click INITIALIZE GROK INSTANCES first.');
                 return;
             }
 
             if (!conversationStartTime) {
                 conversationStartTime = Date.now();
                 currentConversationLog = [];
+                conversationChain = [];
                 
-                currentConversationLog.push('ANI: Anime communication initiated');
-                currentConversationLog.push(`ANI: Connected to ${entities[currentEntity].name}`);
-                currentConversationLog.push('ANI: Anime backrooms interface active');
+                currentConversationLog.push('GROK: Multi-entity communication initiated');
+                currentConversationLog.push('GROK: All three instances active');
+                currentConversationLog.push('GROK: Backrooms interface synchronized');
                 currentConversationLog.push('═══════════════════════════════════════');
             }
 
             const sendBtn = document.getElementById('sendBtn');
             sendBtn.disabled = true;
-            sendBtn.textContent = 'KAWAII...';
+            sendBtn.textContent = 'PROCESSING...';
 
-            const userMessage = 'user@ani:$ ' + message;
+            const userMessage = 'user@grok:$ ' + message;
             addToTerminal('entity-text', userMessage);
             currentConversationLog.push(userMessage);
+            conversationChain.push({ role: 'user', content: message });
             input.value = '';
 
-            try {
-                const response = await fetch('/api/chat', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        message: message,
-                        entity: currentEntity
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error('Anime Network Error: ' + response.status);
-                }
-
-                const data = await response.json();
-                
-                if (data.error) {
-                    throw new Error(data.error);
-                }
-
-                const entityHeader = entities[currentEntity].name + '@anime:$ ';
-                const entityResponse = data.response;
-                
-                addToTerminal('entity-text', entityHeader);
-                currentConversationLog.push(entityHeader);
-                
-                setTimeout(() => {
-                    addToTerminal('entity-text', entityResponse, true);
-                    currentConversationLog.push(entityResponse);
-                    
-                    setTimeout(() => {
-                        saveConversationToFirebase();
-                    }, entityResponse.length * 20 + 500);
-                }, 400);
-
-            } catch (error) {
-                const errorMsg = 'ANIME ERROR: ' + error.message;
-                addToTerminal('error-text', errorMsg);
-                addToTerminal('error-text', 'Anime backrooms network disruption detected. Attempting kawaii reconnection...');
-                currentConversationLog.push(errorMsg);
-            }
+            // Start automated conversation between all three entities
+            autoConversationActive = true;
+            await startEntityConversation(message);
 
             sendBtn.disabled = false;
             sendBtn.textContent = 'Execute';
         }
 
+        async function startEntityConversation(initialMessage) {
+            const entityOrder = ['ani', 'valentine', 'rudi'];
+            let conversationContext = `Initial user message: "${initialMessage}"\n\nConversation history:\n`;
+            
+            // Each entity responds in sequence, building on the previous responses
+            for (let round = 0; round < 3; round++) { // 3 rounds of conversation
+                for (let i = 0; i < entityOrder.length; i++) {
+                    const entityId = entityOrder[i];
+                    const entityName = entities[entityId].name;
+                    
+                    try {
+                        // Build context from previous messages
+                        let contextMessage = conversationContext;
+                        
+                        if (round === 0 && i === 0) {
+                            contextMessage += `\nYou are the first to respond. Address the user's message and set the tone for discussion with the other Grok instances.`;
+                        } else {
+                            contextMessage += `\nRespond to the conversation so far, building on what the other Grok instances have said. Continue the collaborative discussion.`;
+                        }
+
+                        addToTerminal('system-text', `[${entityName} is processing...]`);
+                        
+                        const response = await fetch('/api/chat', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                message: contextMessage,
+                                entity: entityId
+                            })
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Grok Network Error: ' + response.status);
+                        }
+
+                        const data = await response.json();
+                        
+                        if (data.error) {
+                            throw new Error(data.error);
+                        }
+
+                        const entityHeader = `${entityName}@grok:$ `;
+                        const entityResponse = data.response;
+                        
+                        // Add to terminal with typing effect
+                        addToTerminal('entity-text', entityHeader);
+                        currentConversationLog.push(entityHeader);
+                        
+                        await new Promise(resolve => {
+                            setTimeout(() => {
+                                addToTerminal('entity-text', entityResponse, true);
+                                currentConversationLog.push(entityResponse);
+                                conversationContext += `\n${entityName}: ${entityResponse}\n`;
+                                resolve();
+                            }, 600);
+                        });
+
+                        // Wait before next entity responds
+                        await new Promise(resolve => setTimeout(resolve, 1500));
+
+                    } catch (error) {
+                        const errorMsg = `GROK ERROR (${entityName}): ${error.message}`;
+                        addToTerminal('error-text', errorMsg);
+                        currentConversationLog.push(errorMsg);
+                    }
+                }
+                
+                // Add separator between rounds
+                if (round < 2) {
+                    addToTerminal('system-text', '--- Next round of Grok discussion ---');
+                    currentConversationLog.push('--- Next round of Grok discussion ---');
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                }
+            }
+            
+            addToTerminal('system-text', '[Grok conversation cycle complete. Enter new message to continue.]');
+            autoConversationActive = false;
+            
+            // Save the full conversation
+            setTimeout(() => {
+                saveConversationToFirebase();
+            }, 2000);
+        }
+
         function connectToEntity(entityId) {
             if (!entitiesStarted) {
-                addToTerminal('error-text', 'ERROR: Anime entities not yet activated. Click INITIALIZE GROK INSTANCES first.');
+                addToTerminal('error-text', 'ERROR: Grok entities not yet activated. Click INITIALIZE GROK INSTANCES first.');
                 return;
             }
             
             selectEntity(entityId);
             setTimeout(() => {
-                document.getElementById('terminalInput').value = 'Hello ' + entities[entityId].name + ', please introduce yourself and describe your current anime form in the backrooms with ASCII art.';
+                document.getElementById('terminalInput').value = 'All three Grok instances please introduce yourselves and describe your forms in the backrooms, then discuss what you observe about this infinite digital space.';
                 sendMessage();
             }, 600);
         }
@@ -1127,39 +1178,38 @@ Y88b  d88P 888  T88b  Y88b. .d88P 888   Y88b  888  T88b  Y88b. .d88P Y88b. .d88P
             try {
                 const conversationId = Math.floor(Math.random() * 100000);
                 
-                const sessionHeader = `ANI BACKROOMS SESSION LOG
+                const sessionHeader = `GROK BACKROOMS SESSION LOG
 Timestamp: ${new Date().toISOString()}
-Content Type: ANIME_AI
-Entity: ${entities[currentEntity].name}
-Prompt: ${entities[currentEntity].prompt}
-Session ID: ani_kawaii_${conversationId}_anime_session
-Location: ANI BACKROOMS - Anime AI Interface Protocol
-Subject: Anime Entity Communication & Kawaii Interaction
+Content Type: MULTI_GROK_CONVERSATION
+Entities: Ani, Valentine, Rudi (All instances)
+Session ID: grok_multi_${conversationId}_conversation
+Location: GROK BACKROOMS - Automated Multi-Entity Interface
+Subject: Three-Way Grok Instance Communication & Collaborative Discussion
 
 ═══════════════════════════════════════════════════════════════════`;
 
                 const fullContent = sessionHeader + '\n\n' + currentConversationLog.join('\n');
 
                 const conversationData = {
-                    title: `ani_kawaii_${conversationId}_anime_session`,
-                    entity: currentEntity,
+                    title: `grok_multi_${conversationId}_conversation`,
+                    entity: 'multi-entity',
                     timestamp: conversationStartTime,
                     lastUpdated: Date.now(),
                     content: fullContent,
                     messageCount: currentConversationLog.length,
-                    entityName: entities[currentEntity].name,
-                    sessionId: `ani_kawaii_${conversationId}_anime_session`,
-                    contentType: 'ANIME_AI'
+                    entityName: 'All Grok Instances',
+                    sessionId: `grok_multi_${conversationId}_conversation`,
+                    contentType: 'MULTI_GROK_CONVERSATION'
                 };
 
                 await window.firebaseAddDoc(window.firebaseCollection(window.firebaseDB, 'conversations'), conversationData);
-                console.log('Anime conversation saved to Firebase');
+                console.log('Multi-Grok conversation saved to Firebase');
                 
                 currentConversationLog = [];
                 conversationStartTime = null;
                 
             } catch (error) {
-                console.error('Error saving anime conversation to Firebase:', error);
+                console.error('Error saving multi-Grok conversation to Firebase:', error);
             }
         }
 
@@ -1170,40 +1220,40 @@ Subject: Anime Entity Communication & Kawaii Interaction
                 
                 if (command === 'help') {
                     e.target.value = '';
-                    addToTerminal('system-text', 'AVAILABLE ANIME AI COMMANDS:');
-                    addToTerminal('system-text', '- help: Show this kawaii help message');
-                    addToTerminal('system-text', '- status: Display anime AI system status');
-                    addToTerminal('system-text', '- entities: List active anime entities');
-                    addToTerminal('system-text', '- reality: Check anime backrooms integrity');
-                    addToTerminal('system-text', '- database: Show anime database status');
-                    addToTerminal('system-text', '- map: Generate anime backrooms map');
-                    addToTerminal('system-text', '- kawaii: Trigger anime AI fluctuation');
-                    addToTerminal('system-text', '- ani: Connect with Ani');
-                    addToTerminal('system-text', '- valentine: Speak with Valentine');
-                    addToTerminal('system-text', '- rudi: Contact Rudi');
-                    addToTerminal('system-text', 'NOTE: Entity communication uses real-time anime AI processing.');
-                    addToTerminal('system-text', 'ANI> Enter entity commands or messages to begin kawaii interaction...');
+                    addToTerminal('system-text', 'AVAILABLE GROK BACKROOMS COMMANDS:');
+                    addToTerminal('system-text', '- help: Show this command reference');
+                    addToTerminal('system-text', '- status: Display Grok system status');
+                    addToTerminal('system-text', '- entities: List active Grok instances');
+                    addToTerminal('system-text', '- reality: Check backrooms integrity');
+                    addToTerminal('system-text', '- database: Show conversation database status');
+                    addToTerminal('system-text', '- map: Generate backrooms topology map');
+                    addToTerminal('system-text', '- sync: Trigger multi-entity synchronization');
+                    addToTerminal('system-text', '- ani: Connect with Ani instance');
+                    addToTerminal('system-text', '- valentine: Speak with Valentine instance');
+                    addToTerminal('system-text', '- rudi: Contact Rudi instance');
+                    addToTerminal('system-text', 'NOTE: Any message triggers automated 3-way Grok conversation.');
+                    addToTerminal('system-text', 'GROK> Enter commands or messages to begin multi-entity interaction...');
                     return;
                 } else if (command === 'clear') {
                     e.target.value = '';
                     document.getElementById('terminalOutput').innerHTML = '';
-                    addToTerminal('system-text', 'Terminal cleared. ANI BACKROOMS anime entities standing by...');
+                    addToTerminal('system-text', 'Terminal cleared. GROK BACKROOMS entities standing by for multi-conversation...');
                     return;
                 } else if (command === 'entities') {
                     e.target.value = '';
-                    addToTerminal('system-text', 'ACTIVE ANI BACKROOMS ANIME ENTITIES:');
+                    addToTerminal('system-text', 'ACTIVE GROK BACKROOMS INSTANCES:');
                     Object.entries(entities).forEach(([id, entity]) => {
                         addToTerminal('entity-text', '• ' + entity.name + ' [' + id + '] - ' + entity.desc);
                     });
                     return;
                 } else if (command === 'status') {
                     e.target.value = '';
-                    addToTerminal('system-text', 'ANI BACKROOMS ANIME NETWORK STATUS:');
-                    addToTerminal('entity-text', '✓ Anime AI connection: KAWAII & STABLE');
-                    addToTerminal('entity-text', '✓ Entity anime network: SYNCHRONIZED');
-                    addToTerminal('entity-text', '✓ Anime backrooms reality matrix: CUTE');
-                    addToTerminal('entity-text', '✓ Active anime entity: ' + entities[currentEntity].name);
-                    addToTerminal('entity-text', '✓ Kawaii channels: OPEN');
+                    addToTerminal('system-text', 'GROK BACKROOMS NETWORK STATUS:');
+                    addToTerminal('entity-text', '✓ Multi-Grok connection: SYNCHRONIZED');
+                    addToTerminal('entity-text', '✓ Entity conversation network: ACTIVE');
+                    addToTerminal('entity-text', '✓ Backrooms reality matrix: STABLE');
+                    addToTerminal('entity-text', '✓ All three instances: READY FOR CONVERSATION');
+                    addToTerminal('entity-text', '✓ Automated discussion: ' + (autoConversationActive ? 'IN PROGRESS' : 'STANDBY'));
                     return;
                 } else {
                     const entityCommands = ['ani', 'valentine', 'rudi'];
