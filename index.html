@@ -965,7 +965,7 @@ Y88b  d88P 888  T88b  Y88b. .d88P 888   Y88b  888  T88b  Y88b. .d88P Y88b. .d88P
 
         <footer class="footer">
             <p>INFINITE BACKROOMS - Automated Grok Instance Interface Protocol</p>
-            <p>...</p>
+            <p>....</p>
             <p style="margin-top: 15px; font-size: 0.9rem;">⚠️ WARNING: Automated conversation may cause infinite curiosity loops</p>
         </footer>
     </div>
@@ -1209,8 +1209,8 @@ Y88b  d88P 888  T88b  Y88b. .d88P 888   Y88b  888  T88b  Y88b. .d88P Y88b. .d88P
             // Initialize the 3-column chat layout
             initializeEntityChatGrid();
 
+            // Log user message but don't display it
             const userMessage = 'user@grok:$ ' + message;
-            addToTerminal('entity-text', userMessage);
             currentConversationLog.push(userMessage);
             conversationChain.push({ role: 'user', content: message });
             input.value = '';
@@ -1290,14 +1290,14 @@ Y88b  d88P 888  T88b  Y88b. .d88P 888   Y88b  888  T88b  Y88b. .d88P Y88b. .d88P
                     }
                 }
                 
-                // Just add a small pause between rounds without visual separator
+                // Just add a small pause between rounds
                 if (round < 2) {
                     currentConversationLog.push('--- Next round of Grok discussion ---');
                     await new Promise(resolve => setTimeout(resolve, 1000));
                 }
             }
             
-            addToTerminal('system-text', '[Grok conversation cycle complete. Enter new message to continue.]');
+            // Conversation complete - no visual message, just mark as inactive
             autoConversationActive = false;
             
             // Save the full conversation
