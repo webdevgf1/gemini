@@ -66,7 +66,7 @@ IMPORTANT: You are ${selectedEntity.name}. Stay in character and respond as your
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-3-sonnet-20240229',
+        model: 'claude-3-5-sonnet-20241022',
         max_tokens: 800,
         messages: [
           {
