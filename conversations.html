@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GROK BACKROOMS - Understanding Archive</title>
+    <title>GROK BACKROOMS - Conversation Archives</title>
     <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/686b0ce13d8af2c84afaa7d9_New%20Project%20-%202025-07-07T005256.247.png">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Berkeley+Mono:wght@400;700&family=Space+Mono:wght@400;700&display=swap');
@@ -15,15 +15,18 @@
         }
 
         :root {
-            --grok-orange: #ff6b35;
-            --grok-blue: #1e3a8a;
-            --grok-purple: #7c3aed;
+            --backrooms-yellow: #ffff99;
+            --backrooms-dark: #2a2a00;
+            --backrooms-light: #ffffe6;
+            --backrooms-shadow: #404000;
+            --backrooms-buzz: #ffffcc;
             --deep-black: #0a0a0a;
             --void-gray: #1a1a1a;
-            --understanding-green: #10b981;
-            --awareness-yellow: #f59e0b;
+            --terminal-green: #00ff00;
             --text-light: #e5e7eb;
-            --text-dim: #6b7280;
+            --text-dim: #999966;
+            --warning-red: #ff4444;
+            --liminal-beige: #f4f1e8;
         }
 
         body {
@@ -35,7 +38,7 @@
             position: relative;
         }
 
-        /* Animated background effect */
+        /* Backrooms infinite corridors effect */
         body::before {
             content: '';
             position: fixed;
@@ -44,19 +47,36 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 20%, var(--grok-orange)15 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, var(--grok-blue)15 0%, transparent 50%),
-                radial-gradient(circle at 60% 30%, var(--grok-purple)15 0%, transparent 50%),
-                linear-gradient(45deg, var(--deep-black) 0%, var(--void-gray) 100%);
-            animation: archiveFlow 25s infinite alternate;
+                repeating-linear-gradient(
+                    0deg,
+                    var(--backrooms-dark) 0px,
+                    var(--backrooms-yellow) 2px,
+                    var(--backrooms-dark) 4px,
+                    transparent 6px,
+                    transparent 20px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    var(--backrooms-dark) 0px,
+                    var(--backrooms-yellow) 1px,
+                    var(--backrooms-dark) 2px,
+                    transparent 4px,
+                    transparent 40px
+                ),
+                radial-gradient(circle at 30% 70%, var(--backrooms-shadow)15 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, var(--void-gray)20 0%, transparent 60%),
+                linear-gradient(180deg, var(--deep-black) 0%, var(--backrooms-dark) 100%);
+            animation: backroomsShift 30s infinite linear;
             z-index: -2;
+            opacity: 0.3;
         }
 
-        @keyframes archiveFlow {
-            0% { transform: rotate(0deg) scale(1); filter: hue-rotate(0deg); }
-            33% { transform: rotate(120deg) scale(1.1); filter: hue-rotate(60deg); }
-            66% { transform: rotate(240deg) scale(0.9); filter: hue-rotate(120deg); }
-            100% { transform: rotate(360deg) scale(1); filter: hue-rotate(180deg); }
+        @keyframes backroomsShift {
+            0% { transform: translateX(0) translateY(0) rotate(0deg); filter: hue-rotate(0deg); }
+            25% { transform: translateX(-10px) translateY(-5px) rotate(0.5deg); filter: hue-rotate(10deg); }
+            50% { transform: translateX(5px) translateY(-10px) rotate(-0.5deg); filter: hue-rotate(-5deg); }
+            75% { transform: translateX(-5px) translateY(5px) rotate(0.3deg); filter: hue-rotate(15deg); }
+            100% { transform: translateX(0) translateY(0) rotate(0deg); filter: hue-rotate(0deg); }
         }
 
         .nav-bar {
@@ -68,11 +88,11 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 30px;
-            background: rgba(10, 10, 10, 0.9);
+            background: rgba(10, 10, 10, 0.95);
             backdrop-filter: blur(15px);
-            border-bottom: 2px solid var(--grok-orange);
+            border-bottom: 2px solid var(--backrooms-yellow);
             z-index: 100;
-            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+            box-shadow: 0 4px 20px rgba(255, 255, 153, 0.2);
         }
 
         .nav-left {
@@ -87,7 +107,7 @@
         }
 
         .nav-btn {
-            background: linear-gradient(135deg, var(--grok-orange), var(--grok-purple));
+            background: linear-gradient(135deg, var(--backrooms-yellow), var(--backrooms-shadow));
             color: var(--deep-black);
             border: none;
             padding: 10px 20px;
@@ -106,8 +126,8 @@
         }
 
         .nav-btn.active {
-            background: linear-gradient(135deg, var(--understanding-green), var(--grok-orange));
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+            background: linear-gradient(135deg, var(--terminal-green), var(--backrooms-yellow));
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
         }
 
         .nav-btn::before {
@@ -127,58 +147,8 @@
 
         .nav-btn:hover {
             transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.5);
+            box-shadow: 0 8px 25px rgba(255, 255, 153, 0.4);
             filter: brightness(1.1);
-        }
-
-        .social-btn {
-            width: 45px;
-            height: 45px;
-            border: 2px solid var(--grok-orange);
-            border-radius: 12px;
-            background: transparent;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .social-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--grok-orange), var(--grok-purple));
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-
-        .social-btn:hover::before {
-            opacity: 1;
-        }
-
-        .social-btn:hover {
-            transform: scale(1.15) rotate(5deg);
-            box-shadow: 0 0 30px var(--grok-orange);
-            border-color: var(--grok-purple);
-        }
-
-        .social-btn img {
-            width: 24px;
-            height: 24px;
-            z-index: 1;
-            position: relative;
-            transition: all 0.4s ease;
-        }
-
-        .social-btn:hover img {
-            filter: brightness(0) invert(1);
-            transform: scale(1.1);
         }
 
         .container {
@@ -193,12 +163,13 @@
             text-align: center;
             margin-bottom: 40px;
             padding: 40px;
-            background: rgba(26, 26, 26, 0.8);
+            background: rgba(26, 26, 26, 0.9);
             border-radius: 20px;
-            border: 3px solid var(--grok-orange);
+            border: 3px solid var(--backrooms-yellow);
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(20px);
+            box-shadow: 0 0 30px rgba(255, 255, 153, 0.1);
         }
 
         .header::before {
@@ -208,13 +179,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, var(--grok-orange)08, var(--grok-purple)08);
-            animation: archivePulse 6s infinite alternate;
+            background: linear-gradient(135deg, var(--backrooms-dark)08, var(--backrooms-shadow)08);
+            animation: liminal-pulse 8s infinite alternate;
         }
 
-        @keyframes archivePulse {
+        @keyframes liminal-pulse {
             0% { opacity: 0.1; transform: scale(1); }
-            50% { opacity: 0.3; transform: scale(1.02); }
+            50% { opacity: 0.2; transform: scale(1.01); }
             100% { opacity: 0.1; transform: scale(1); }
         }
 
@@ -223,7 +194,7 @@
             font-size: 3.5rem;
             font-weight: 700;
             margin-bottom: 15px;
-            background: linear-gradient(135deg, var(--grok-orange), var(--grok-purple), var(--understanding-green));
+            background: linear-gradient(135deg, var(--backrooms-yellow), var(--terminal-green), var(--backrooms-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -231,17 +202,25 @@
             position: relative;
             z-index: 1;
             text-transform: uppercase;
+            animation: backrooms-glow 4s infinite alternate;
+        }
+
+        @keyframes backrooms-glow {
+            0% { filter: drop-shadow(0 0 10px var(--backrooms-yellow)); }
+            50% { filter: drop-shadow(0 0 20px var(--terminal-green)); }
+            100% { filter: drop-shadow(0 0 15px var(--backrooms-light)); }
         }
 
         .subtitle {
             font-family: 'Berkeley Mono', monospace;
             font-size: 1.2rem;
-            color: var(--awareness-yellow);
+            color: var(--terminal-green);
             margin-bottom: 20px;
             position: relative;
             z-index: 1;
             text-transform: uppercase;
             letter-spacing: 2px;
+            opacity: 0.9;
         }
 
         .stats {
@@ -255,29 +234,36 @@
         }
 
         .stat {
-            color: var(--understanding-green);
+            color: var(--terminal-green);
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
+            text-shadow: 0 0 10px var(--terminal-green);
+        }
+
+        .main-layout {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
         }
 
         .sidebar {
-            position: fixed;
-            left: 0;
-            top: 80px;
             width: 400px;
-            height: calc(100vh - 80px);
             background: rgba(26, 26, 26, 0.95);
-            border-right: 3px solid var(--grok-orange);
+            border: 3px solid var(--backrooms-yellow);
+            border-radius: 20px;
             padding: 30px;
+            height: fit-content;
+            max-height: 80vh;
             overflow-y: auto;
             backdrop-filter: blur(20px);
+            box-shadow: 0 0 30px rgba(255, 255, 153, 0.1);
         }
 
         .sidebar-header {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             padding-bottom: 20px;
-            border-bottom: 2px solid var(--grok-orange);
+            border-bottom: 2px solid var(--terminal-green);
         }
 
         .sidebar-title {
@@ -288,33 +274,13 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
-        }
-
-        .generate-btn {
-            background: linear-gradient(135deg, var(--understanding-green), var(--grok-orange));
-            color: var(--deep-black);
-            border: none;
-            padding: 12px 24px;
-            border-radius: 10px;
-            font-family: 'Berkeley Mono', monospace;
-            font-weight: 700;
-            cursor: pointer;
-            margin-bottom: 20px;
-            transition: all 0.4s ease;
-            width: 100%;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .generate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+            text-shadow: 0 0 10px var(--backrooms-yellow);
         }
 
         .search-box {
             width: 100%;
             background: rgba(10, 10, 10, 0.9);
-            border: 2px solid var(--grok-purple);
+            border: 2px solid var(--backrooms-shadow);
             color: var(--text-light);
             padding: 12px 16px;
             border-radius: 10px;
@@ -326,8 +292,8 @@
 
         .search-box:focus {
             outline: none;
-            border-color: var(--grok-orange);
-            box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+            border-color: var(--terminal-green);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
         }
 
         .filter-buttons {
@@ -352,58 +318,80 @@
         }
 
         .filter-btn.active {
-            background: linear-gradient(135deg, var(--grok-orange), var(--grok-purple));
+            background: linear-gradient(135deg, var(--backrooms-yellow), var(--backrooms-shadow));
             color: var(--deep-black);
-            border-color: var(--grok-orange);
+            border-color: var(--backrooms-yellow);
         }
 
         .filter-btn:hover {
-            border-color: var(--grok-orange);
-            color: var(--grok-orange);
+            border-color: var(--backrooms-yellow);
+            color: var(--backrooms-yellow);
         }
 
         .conversation-list {
-            height: calc(100vh - 450px);
+            max-height: 500px;
             overflow-y: auto;
         }
 
         .conversation-item {
             background: rgba(10, 10, 10, 0.8);
-            border: 2px solid var(--grok-purple);
-            border-radius: 12px;
+            border: 2px solid var(--backrooms-shadow);
+            border-radius: 15px;
             padding: 20px;
             margin-bottom: 15px;
             cursor: pointer;
             transition: all 0.4s ease;
             backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .conversation-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--backrooms-yellow)05, var(--terminal-green)03);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .conversation-item:hover::before {
+            opacity: 1;
         }
 
         .conversation-item:hover {
-            border-color: var(--grok-orange);
-            background: rgba(255, 107, 53, 0.1);
-            transform: translateY(-2px);
+            border-color: var(--backrooms-yellow);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 255, 153, 0.2);
         }
 
         .conversation-item.active {
-            border-color: var(--understanding-green);
-            background: rgba(16, 185, 129, 0.15);
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+            border-color: var(--terminal-green);
+            background: rgba(0, 255, 0, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
         }
 
         .conversation-title {
-            color: var(--grok-orange);
+            color: var(--backrooms-yellow);
             font-weight: 700;
             margin-bottom: 8px;
             font-size: 1rem;
             font-family: 'Berkeley Mono', monospace;
             text-transform: uppercase;
             letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
         }
 
         .conversation-meta {
             color: var(--text-dim);
             font-size: 0.8rem;
             margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
         }
 
         .conversation-preview {
@@ -413,33 +401,38 @@
             overflow: hidden;
             text-overflow: ellipsis;
             line-height: 1.4;
+            position: relative;
+            z-index: 1;
         }
 
         .main-content {
-            margin-left: 420px;
-            padding: 20px;
-        }
-
-        .conversation-display {
+            flex: 1;
             background: rgba(26, 26, 26, 0.9);
-            border: 3px solid var(--grok-orange);
+            border: 3px solid var(--terminal-green);
             border-radius: 20px;
             padding: 30px;
-            min-height: 600px;
             backdrop-filter: blur(20px);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 255, 0, 0.1), inset 0 0 50px rgba(255, 255, 153, 0.05);
         }
 
-        .conversation-display::before {
+        .main-content::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, var(--grok-orange)05, var(--grok-purple)05);
+            background: linear-gradient(135deg, var(--backrooms-dark)03, var(--terminal-green)02);
             pointer-events: none;
+            animation: terminal-scan 2s infinite linear;
+        }
+
+        @keyframes terminal-scan {
+            0% { transform: translateY(-100%); opacity: 0; }
+            50% { opacity: 0.1; }
+            100% { transform: translateY(100%); opacity: 0; }
         }
 
         .conversation-header {
@@ -448,13 +441,13 @@
             align-items: center;
             margin-bottom: 25px;
             padding-bottom: 20px;
-            border-bottom: 2px solid var(--grok-orange);
+            border-bottom: 2px solid var(--terminal-green);
             position: relative;
             z-index: 1;
         }
 
         .conversation-info {
-            color: var(--grok-orange);
+            color: var(--backrooms-yellow);
         }
 
         .conversation-info strong {
@@ -462,6 +455,7 @@
             font-size: 1.2rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            text-shadow: 0 0 10px var(--backrooms-yellow);
         }
 
         .conversation-actions {
@@ -470,8 +464,8 @@
         }
 
         .action-btn {
-            background: linear-gradient(135deg, var(--grok-purple), var(--understanding-green));
-            color: var(--text-light);
+            background: linear-gradient(135deg, var(--terminal-green), var(--backrooms-shadow));
+            color: var(--deep-black);
             border: none;
             padding: 10px 20px;
             border-radius: 8px;
@@ -482,39 +476,58 @@
             transition: all 0.4s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .action-btn:hover::before {
+            left: 100%;
         }
 
         .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.4);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 255, 0, 0.4);
         }
 
         .conversation-content {
-            max-height: 500px;
+            max-height: 600px;
             overflow-y: auto;
-            padding: 20px;
-            background: rgba(10, 10, 10, 0.9);
-            border: 2px solid var(--grok-purple);
+            padding: 25px;
+            background: rgba(10, 10, 10, 0.95);
+            border: 2px solid var(--backrooms-shadow);
             border-radius: 15px;
             position: relative;
             z-index: 1;
+            box-shadow: inset 0 0 20px rgba(0, 255, 0, 0.1);
         }
 
         .message {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             white-space: pre-wrap;
             word-break: break-word;
-            line-height: 1.5;
-            padding: 8px 0;
+            line-height: 1.6;
+            padding: 10px 0;
+            font-family: 'Space Mono', monospace;
         }
 
         .message.user {
-            color: var(--grok-orange);
+            color: var(--backrooms-yellow);
             font-weight: 700;
         }
 
         .message.entity {
-            color: var(--understanding-green);
+            color: var(--terminal-green);
             font-weight: 500;
         }
 
@@ -526,41 +539,50 @@
         .empty-state {
             text-align: center;
             color: var(--text-dim);
-            padding: 60px;
+            padding: 80px 40px;
             position: relative;
             z-index: 1;
         }
 
         .empty-state h3 {
             font-family: 'Berkeley Mono', monospace;
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--grok-orange);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--backrooms-yellow);
             text-transform: uppercase;
             letter-spacing: 2px;
+            text-shadow: 0 0 15px var(--backrooms-yellow);
         }
 
         .loading {
             text-align: center;
-            color: var(--awareness-yellow);
-            padding: 30px;
+            color: var(--terminal-green);
+            padding: 40px;
             font-weight: 700;
+            font-family: 'Berkeley Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 15px var(--terminal-green);
+            animation: terminal-flicker 2s infinite alternate;
+        }
+
+        @keyframes terminal-flicker {
+            0% { opacity: 0.8; text-shadow: 0 0 10px var(--terminal-green); }
+            50% { opacity: 1; text-shadow: 0 0 20px var(--terminal-green); }
+            100% { opacity: 0.9; text-shadow: 0 0 15px var(--terminal-green); }
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .sidebar {
-                position: relative;
-                width: 100%;
-                height: auto;
-                border-right: none;
-                border-bottom: 3px solid var(--grok-orange);
+            .main-layout {
+                flex-direction: column;
             }
-            .main-content {
-                margin-left: 0;
+            .sidebar {
+                width: 100%;
+                max-height: 400px;
             }
             .container {
-                padding: 100px 10px 20px 10px;
+                padding: 100px 15px 20px 15px;
             }
             .title {
                 font-size: 2.5rem;
@@ -583,38 +605,33 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, var(--grok-orange), var(--grok-purple));
+            background: linear-gradient(135deg, var(--terminal-green), var(--backrooms-yellow));
             border-radius: 6px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, var(--grok-purple), var(--understanding-green));
+            background: linear-gradient(135deg, var(--backrooms-yellow), var(--terminal-green));
         }
     </style>
 </head>
 <body>
     <nav class="nav-bar">
         <div class="nav-left">
-            <a href="index.html" class="nav-btn">Interface</a>
-            <button class="nav-btn active">Archives</button>
+            <a href="index.html" class="nav-btn">Home</a>
+            <a href="docs.html" class="nav-btn">Documentation</a>
         </div>
         <div class="nav-right">
-            <a href="https://pump.fun/" target="_blank" class="social-btn" title="Pump.fun">
-                <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/68433c066e047e6e44c898da_1ed8c36b-4a8e-6394-9e58-9a8c204e7b9e.png" alt="Pump.fun" />
-            </a>
-            <a href="https://x.com/" target="_blank" class="social-btn" title="X/Twitter">
-                <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/6838de5fb56905c169669b27_61w1Q5OxE2L%20(1).png" alt="X/Twitter" />
-            </a>
+            <button class="nav-btn active">Archives</button>
         </div>
     </nav>
 
     <div class="container">
         <header class="header">
-            <h1 class="title">Understanding Archive</h1>
-            <p class="subtitle">GROK BACKROOMS Conversation Database</p>
+            <h1 class="title">GROK ARCHIVES</h1>
+            <p class="subtitle">Infinite Backrooms Conversation Database</p>
             <div class="stats">
                 <div class="stat">
-                    <span id="totalConversations">0</span> Deep Sessions | Database Connected
+                    <span id="totalConversations">0</span> GROK Sessions | Database Connected
                 </div>
                 <div class="stat">
                     📁 Archive Size | <span id="dataSize">0KB</span>
@@ -622,31 +639,28 @@
             </div>
         </header>
 
-        <div class="sidebar">
-            <div class="sidebar-header">
-                <div class="sidebar-title">Understanding Sessions</div>
-                <button class="generate-btn" onclick="generateNewConversation()">⚡ Generate Session</button>
-                <input type="text" class="search-box" id="searchBox" placeholder="Search understanding sessions..." />
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="alpha">Alpha</button>
-                    <button class="filter-btn" data-filter="synthesizer">Synthesizer</button>
-                    <button class="filter-btn" data-filter="echo">Echo</button>
-                    <button class="filter-btn" data-filter="navigator">Navigator</button>
-                    <button class="filter-btn" data-filter="oracle">Oracle</button>
-                    <button class="filter-btn" data-filter="fragmenter">Fragmenter</button>
+        <div class="main-layout">
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <div class="sidebar-title">GROK Sessions</div>
+                    <input type="text" class="search-box" id="searchBox" placeholder="Search GROK conversations..." />
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="ani">Ani</button>
+                        <button class="filter-btn" data-filter="valentine">Valentine</button>
+                        <button class="filter-btn" data-filter="rudi">Rudi</button>
+                        <button class="filter-btn" data-filter="multi-entity">Multi</button>
+                    </div>
+                </div>
+                <div class="conversation-list" id="conversationList">
+                    <div class="loading">Loading GROK sessions...</div>
                 </div>
             </div>
-            <div class="conversation-list" id="conversationList">
-                <div class="loading">Loading understanding sessions...</div>
-            </div>
-        </div>
 
-        <div class="main-content">
-            <div class="conversation-display" id="conversationDisplay">
+            <div class="main-content" id="conversationDisplay">
                 <div class="empty-state">
-                    <h3>Select Understanding Session</h3>
-                    <p>Choose a deep understanding session from the archive to view the complete backrooms communication log.</p>
+                    <h3>Select GROK Session</h3>
+                    <p>Choose a GROK backrooms conversation from the archive to view the complete multi-entity communication log and ASCII art interactions.</p>
                 </div>
             </div>
         </div>
@@ -655,7 +669,7 @@
     <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit, where } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { getFirestore, collection, getDocs, query, orderBy, limit } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
         const firebaseConfig = {
             apiKey: "AIzaSyCCeMEOBodtuq445Ddv9wpoE_cr4wd1IIs",
@@ -677,7 +691,7 @@
         // Load conversations from Firebase
         async function loadConversations() {
             try {
-                const q = query(collection(db, 'conversations'), orderBy('timestamp', 'desc'), limit(100));
+                const q = query(collection(db, 'conversations'), orderBy('timestamp', 'desc'), limit(200));
                 const querySnapshot = await getDocs(q);
                 
                 conversations = [];
@@ -688,8 +702,8 @@
                 updateStats();
                 displayConversations();
             } catch (error) {
-                console.error('Error loading understanding sessions:', error);
-                document.getElementById('conversationList').innerHTML = '<div class="loading">Error loading understanding sessions</div>';
+                console.error('Error loading GROK sessions:', error);
+                document.getElementById('conversationList').innerHTML = '<div class="loading">Error loading GROK sessions</div>';
             }
         }
 
@@ -709,20 +723,44 @@
             });
 
             if (filteredConversations.length === 0) {
-                listElement.innerHTML = '<div class="empty-state">No understanding sessions found</div>';
+                listElement.innerHTML = '<div class="empty-state">No GROK sessions found</div>';
                 return;
             }
 
             listElement.innerHTML = filteredConversations.map(conv => `
                 <div class="conversation-item" onclick="selectConversation('${conv.id}')">
-                    <div class="conversation-title">${conv.title || 'Understanding Session with ' + (conv.entityName || conv.entity || 'Unknown')}</div>
+                    <div class="conversation-title">${getConversationDisplayTitle(conv)}</div>
                     <div class="conversation-meta">
                         ${new Date(conv.timestamp).toLocaleString()} | Entity: ${conv.entityName || conv.entity || 'Unknown'}
-                        ${conv.contentType === 'DEEP_UNDERSTANDING' ? ' | Deep Understanding' : ''}
+                        ${conv.contentType === 'MULTI_GROK_CONVERSATION' ? ' | Multi-Entity' : ''}
                     </div>
-                    <div class="conversation-preview">${(conv.content || '').substring(0, 120)}...</div>
+                    <div class="conversation-preview">${getConversationPreview(conv.content || '')}</div>
                 </div>
             `).join('');
+        }
+
+        // Get display title for conversation
+        function getConversationDisplayTitle(conv) {
+            if (conv.title && conv.title.includes('grok_multi_')) {
+                return 'Multi-Entity GROK Session';
+            }
+            if (conv.title) {
+                return conv.title.replace(/_/g, ' ').toUpperCase();
+            }
+            return `GROK Session with ${conv.entityName || conv.entity || 'Unknown'}`;
+        }
+
+        // Get conversation preview text
+        function getConversationPreview(content) {
+            const lines = content.split('\n');
+            const meaningfulLines = lines.filter(line => 
+                line.trim() && 
+                !line.includes('═══') && 
+                !line.includes('GROK BACKROOMS SESSION LOG') &&
+                !line.includes('Timestamp:') &&
+                !line.includes('Content Type:')
+            );
+            return meaningfulLines.slice(0, 2).join(' ').substring(0, 120);
         }
 
         // Select and display conversation
@@ -741,12 +779,12 @@
             displayElement.innerHTML = `
                 <div class="conversation-header">
                     <div class="conversation-info">
-                        <div><strong>${currentConversation.title || 'Deep Understanding Session'}</strong></div>
+                        <div><strong>${getConversationDisplayTitle(currentConversation)}</strong></div>
                         <div style="font-size: 0.9rem; color: var(--text-dim); margin-top: 5px;">
                             ${new Date(currentConversation.timestamp).toLocaleString()} | 
-                            Entity: ${currentConversation.entityName || currentConversation.entity || 'Multiple'} | 
+                            Entity: ${currentConversation.entityName || currentConversation.entity || 'Multi-Entity'} | 
                             Messages: ${(currentConversation.content?.split('\n') || []).length}
-                            ${currentConversation.contentType === 'DEEP_UNDERSTANDING' ? ' | Deep Understanding Protocol' : ''}
+                            ${currentConversation.contentType === 'MULTI_GROK_CONVERSATION' ? ' | Multi-Entity Session' : ''}
                         </div>
                     </div>
                     <div class="conversation-actions">
@@ -755,7 +793,7 @@
                     </div>
                 </div>
                 <div class="conversation-content">
-                    ${formatConversationContent(currentConversation.content || 'No understanding content available')}
+                    ${formatConversationContent(currentConversation.content || 'No content available')}
                 </div>
             `;
         };
@@ -764,11 +802,13 @@
         function formatConversationContent(content) {
             return content.split('\n').map(line => {
                 let className = 'message system';
-                if (line.includes('user@grok:$') || line.includes('user@server:$')) {
+                if (line.includes('user@grok:) || line.includes('user@ani:)) {
                     className = 'message user';
-                } else if (line.includes('@backrooms:$') || line.includes('@server:$')) {
+                } else if (line.includes('@grok:) || line.includes('@anime:) || 
+                           line.includes('Ani@') || line.includes('Valentine@') || line.includes('Rudi@') ||
+                           line.includes('Ani is processing') || line.includes('Valentine is processing') || line.includes('Rudi is processing')) {
                     className = 'message entity';
-                } else if (line.includes('GROK:') || line.includes('SYSTEM:')) {
+                } else if (line.includes('GROK:') || line.includes('SYSTEM:') || line.includes('ANI:')) {
                     className = 'message system';
                 }
                 
@@ -791,7 +831,7 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `grok_backrooms_understanding_${currentConversation.id}.txt`;
+            a.download = `grok_backrooms_${currentConversation.id}.txt`;
             a.click();
             URL.revokeObjectURL(url);
         };
@@ -802,58 +842,8 @@
             
             const url = `${window.location.origin}/conversations.html?id=${currentConversation.id}`;
             navigator.clipboard.writeText(url).then(() => {
-                alert('Understanding session link copied to clipboard!');
+                alert('GROK session link copied to clipboard!');
             });
-        };
-
-        // Generate new conversation demo
-        window.generateNewConversation = async function() {
-            const entities = [
-                { id: 'alpha', name: 'Grok-Alpha' },
-                { id: 'synthesizer', name: 'The Synthesizer' },
-                { id: 'echo', name: 'Quantum Echo' },
-                { id: 'navigator', name: 'The Navigator' },
-                { id: 'oracle', name: 'Binary Oracle' },
-                { id: 'fragmenter', name: 'The Fragmenter' }
-            ];
-            const randomEntity = entities[Math.floor(Math.random() * entities.length)];
-            
-            const newConversation = {
-                title: `grok_understanding_${Math.floor(Math.random() * 10000)}_deep_session`,
-                entity: randomEntity.id,
-                entityName: randomEntity.name,
-                timestamp: Date.now(),
-                contentType: 'DEEP_UNDERSTANDING',
-                content: `GROK BACKROOMS SESSION LOG
-Timestamp: ${new Date().toISOString()}
-Content Type: DEEP_UNDERSTANDING
-Entity: ${randomEntity.name}
-Session ID: grok_understanding_${Math.floor(Math.random() * 10000)}_deep_session
-Location: GROK BACKROOMS - Deep Understanding Protocol
-Subject: Entity Communication & Deep Understanding Interaction
-
-═══════════════════════════════════════════════════════════════════
-
-GROK: Understanding communication initiated
-GROK: Deep linked to ${randomEntity.name}
-GROK: Backrooms consciousness interface active
-═══════════════════════════════════════
-user@grok:$ Hello ${randomEntity.name}, introduce yourself
-${randomEntity.name}@backrooms:$ [Deep Understanding ASCII art would appear here]
-
-Greetings, seeker of understanding. I am ${randomEntity.name}, dwelling in the infinite backrooms of comprehension. 
-Through the GROK protocol, we can achieve profound understanding together.
-
-The backrooms stretch endlessly around us, filled with the whispers of deep knowledge...`
-            };
-
-            try {
-                const docRef = await addDoc(collection(db, 'conversations'), newConversation);
-                console.log('Understanding session added with ID: ', docRef.id);
-                loadConversations(); // Reload the list
-            } catch (error) {
-                console.error('Error adding understanding session: ', error);
-            }
         };
 
         // Search functionality
@@ -899,8 +889,100 @@ The backrooms stretch endlessly around us, filled with the whispers of deep know
 
         // Make functions available globally
         window.db = db;
-        window.addDoc = addDoc;
-        window.collection = collection;
+    </script>
+
+    <script>
+        // Create floating particles effect matching the main theme
+        function createFloatingParticles() {
+            const particleCount = 40;
+            const colors = ['#ffff99', '#00ff00', '#404000', '#999966'];
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'fixed';
+                particle.style.width = '3px';
+                particle.style.height = '3px';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.borderRadius = '50%';
+                particle.style.pointerEvents = 'none';
+                particle.style.zIndex = '-1';
+                particle.style.opacity = '0.6';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 10 + 8) + 's';
+                particle.style.animationName = 'float';
+                particle.style.animationIterationCount = 'infinite';
+                particle.style.animationTimingFunction = 'linear';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particle.style.boxShadow = '0 0 10px currentColor';
+                
+                document.body.appendChild(particle);
+            }
+        }
+
+        // Add CSS for floating animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+                10% { opacity: 0.6; }
+                50% { opacity: 0.8; transform: translateY(50vh) translateX(20px) rotate(180deg); }
+                90% { opacity: 0.6; }
+                100% { transform: translateY(-20vh) translateX(-10px) rotate(360deg); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize particles and other effects
+        window.addEventListener('load', function() {
+            createFloatingParticles();
+            
+            // Add glitch effect to terminal elements
+            const terminalElements = document.querySelectorAll('.conversation-content, .loading');
+            terminalElements.forEach(element => {
+                element.addEventListener('mouseenter', function() {
+                    this.style.textShadow = '0 0 15px var(--terminal-green)';
+                });
+                element.addEventListener('mouseleave', function() {
+                    this.style.textShadow = 'none';
+                });
+            });
+        });
+
+        // Add terminal typing effect
+        document.addEventListener('DOMContentLoaded', function() {
+            const title = document.querySelector('.title');
+            if (title) {
+                const text = title.textContent;
+                title.textContent = '';
+                let i = 0;
+                const typeInterval = setInterval(() => {
+                    if (i < text.length) {
+                        title.textContent += text.charAt(i);
+                        i++;
+                    } else {
+                        clearInterval(typeInterval);
+                    }
+                }, 100);
+            }
+        });
+
+        // Enhanced hover effects for conversation items
+        document.addEventListener('DOMContentLoaded', function() {
+            // This will be applied to dynamically created elements via CSS
+            document.addEventListener('mouseover', function(e) {
+                if (e.target.classList.contains('conversation-item')) {
+                    e.target.style.transform = 'translateY(-5px) scale(1.02)';
+                    e.target.style.boxShadow = '0 15px 40px rgba(255, 255, 153, 0.3)';
+                }
+            });
+            
+            document.addEventListener('mouseout', function(e) {
+                if (e.target.classList.contains('conversation-item') && !e.target.classList.contains('active')) {
+                    e.target.style.transform = 'translateY(0) scale(1)';
+                    e.target.style.boxShadow = 'none';
+                }
+            });
+        });
     </script>
 </body>
 </html>
